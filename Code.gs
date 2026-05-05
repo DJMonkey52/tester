@@ -8,8 +8,6 @@ const CONFIG = {
 };
 
 const POINTS_SYSTEM = {
-  'shooting_training_small': { name: '🔫 Участие в лекции', points: 5, category: 'withEvidence' },
-  'shooting_training_large': { name: '🔫 Участие в тренировке', points: 10, category: 'withEvidence' },
   'black_market_defense': { name: '🏴 Участие в отбитии черного рынка', points: 10, category: 'withEvidence' },
   'gs_defense': { name: '🎖️ Участие в отбитии ГШ', points: 8, category: 'withEvidence' },
   'racket_defense': { name: '💰 Отбитие рэкета/сдача денег с рэкета', points: 5, category: 'withEvidence' },
@@ -19,8 +17,6 @@ const POINTS_SYSTEM = {
   'fishing_license_check': { name: '🎣 Проверка лицензий на рыбалку', points: 1, category: 'withEvidence' },
   'med_proc_check': { name: '🏥 Прохождение мед/прок проверки', points: 10, category: 'withEvidence' },
   'fish_seizure': { name: '🐟 Изъятие рыбы (за 1 кг)', points: 1, category: 'withEvidence' },
-  'gmp_participation': { name: '🎭 Участие в ГМП', points: 10, category: 'withEvidence' },
-  'mp_participation': { name: '🎭 Участие в МП', points: 5, category: 'withEvidence' },
   'bank_robbery_cordon': { name: '🚧 Участие в оцеплении при ограблении банка/Пуша ПД/СД/ФИБ/Мэрии', points: 10, category: 'withEvidence' },
   'army_training': { name: '💪 Участие в тренировке армии', points: 10, category: 'withEvidence' },
   'training': { name: '🏋️ Участие в тренировке', points: 5, category: 'withEvidence' },
