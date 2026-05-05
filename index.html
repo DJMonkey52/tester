@@ -55,9 +55,9 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 30px 20px;
             min-height: 100vh;
         }
 
@@ -93,7 +93,7 @@
         }
 
         .logo h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
             background: linear-gradient(135deg, #FFFFFF, #A5B4FC);
             -webkit-background-clip: text;
@@ -103,7 +103,7 @@
 
         .subtitle {
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .theme-toggle {
@@ -121,7 +121,7 @@
             cursor: pointer;
             color: var(--text-primary);
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: all 0.3s;
             z-index: 100;
         }
@@ -131,18 +131,18 @@
             transform: scale(1.02);
         }
 
-        /* 3 кнопки на главной */
+        /* 3 кнопки в одну полоску (горизонтально) */
         .home-page {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-height: calc(100vh - 200px);
+            min-height: calc(100vh - 180px);
         }
 
         .cards-grid {
             display: flex;
             justify-content: center;
-            gap: 32px;
+            gap: 24px;
             flex-wrap: wrap;
             margin-top: 20px;
         }
@@ -151,9 +151,9 @@
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            border-radius: 32px;
-            padding: 40px 32px;
-            width: 300px;
+            border-radius: 28px;
+            padding: 32px 28px;
+            width: 280px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             text-align: center;
@@ -161,21 +161,21 @@
         }
 
         .action-card:hover {
-            transform: translateY(-12px);
+            transform: translateY(-10px);
             border-color: var(--accent);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         .card-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(79, 70, 229, 0.1));
-            border-radius: 28px;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 40px;
+            margin: 0 auto 18px;
+            font-size: 34px;
             color: var(--accent);
             transition: all 0.3s;
         }
@@ -185,20 +185,20 @@
         }
 
         .action-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .action-card p {
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .card-arrow {
-            margin-top: 20px;
-            font-size: 1.1rem;
+            margin-top: 16px;
+            font-size: 1rem;
             color: var(--accent);
             opacity: 0;
             transition: opacity 0.3s, transform 0.3s;
@@ -287,7 +287,7 @@
             margin-bottom: 6px;
         }
 
-        .input-group input, .input-group select {
+        .input-group input, .input-group select, .input-group textarea {
             width: 100%;
             padding: 12px 14px;
             background: var(--input-bg);
@@ -299,10 +299,31 @@
             transition: all 0.2s;
         }
 
-        .input-group input:focus, .input-group select:focus {
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
             outline: none;
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .input-group textarea {
+            resize: vertical;
+        }
+
+        .period-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .period-info {
+            background: rgba(99, 102, 241, 0.08);
+            border-radius: 12px;
+            padding: 10px 14px;
+            text-align: center;
+            color: var(--accent-glow);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
         }
 
         /* Карточки действий */
@@ -510,32 +531,44 @@
             display: flex;
         }
 
-        .period-info {
-            background: rgba(99, 102, 241, 0.08);
-            border-radius: 12px;
-            padding: 10px 14px;
-            text-align: center;
-            color: var(--accent-glow);
-            font-size: 0.85rem;
-            margin-bottom: 20px;
+        @media (max-width: 900px) {
+            .cards-grid {
+                gap: 16px;
+            }
+            .action-card {
+                width: 240px;
+                padding: 24px 20px;
+            }
+            .action-card h3 {
+                font-size: 1.1rem;
+            }
+            .card-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 28px;
+            }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 750px) {
+            .cards-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .action-card {
+                width: 280px;
+            }
             .action-fields {
                 grid-template-columns: 1fr;
             }
             .proofs-field {
                 grid-column: span 1;
             }
+            .period-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
             .card-body {
                 padding: 20px;
-            }
-            .cards-grid {
-                gap: 20px;
-            }
-            .action-card {
-                width: 260px;
-                padding: 30px 20px;
             }
         }
     </style>
@@ -555,25 +588,25 @@
             <p class="subtitle">Система подачи отчётов с балльной системой</p>
         </div>
 
-        <!-- ГЛАВНАЯ СТРАНИЦА с 3 кнопками -->
+        <!-- ГЛАВНАЯ СТРАНИЦА с 3 кнопками в одну полоску -->
         <div id="homePage" class="home-page">
             <div class="cards-grid">
                 <div class="action-card" data-page="weekly">
                     <div class="card-icon"><i class="fas fa-calendar-week"></i></div>
                     <h3>📊 Еженедельный отчёт</h3>
-                    <p>Отчёт о проделанной работе с баллами и доказательствами</p>
+                    <p>Отчёт о работе с баллами</p>
                     <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="action-card" data-page="promotion">
                     <div class="card-icon"><i class="fas fa-arrow-up"></i></div>
                     <h3>⬆️ Отчёт на повышение</h3>
-                    <p>Заявка на повышение с достижениями и баллами</p>
+                    <p>Заявка на повышение</p>
                     <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="action-card" data-page="exam">
                     <div class="card-icon"><i class="fas fa-pen-clip"></i></div>
                     <h3>📝 Запись на экзамен</h3>
-                    <p>Запись на техническое собеседование или экзамен</p>
+                    <p>Запись на квалификацию</p>
                     <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
             </div>
@@ -607,18 +640,16 @@
                             <option value="Подполковник (12)">Подполковник (12)</option>
                         </select>
                     </div>
-                    <div class="period-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="period-row">
                         <div class="input-group"><label>ДАТА НАЧАЛА</label><input type="date" id="weeklyDateStart"></div>
                         <div class="input-group"><label>ДАТА ОКОНЧАНИЯ</label><input type="date" id="weeklyDateEnd"></div>
                     </div>
                     <div class="period-info" id="weeklyPeriodInfo"></div>
 
                     <div style="margin-top: 24px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-                            <label style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
-                                <i class="fas fa-clipboard-list"></i> ДЕЙСТВИЯ С ДОКАЗАТЕЛЬСТВАМИ
-                            </label>
-                        </div>
+                        <label style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
+                            <i class="fas fa-clipboard-list"></i> ДЕЙСТВИЯ С ДОКАЗАТЕЛЬСТВАМИ
+                        </label>
                         <div id="weeklyActionsContainer">
                             <div id="weeklyEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий с доказательствами</div>
                             <div id="weeklyActionsList"></div>
@@ -630,7 +661,7 @@
             </div>
         </div>
 
-        <!-- СТРАНИЦА 2: Отчёт на повышение (переработанный, с баллами и датой последнего повышения) -->
+        <!-- СТРАНИЦА 2: Отчёт на повышение -->
         <div id="promotionPage" class="form-page">
             <div class="back-btn" onclick="showHome()">
                 <i class="fas fa-arrow-left"></i> На главную
@@ -642,7 +673,6 @@
                 <div class="card-body">
                     <div id="promotionAlert"></div>
                     <div class="input-group"><label>ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="promotionNickname" placeholder="Введите никнейм"></div>
-                    
                     <div class="input-group">
                         <label>ЖЕЛАЕМЫЙ РАНГ (ТЕКУЩИЙ → НОВЫЙ)</label>
                         <select id="promotionRank">
@@ -658,28 +688,25 @@
                             <option value="11 → 12">11 → 12</option>
                         </select>
                     </div>
-
                     <div class="input-group"><label>ДАТА ПОСЛЕДНЕГО ПОВЫШЕНИЯ</label><input type="date" id="lastPromotionDate"></div>
                     <div class="period-info" id="promotionDateInfo"></div>
 
                     <div style="margin-top: 24px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-                            <label style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
-                                <i class="fas fa-clipboard-list"></i> ДЕЙСТВИЯ С ДОКАЗАТЕЛЬСТВАМИ
-                            </label>
-                        </div>
+                        <label style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
+                            <i class="fas fa-clipboard-list"></i> ДЕЙСТВИЯ С ДОКАЗАТЕЛЬСТВАМИ
+                        </label>
                         <div id="promotionActionsContainer">
                             <div id="promotionEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий с доказательствами</div>
                             <div id="promotionActionsList"></div>
                         </div>
                         <button class="add-btn" id="promotionAddActionBtn"><i class="fas fa-plus-circle"></i> ДОБАВИТЬ</button>
                     </div>
-                    <button class="submit-btn" id="promotionSubmitBtn"><i class="fab fa-discord"></i> ОТПРАВИТЬ ЗАПРОС НА ПОВЫШЕНИЕ</button>
+                    <button class="submit-btn" id="promotionSubmitBtn"><i class="fab fa-discord"></i> ОТПРАВИТЬ ЗАПРОС</button>
                 </div>
             </div>
         </div>
 
-        <!-- СТРАНИЦА 3: Запись на экзамен -->
+        <!-- СТРАНИЦА 3: Запись на экзамен (обновлена) -->
         <div id="examPage" class="form-page">
             <div class="back-btn" onclick="showHome()">
                 <i class="fas fa-arrow-left"></i> На главную
@@ -690,21 +717,38 @@
                 </div>
                 <div class="card-body">
                     <div id="examAlert"></div>
-                    <div class="input-group"><label>ФИО</label><input type="text" id="examName" placeholder="Иванов Иван"></div>
-                    <div class="input-group"><label>Email</label><input type="email" id="examEmail" placeholder="ivan@example.com"></div>
+                    
                     <div class="input-group">
-                        <label>Тип экзамена</label>
+                        <label>ИМЯ И ФАМИЛИЯ</label>
+                        <input type="text" id="examFullName" placeholder="Иванов Иван">
+                    </div>
+
+                    <div class="input-group">
+                        <label>ТИП ЭКЗАМЕНА</label>
                         <select id="examType">
-                            <option value="">Выберите...</option>
-                            <option value="Техническое собеседование">💻 Техническое собеседование</option>
-                            <option value="Экзамен на грейд">📈 Экзамен на грейд</option>
-                            <option value="Сертификация">📜 Сертификация</option>
+                            <option value="">-- Выберите экзамен --</option>
+                            <option value="Acd.Delta">🎓 Acd.Delta</option>
+                            <option value="3 → 4">📈 3 → 4</option>
+                            <option value="4 → 5">📈 4 → 5</option>
+                            <option value="5 → 6">📈 5 → 6</option>
+                            <option value="6 → 7">📈 6 → 7</option>
+                            <option value="7 → 8">📈 7 → 8</option>
+                            <option value="8 → 9">📈 8 → 9</option>
+                            <option value="9 → 10">📈 9 → 10</option>
                         </select>
                     </div>
-                    <div class="input-group"><label>Желаемая дата</label><input type="date" id="examDate"></div>
-                    <div class="input-group"><label>Направление / технология</label><input type="text" id="examTopic" placeholder="React, Java, Python..."></div>
-                    <div class="input-group"><label>Комментарий</label><textarea id="examComment" rows="2" style="resize: vertical; background: var(--input-bg); border: 1px solid var(--border-light); border-radius: 14px; padding: 12px; color: var(--text-primary); width: 100%;"></textarea></div>
-                    <button class="submit-btn" id="examSubmitBtn"><i class="fab fa-discord"></i> Записаться на экзамен</button>
+
+                    <div class="input-group">
+                        <label>DISCORD @ТЕГ</label>
+                        <input type="text" id="examDiscord" placeholder="@username или username#1234">
+                    </div>
+
+                    <div class="input-group">
+                        <label>УДОБНОЕ ВРЕМЯ</label>
+                        <input type="text" id="examTime" placeholder="Например: понедельник 18:00, или 15.05 20:00 МСК">
+                    </div>
+
+                    <button class="submit-btn" id="examSubmitBtn"><i class="fab fa-discord"></i> ЗАПИСАТЬСЯ НА ЭКЗАМЕН</button>
                 </div>
             </div>
         </div>
@@ -715,9 +759,9 @@
         // 🔒 ФИКСИРОВАННЫЕ ВЕБХУКИ (ЗАМЕНИТЕ НА ВАШИ)
         // ============================================
         const WEBHOOKS = {
-            weekly: 'https://discord.com/api/webhooks/1501267296432291945/fCHeDuYb4eVyHyUT_SRJgtnjE6DlbTCwubCKP_NEfytsMohVPDz5wHSYObiEmNqvEM2b',
-            promotion: 'https://discord.com/api/webhooks/1501267296432291945/fCHeDuYb4eVyHyUT_SRJgtnjE6DlbTCwubCKP_NEfytsMohVPDz5wHSYObiEmNqvEM2b',
-            exam: 'https://discord.com/api/webhooks/1501267296432291945/fCHeDuYb4eVyHyUT_SRJgtnjE6DlbTCwubCKP_NEfytsMohVPDz5wHSYObiEmNqvEM2b'
+            weekly: 'https://discord.com/api/webhooks/1501309143691297043/BeXtbLJ7CY0cM83HIQjDInoS7vR2rQwPwt2QJ0yUXoWJiNVBOlLI-XMZfBEXiADxcVyl',
+            promotion: 'https://discord.com/api/webhooks/1501309143691297043/BeXtbLJ7CY0cM83HIQjDInoS7vR2rQwPwt2QJ0yUXoWJiNVBOlLI-XMZfBEXiADxcVyl',
+            exam: 'https://discord.com/api/webhooks/1501309143691297043/BeXtbLJ7CY0cM83HIQjDInoS7vR2rQwPwt2QJ0yUXoWJiNVBOlLI-XMZfBEXiADxcVyl'
         };
 
         const ACTIVITY_TYPES = [
@@ -896,7 +940,7 @@
             if (date) {
                 const d = new Date(date);
                 const monthsDiff = Math.floor((new Date() - d) / (1000 * 60 * 60 * 24 * 30));
-                infoSpan.innerHTML = `📅 Дата последнего повышения: ${formatDate(date)} (прошло ${monthsDiff} месяцев)`;
+                infoSpan.innerHTML = `📅 Дата последнего повышения: ${formatDate(date)} (прошло ${monthsDiff} мес.)`;
             } else {
                 infoSpan.innerHTML = `📅 Укажите дату последнего повышения`;
             }
@@ -968,11 +1012,15 @@
                 actionsText += `\n**${idx + 1}. ${action.type || 'Не выбран'}**\n   📊 Кол-во: ${action.count || 1} | 🎯 Баллы: ${points}\n   📎 Доказательства: ${action.proofs || 'Не приложены'}\n`;
             });
             if (promotionActions.length === 0) actionsText = '\nНет действий с доказательствами';
-            return `**⬆️ ЗАПРОС НА ПОВЫШЕНИЕ**\n\n**👤 Игровой никнейм:** ${nickname}\n**🎖️ Желаемое повышение:** ${rank}\n**📅 Дата последнего повышения:** ${lastPromotionFormatted}\n\n**📊 ДОСТИЖЕНИЯ И АКТИВНОСТИ:**${actionsText}\n\n**🏆 ИТОГО БАЛЛОВ:** ${totalPoints}\n\n_Заявка требует рассмотрения руководством_`;
+            return `**⬆️ ЗАПРОС НА ПОВЫШЕНИЕ**\n\n**👤 Игровой никнейм:** ${nickname}\n**🎖️ Желаемое повышение:** ${rank}\n**📅 Дата последнего повышения:** ${lastPromotionFormatted}\n\n**📊 ДОСТИЖЕНИЯ И АКТИВНОСТИ:**${actionsText}\n\n**🏆 ИТОГО БАЛЛОВ:** ${totalPoints}`;
         }
 
         function formatExamReport() {
-            return `**📝 ЗАПИСЬ НА ЭКЗАМЕН**\n\n**👤 ФИО:** ${document.getElementById('examName').value.trim() || 'Не указан'}\n**📧 Email:** ${document.getElementById('examEmail').value.trim() || 'Не указан'}\n**📚 Тип экзамена:** ${document.getElementById('examType').value || 'Не выбран'}\n**📅 Желаемая дата:** ${document.getElementById('examDate').value ? formatDate(document.getElementById('examDate').value) : 'Не указана'}\n**🏷️ Направление:** ${document.getElementById('examTopic').value.trim() || 'Не указано'}\n**💬 Комментарий:** ${document.getElementById('examComment').value.trim() || '—'}`;
+            const fullName = document.getElementById('examFullName').value.trim() || 'Не указан';
+            const examType = document.getElementById('examType').value || 'Не выбран';
+            const discordTag = document.getElementById('examDiscord').value.trim() || 'Не указан';
+            const examTime = document.getElementById('examTime').value.trim() || 'Не указано';
+            return `**📝 ЗАПИСЬ НА ЭКЗАМЕН**\n\n**👤 Имя и фамилия:** ${fullName}\n**📚 Тип экзамена:** ${examType}\n**💬 Discord @тег:** ${discordTag}\n**⏰ Удобное время:** ${examTime}`;
         }
 
         function setDefaultWeeklyDates() {
@@ -1039,7 +1087,6 @@
 
         document.getElementById('promotionSubmitBtn').addEventListener('click', async () => {
             if (!document.getElementById('promotionNickname').value.trim()) { showAlert('promotionAlert', 'Введите игровой никнейм', 'error'); return; }
-            if (!document.getElementById('promotionRank').value) { showAlert('promotionAlert', 'Выберите желаемое повышение', 'error'); return; }
             const btn = document.getElementById('promotionSubmitBtn');
             btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
             try {
@@ -1051,24 +1098,22 @@
                 promotionActions = [];
                 renderPromotionActions();
             } catch (err) { showAlert('promotionAlert', `❌ Ошибка: ${err.message}`, 'error'); }
-            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> ОТПРАВИТЬ ЗАПРОС НА ПОВЫШЕНИЕ'; }
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> ОТПРАВИТЬ ЗАПРОС'; }
         });
 
         document.getElementById('examSubmitBtn').addEventListener('click', async () => {
-            if (!document.getElementById('examName').value.trim()) { showAlert('examAlert', 'Введите ФИО', 'error'); return; }
+            if (!document.getElementById('examFullName').value.trim()) { showAlert('examAlert', 'Введите имя и фамилию', 'error'); return; }
             const btn = document.getElementById('examSubmitBtn');
             btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
             try {
                 await sendToDiscord(WEBHOOKS.exam, formatExamReport(), 'Запись на экзамен');
-                showAlert('examAlert', '✅ Заявка отправлена!', 'success');
-                document.getElementById('examName').value = '';
-                document.getElementById('examEmail').value = '';
+                showAlert('examAlert', '✅ Заявка на экзамен отправлена!', 'success');
+                document.getElementById('examFullName').value = '';
                 document.getElementById('examType').value = '';
-                document.getElementById('examDate').value = '';
-                document.getElementById('examTopic').value = '';
-                document.getElementById('examComment').value = '';
+                document.getElementById('examDiscord').value = '';
+                document.getElementById('examTime').value = '';
             } catch (err) { showAlert('examAlert', `❌ Ошибка: ${err.message}`, 'error'); }
-            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> Записаться на экзамен'; }
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> ЗАПИСАТЬСЯ НА ЭКЗАМЕН'; }
         });
 
         document.querySelectorAll('.action-card').forEach(card => {
@@ -1093,7 +1138,6 @@
         document.getElementById('weeklyDateStart').addEventListener('change', updateWeeklyPeriodInfo);
         document.getElementById('weeklyDateEnd').addEventListener('change', updateWeeklyPeriodInfo);
         document.getElementById('lastPromotionDate').addEventListener('change', updatePromotionDateInfo);
-        document.getElementById('examDate').min = new Date().toISOString().split('T')[0];
 
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') {
