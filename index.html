@@ -10,10 +10,67 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Светлая тема (по умолчанию) */
+        :root {
+            --bg-gradient-start: #5865F2;
+            --bg-gradient-end: #404EED;
+            --panel-bg: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --border-color: #e0e0e0;
+            --card-bg: #f8f9fa;
+            --card-border: #5865F2;
+            --input-bg: #ffffff;
+            --input-border: #e0e0e0;
+            --input-focus: #5865F2;
+            --button-bg: #5865F2;
+            --button-hover: #4752C4;
+            --danger-bg: #dc3545;
+            --success-bg: #d4edda;
+            --success-text: #155724;
+            --error-bg: #f8d7da;
+            --error-text: #721c24;
+            --webhook-settings-bg: #f0f2f5;
+            --tab-inactive: rgba(255,255,255,0.2);
+            --tab-active: #ffffff;
+            --tab-active-text: #404EED;
+            --header-text: #ffffff;
+        }
+
+        /* Тёмная тема */
+        body.dark {
+            --bg-gradient-start: #1a1a2e;
+            --bg-gradient-end: #16213e;
+            --panel-bg: #2d2d44;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-light: #808080;
+            --border-color: #3d3d5a;
+            --card-bg: #252540;
+            --card-border: #5865F2;
+            --input-bg: #1e1e2f;
+            --input-border: #3d3d5a;
+            --input-focus: #7984f5;
+            --button-bg: #5865F2;
+            --button-hover: #7984f5;
+            --danger-bg: #c82333;
+            --success-bg: #1e3a2f;
+            --success-text: #a5d6a5;
+            --error-bg: #3d1a1a;
+            --error-text: #ff9999;
+            --webhook-settings-bg: #1e1e30;
+            --tab-inactive: rgba(255,255,255,0.1);
+            --tab-active: #2d2d44;
+            --tab-active-text: #7984f5;
+            --header-text: #e0e0e0;
         }
 
         body {
-            background: linear-gradient(135deg, #5865F2 0%, #404EED 100%);
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -23,10 +80,11 @@
             margin: 0 auto;
         }
 
+        /* Header */
         .header {
             text-align: center;
             margin-bottom: 30px;
-            color: white;
+            color: var(--header-text);
         }
 
         .header h1 {
@@ -38,6 +96,38 @@
         .header p {
             font-size: 1.1rem;
             opacity: 0.9;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .theme-switch {
+            background: var(--panel-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        .theme-switch:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .theme-icon {
+            font-size: 1.2rem;
         }
 
         .webhook-status {
@@ -57,26 +147,30 @@
         }
 
         .tab-btn {
-            background: rgba(255,255,255,0.2);
+            background: var(--tab-inactive);
             border: none;
             padding: 12px 24px;
             font-size: 1rem;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
-            color: white;
+            color: var(--header-text);
             font-weight: 600;
         }
 
         .tab-btn.active {
-            background: white;
-            color: #404EED;
+            background: var(--tab-active);
+            color: var(--tab-active-text);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(255,255,255,0.3);
         }
 
         .tab-panel {
             display: none;
-            background: white;
+            background: var(--panel-bg);
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
@@ -100,21 +194,23 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #333;
+            color: var(--text-primary);
         }
 
         input, select, textarea {
             width: 100%;
             padding: 12px;
-            border: 2px solid #e0e0e0;
+            background: var(--input-bg);
+            border: 2px solid var(--input-border);
             border-radius: 10px;
             font-size: 1rem;
+            color: var(--text-primary);
             transition: border 0.3s;
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #5865F2;
+            border-color: var(--input-focus);
         }
 
         textarea {
@@ -123,7 +219,7 @@
         }
 
         button {
-            background: #5865F2;
+            background: var(--button-bg);
             color: white;
             border: none;
             padding: 12px 24px;
@@ -135,7 +231,7 @@
         }
 
         button:hover {
-            background: #4752C4;
+            background: var(--button-hover);
             transform: translateY(-2px);
         }
 
@@ -147,33 +243,33 @@
 
         .report-list {
             margin-top: 30px;
-            border-top: 2px solid #eee;
+            border-top: 2px solid var(--border-color);
             padding-top: 20px;
         }
 
         .report-item {
-            background: #f8f9fa;
+            background: var(--card-bg);
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 15px;
-            border-left: 4px solid #5865F2;
+            border-left: 4px solid var(--card-border);
         }
 
         .report-title {
             font-weight: bold;
             font-size: 1.1rem;
             margin-bottom: 8px;
-            color: #5865F2;
+            color: var(--card-border);
         }
 
         .report-meta {
             font-size: 0.85rem;
-            color: #666;
+            color: var(--text-secondary);
             margin-bottom: 10px;
         }
 
         .report-content {
-            color: #333;
+            color: var(--text-primary);
             line-height: 1.4;
         }
 
@@ -186,17 +282,17 @@
         }
 
         .status-sent {
-            background: #d4edda;
-            color: #155724;
+            background: var(--success-bg);
+            color: var(--success-text);
         }
 
         .status-error {
-            background: #f8d7da;
-            color: #721c24;
+            background: var(--error-bg);
+            color: var(--error-text);
         }
 
         .webhook-settings {
-            background: #f0f2f5;
+            background: var(--webhook-settings-bg);
             padding: 20px;
             border-radius: 15px;
             margin-bottom: 20px;
@@ -210,14 +306,14 @@
         }
 
         .alert.success {
-            background: #d4edda;
-            color: #155724;
+            background: var(--success-bg);
+            color: var(--success-text);
             display: block;
         }
 
         .alert.error {
-            background: #f8d7da;
-            color: #721c24;
+            background: var(--error-bg);
+            color: var(--error-text);
             display: block;
         }
 
@@ -234,10 +330,25 @@
             .tab-panel {
                 padding: 20px;
             }
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+            }
+            .theme-switch {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="theme-toggle">
+        <div class="theme-switch" id="themeSwitch">
+            <span class="theme-icon" id="themeIcon">🌞</span>
+            <span id="themeText">Светлая тема</span>
+        </div>
+    </div>
+
     <div class="container">
         <div class="header">
             <h1>📊 HR-портал</h1>
@@ -257,7 +368,7 @@
         <!-- Еженедельный отчёт -->
         <div id="weekly" class="tab-panel active-panel">
             <h2>📋 Еженедельный отчёт</h2>
-            <p style="color: #666; margin-bottom: 20px;">Заполните форму о проделанной работе за неделю</p>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Заполните форму о проделанной работе за неделю</p>
             
             <form id="weeklyForm">
                 <div class="row">
@@ -289,7 +400,7 @@
         <!-- Запрос на повышение -->
         <div id="promotion" class="tab-panel">
             <h2>⬆️ Запрос на повышение</h2>
-            <p style="color: #666; margin-bottom: 20px;">Заполните заявку для рассмотрения вашей кандидатуры</p>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Заполните заявку для рассмотрения вашей кандидатуры</p>
             
             <form id="promotionForm">
                 <div class="row">
@@ -326,9 +437,9 @@
         <div id="history" class="tab-panel">
             <h2>📜 История всех отчётов</h2>
             <div id="historyList" class="report-list">
-                <p style="color: #999;">Загрузка...</p>
+                <p style="color: var(--text-light);">Загрузка...</p>
             </div>
-            <button id="clearHistoryBtn" style="background: #dc3545; margin-top: 20px;">🗑️ Очистить историю</button>
+            <button id="clearHistoryBtn" style="background: var(--danger-bg); margin-top: 20px;">🗑️ Очистить историю</button>
         </div>
 
         <!-- Настройки -->
@@ -338,7 +449,7 @@
                 <div class="form-group">
                     <label>🔗 Discord Webhook URL</label>
                     <input type="url" id="webhookUrl" placeholder="https://discord.com/api/webhooks/...">
-                    <small style="color: #666;">Как создать webhook: Настройки сервера → Интеграции → Вебхуки → Создать</small>
+                    <small style="color: var(--text-secondary);">Как создать webhook: Настройки сервера → Интеграции → Вебхуки → Создать</small>
                 </div>
                 <button id="saveWebhookBtn">💾 Сохранить Webhook</button>
                 <button id="testWebhookBtn" style="background: #23a55a; margin-left: 10px;">📡 Тестовое сообщение</button>
@@ -351,6 +462,42 @@
         // Данные
         let reports = [];
         let webhookUrl = '';
+
+        // Тема
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                updateThemeUI('dark');
+            } else {
+                document.body.classList.remove('dark');
+                updateThemeUI('light');
+            }
+        }
+
+        function updateThemeUI(theme) {
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            if (theme === 'dark') {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Тёмная тема';
+            } else {
+                themeIcon.textContent = '🌞';
+                themeText.textContent = 'Светлая тема';
+            }
+        }
+
+        function toggleTheme() {
+            if (document.body.classList.contains('dark')) {
+                document.body.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateThemeUI('light');
+            } else {
+                document.body.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateThemeUI('dark');
+            }
+        }
 
         // Загрузка данных из localStorage
         function loadData() {
@@ -508,6 +655,11 @@ _Требует рассмотрения руководством_`;
                 showAlert('✅ Отчёт успешно отправлен в Discord!', 'success', 'weekly');
                 e.target.reset();
                 document.getElementById('weeklyWeek').value = '';
+                // Установить текущую неделю снова
+                const today = new Date();
+                const year = today.getFullYear();
+                const weekNumber = Math.ceil((((today - new Date(year, 0, 1)) / 86400000) + 1) / 7);
+                document.getElementById('weeklyWeek').value = `${year}-W${weekNumber.toString().padStart(2, '0')}`;
             } catch (error) {
                 showAlert(`❌ Ошибка: ${error.message}`, 'error', 'weekly');
             } finally {
@@ -554,7 +706,7 @@ _Требует рассмотрения руководством_`;
             if (!container) return;
             
             if (reports.length === 0) {
-                container.innerHTML = '<p style="color: #999; text-align: center;">📭 Пока нет ни одного отчёта</p>';
+                container.innerHTML = '<p style="color: var(--text-light); text-align: center;">📭 Пока нет ни одного отчёта</p>';
                 return;
             }
             
@@ -567,20 +719,31 @@ _Требует рассмотрения руководством_`;
                         </span>
                     </div>
                     <div class="report-meta">
-                        👤 ${report.name} | 🕒 ${new Date(report.timestamp).toLocaleString('ru-RU')}
+                        👤 ${escapeHtml(report.name)} | 🕒 ${new Date(report.timestamp).toLocaleString('ru-RU')}
                     </div>
                     <div class="report-content">
                         ${report.type === 'weekly' ? `
-                            <strong>Неделя:</strong> ${report.week}<br>
-                            <strong>Сделано:</strong> ${report.done.substring(0, 100)}${report.done.length > 100 ? '...' : ''}
+                            <strong>Неделя:</strong> ${escapeHtml(report.week)}<br>
+                            <strong>Сделано:</strong> ${escapeHtml(report.done.substring(0, 100))}${report.done.length > 100 ? '...' : ''}
                         ` : `
-                            <strong>${report.currentPosition} → ${report.desiredPosition}</strong><br>
-                            <strong>Достижения:</strong> ${report.achievements.substring(0, 100)}${report.achievements.length > 100 ? '...' : ''}
+                            <strong>${escapeHtml(report.currentPosition)} → ${escapeHtml(report.desiredPosition)}</strong><br>
+                            <strong>Достижения:</strong> ${escapeHtml(report.achievements.substring(0, 100))}${report.achievements.length > 100 ? '...' : ''}
                         `}
                     </div>
-                    ${report.discordError ? `<div class="report-meta" style="color: #dc3545;">⚠️ ${report.discordError}</div>` : ''}
+                    ${report.discordError ? `<div class="report-meta" style="color: var(--error-text);">⚠️ ${escapeHtml(report.discordError)}</div>` : ''}
                 </div>
             `).join('');
+        }
+
+        // Защита от XSS
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
         }
         
         // Очистка истории
@@ -643,7 +806,11 @@ _Требует рассмотрения руководством_`;
             });
         });
         
+        // Переключение темы
+        document.getElementById('themeSwitch').addEventListener('click', toggleTheme);
+        
         // Инициализация
+        initTheme();
         loadData();
         
         // Установка текущей недели по умолчанию
