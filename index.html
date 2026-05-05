@@ -75,11 +75,11 @@
 
         /* Sidebar Navigation */
         .sidebar {
-            width: 300px;
+            width: 320px;
             background: var(--sidebar-bg);
             backdrop-filter: blur(20px);
             border-right: 1px solid var(--glass-border);
-            padding: 32px 20px;
+            padding: 32px 24px;
             position: fixed;
             height: 100vh;
             left: 0;
@@ -98,19 +98,19 @@
         }
 
         .logo-icon {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            border-radius: 16px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 26px;
             color: white;
         }
 
         .logo h2 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
             background: linear-gradient(135deg, #FFFFFF, #A5B4FC);
             -webkit-background-clip: text;
@@ -127,34 +127,35 @@
         .nav-menu {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
         }
 
         .nav-item {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 14px 18px;
-            border-radius: 16px;
+            gap: 16px;
+            padding: 16px 20px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: all 0.25s;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             color: var(--text-secondary);
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 1rem;
         }
 
         .nav-item i {
-            width: 24px;
-            font-size: 1.2rem;
+            width: 28px;
+            font-size: 1.3rem;
         }
 
         .nav-item:hover {
-            background: rgba(99, 102, 241, 0.12);
+            background: rgba(99, 102, 241, 0.15);
             color: var(--text-primary);
-            transform: translateX(4px);
+            transform: translateX(6px);
         }
 
         .nav-item.active {
-            background: linear-gradient(95deg, rgba(99, 102, 241, 0.2), rgba(79, 70, 229, 0.1));
+            background: linear-gradient(95deg, rgba(99, 102, 241, 0.25), rgba(79, 70, 229, 0.12));
             color: var(--accent-glow);
             border-left: 3px solid var(--accent);
         }
@@ -162,7 +163,7 @@
         /* Main Content */
         .main-content {
             flex: 1;
-            margin-left: 300px;
+            margin-left: 320px;
             padding: 32px 40px;
         }
 
@@ -183,7 +184,7 @@
         }
 
         .page-title i {
-            margin-right: 12px;
+            margin-right: 14px;
             color: var(--accent);
         }
 
@@ -191,22 +192,28 @@
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            padding: 8px 20px;
+            border-radius: 50px;
+            padding: 10px 24px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             cursor: pointer;
             color: var(--text-primary);
+            font-weight: 500;
             transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            transform: scale(1.02);
         }
 
         /* Cards */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
-            border-radius: 28px;
-            padding: 32px;
+            border-radius: 32px;
+            padding: 36px;
             border: 1px solid var(--glass-border);
             box-shadow: var(--shadow-md);
             animation: fadeSlide 0.4s ease;
@@ -253,7 +260,7 @@
         input, select, textarea {
             background: var(--input-bg);
             border: 1px solid var(--border-light);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 14px 18px;
             font-family: 'Inter', sans-serif;
             font-size: 0.95rem;
@@ -270,31 +277,46 @@
         button {
             background: linear-gradient(105deg, var(--accent), var(--accent-dark));
             border: none;
-            padding: 14px 32px;
-            border-radius: 40px;
-            font-weight: 600;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
             color: white;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             transition: all 0.25s;
+            margin-top: 16px;
         }
 
         button:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             filter: brightness(1.05);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
         }
 
-        .webhook-badge {
-            background: var(--card-bg);
-            border-radius: 40px;
-            padding: 8px 18px;
-            font-size: 0.85rem;
-            display: inline-flex;
+        button:disabled {
+            opacity: 0.6;
+            transform: none;
+        }
+
+        .webhook-info {
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 16px;
+            padding: 12px 20px;
+            margin-bottom: 24px;
+            display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+        }
+
+        .webhook-info i {
+            color: var(--accent);
+            font-size: 1rem;
         }
 
         .alert {
@@ -303,7 +325,8 @@
             margin-bottom: 24px;
             display: none;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-weight: 500;
         }
 
         .alert.success {
@@ -327,7 +350,7 @@
 
         @media (max-width: 768px) {
             .sidebar {
-                width: 80px;
+                width: 90px;
                 padding: 24px 12px;
             }
             .sidebar .logo h2, .sidebar .nav-item span {
@@ -344,7 +367,7 @@
                 margin: 0;
             }
             .main-content {
-                margin-left: 80px;
+                margin-left: 90px;
                 padding: 20px;
             }
             .form-grid {
@@ -354,14 +377,17 @@
                 grid-column: span 1;
             }
             .page-title {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
+            }
+            .glass-card {
+                padding: 24px;
             }
         }
     </style>
 </head>
 <body>
     <div class="app">
-        <!-- Sidebar Navigation -->
+        <!-- Sidebar с 3 кнопками -->
         <div class="sidebar">
             <div class="logo">
                 <div class="logo-icon"><i class="fas fa-feather"></i></div>
@@ -395,12 +421,12 @@
                 </div>
             </div>
 
-            <!-- Страница 1: Еженедельный отчёт -->
+            <!-- СТРАНИЦА 1: Еженедельный отчёт -->
             <div id="weeklyPage" class="page-container">
                 <div class="glass-card">
-                    <div class="webhook-badge" style="margin-bottom: 20px;">
-                        <i class="fab fa-discord"></i> Discord Webhook: <span id="webhookStatus">не настроен</span>
-                        <a href="#" id="goToSettings" style="color: var(--accent); margin-left: 8px;">⚙️ настроить</a>
+                    <div class="webhook-info">
+                        <i class="fab fa-discord"></i>
+                        <span>📨 Отправка в Discord канал <strong>#еженедельные-отчёты</strong></span>
                     </div>
                     <form id="weeklyForm">
                         <div class="form-grid">
@@ -430,9 +456,13 @@
                 </div>
             </div>
 
-            <!-- Страница 2: Отчёт на повышение -->
+            <!-- СТРАНИЦА 2: Отчёт на повышение -->
             <div id="promotionPage" class="page-container" style="display: none;">
                 <div class="glass-card">
+                    <div class="webhook-info">
+                        <i class="fab fa-discord"></i>
+                        <span>📨 Отправка в Discord канал <strong>#запросы-на-повышение</strong></span>
+                    </div>
                     <form id="promotionForm">
                         <div class="form-grid">
                             <div class="form-group">
@@ -465,9 +495,13 @@
                 </div>
             </div>
 
-            <!-- Страница 3: Запись на экзамен -->
+            <!-- СТРАНИЦА 3: Запись на экзамен -->
             <div id="examPage" class="page-container" style="display: none;">
                 <div class="glass-card">
+                    <div class="webhook-info">
+                        <i class="fab fa-discord"></i>
+                        <span>📨 Отправка в Discord канал <strong>#запись-на-экзамен</strong></span>
+                    </div>
                     <form id="examForm">
                         <div class="form-grid">
                             <div class="form-group">
@@ -501,7 +535,7 @@
                                 <textarea id="examComment" rows="3" placeholder="Укажите удобное время, ссылки на портфолио и т.д."></textarea>
                             </div>
                         </div>
-                        <button type="submit"><i class="fab fa-discord"></i> Записаться</button>
+                        <button type="submit"><i class="fab fa-discord"></i> Записаться на экзамен</button>
                     </form>
                 </div>
             </div>
@@ -509,8 +543,16 @@
     </div>
 
     <script>
-        // Данные
-        let webhookUrl = localStorage.getItem('discord_webhook') || '';
+        // ============================================
+        // 🔒 ФИКСИРОВАННЫЕ ВЕБХУКИ ДЛЯ КАЖДОГО ТИПА ОТЧЁТА
+        // ============================================
+        // ⚠️ ЗАМЕНИТЕ ЭТИ ССЫЛКИ НА ВАШИ РЕАЛЬНЫЕ DISCORD WEBHOOK URL
+        // ============================================
+        const WEBHOOKS = {
+            weekly: 'https://discord.com/api/webhooks/1501267296432291945/fCHeDuYb4eVyHyUT_SRJgtnjE6DlbTCwubCKP_NEfytsMohVPDz5wHSYObiEmNqvEM2b',     // 🔁 Еженедельные отчёты
+            promotion: 'https://discord.com/api/webhooks/1501267296432291945/fCHeDuYb4eVyHyUT_SRJgtnjE6DlbTCwubCKP_NEfytsMohVPDz5wHSYObiEmNqvEM2b',   // ⬆️ Запросы на повышение
+            exam: 'https://discord.com/api/webhooks/1501267296432291945/fCHeDuYb4eVyHyUT_SRJgtnjE6DlbTCwubCKP_NEfytsMohVPDz5wHSYObiEmNqvEM2b'        // 📝 Запись на экзамен
+        };
 
         // Тема
         function initTheme() {
@@ -542,15 +584,11 @@
 
         // Навигация между страницами
         function navigateTo(page) {
-            // Скрыть все страницы
             document.querySelectorAll('.page-container').forEach(container => {
                 container.style.display = 'none';
             });
-            
-            // Показать выбранную
             document.getElementById(`${page}Page`).style.display = 'block';
             
-            // Обновить активный пункт меню
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
                 if (item.dataset.page === page) {
@@ -558,7 +596,6 @@
                 }
             });
             
-            // Обновить заголовок
             const titles = {
                 weekly: { icon: 'fa-calendar-week', text: 'Еженедельный отчёт' },
                 promotion: { icon: 'fa-arrow-up', text: 'Отчёт на повышение' },
@@ -568,11 +605,8 @@
             document.querySelector('.page-title').innerHTML = `<i class="fas ${title.icon}"></i> ${title.text}`;
         }
 
-        // Отправка в Discord
-        async function sendToDiscord(content, username = 'Aetheris HR') {
-            if (!webhookUrl) {
-                throw new Error('Webhook не настроен. Нажмите "настроить" вверху страницы.');
-            }
+        // Отправка в Discord с фиксированным вебхуком
+        async function sendToDiscord(webhookUrl, content, username = 'Aetheris HR') {
             const response = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -582,17 +616,17 @@
             return true;
         }
 
-        // Форматеры для Discord
+        // Форматеры сообщений
         function formatWeekly(data) {
-            return `**📊 Еженедельный отчёт**\n**👤 Сотрудник:** ${data.name}\n**📅 Неделя:** ${data.week}\n\n**✅ Сделано:**\n${data.done}\n\n**🎯 Планы:**\n${data.plan}\n\n**⚠️ Проблемы:**\n${data.problems || '—'}`;
+            return `**📊 ЕЖЕНЕДЕЛЬНЫЙ ОТЧЁТ**\n**👤 Сотрудник:** ${data.name}\n**📅 Неделя:** ${data.week}\n\n**✅ СДЕЛАНО:**\n${data.done}\n\n**🎯 ПЛАНЫ:**\n${data.plan}\n\n**⚠️ ПРОБЛЕМЫ:**\n${data.problems || '—'}\n\n_Отправлено через Aetheris HR_`;
         }
 
         function formatPromotion(data) {
-            return `**⬆️ ЗАПРОС НА ПОВЫШЕНИЕ**\n**👤 ${data.name}**\n**${data.currentPosition} → ${data.desiredPosition}**\n💰 Ожидания: ${data.expectedGrade || 'обсуждаемо'}\n\n**🏆 Достижения (6 мес):**\n${data.achievements}\n\n**💡 Обоснование:**\n${data.motivation}`;
+            return `**⬆️ ЗАПРОС НА ПОВЫШЕНИЕ**\n**👤 Сотрудник:** ${data.name}\n**💼 Текущая роль:** ${data.currentPosition}\n**🎯 Желаемая роль:** ${data.desiredPosition}\n**💰 Ожидания:** ${data.expectedGrade || 'обсуждаемо'}\n\n**🏆 ДОСТИЖЕНИЯ (6 мес):**\n${data.achievements}\n\n**💡 ОБОСНОВАНИЕ:**\n${data.motivation}\n\n_Требует рассмотрения руководством_`;
         }
 
         function formatExam(data) {
-            return `**📝 ЗАПИСЬ НА ЭКЗАМЕН**\n**👤 Сотрудник:** ${data.name}\n**📧 Email:** ${data.email}\n**📚 Тип:** ${data.examType}\n**📅 Желаемая дата:** ${data.date}\n**🏷️ Направление:** ${data.topic || 'не указано'}\n**💬 Комментарий:** ${data.comment || '—'}`;
+            return `**📝 ЗАПИСЬ НА ЭКЗАМЕН**\n**👤 Сотрудник:** ${data.name}\n**📧 Email:** ${data.email}\n**📚 Тип экзамена:** ${data.examType}\n**📅 Желаемая дата:** ${data.date}\n**🏷️ Направление:** ${data.topic || 'не указано'}\n**💬 Комментарий:** ${data.comment || '—'}\n\n_Ожидайте подтверждения от HR_`;
         }
 
         // Показать уведомление
@@ -609,7 +643,9 @@
             setTimeout(() => alert.remove(), 5000);
         }
 
-        // Обработчики форм
+        // ========== ОБРАБОТЧИКИ ФОРМ ==========
+        
+        // Еженедельный отчёт
         document.getElementById('weeklyForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button');
@@ -624,9 +660,12 @@
                     plan: document.getElementById('weeklyPlan').value.trim(),
                     problems: document.getElementById('weeklyProblems').value.trim()
                 };
-                await sendToDiscord(formatWeekly(data), 'Еженедельный отчёт');
-                showAlert('✅ Отчёт отправлен в Discord!', 'success', '#weeklyPage');
+                if (!data.name || !data.week || !data.done || !data.plan) throw new Error('Заполните все обязательные поля');
+                
+                await sendToDiscord(WEBHOOKS.weekly, formatWeekly(data), 'Еженедельный отчёт');
+                showAlert('✅ Отчёт успешно отправлен в Discord!', 'success', '#weeklyPage');
                 e.target.reset();
+                // Установить текущую неделю
                 const today = new Date();
                 const year = today.getFullYear();
                 const weekNum = Math.ceil((((today - new Date(year, 0, 1)) / 86400000) + 1) / 7);
@@ -639,6 +678,7 @@
             }
         });
 
+        // Отчёт на повышение
         document.getElementById('promotionForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button');
@@ -654,8 +694,11 @@
                     motivation: document.getElementById('motivation').value.trim(),
                     expectedGrade: document.getElementById('expectedGrade').value.trim()
                 };
-                await sendToDiscord(formatPromotion(data), 'Запрос на повышение');
-                showAlert('✅ Запрос отправлен в Discord!', 'success', '#promotionPage');
+                if (!data.name || !data.currentPosition || !data.desiredPosition || !data.achievements || !data.motivation) {
+                    throw new Error('Заполните все обязательные поля');
+                }
+                await sendToDiscord(WEBHOOKS.promotion, formatPromotion(data), 'Запрос на повышение');
+                showAlert('✅ Запрос на повышение отправлен!', 'success', '#promotionPage');
                 e.target.reset();
             } catch (err) {
                 showAlert(`❌ Ошибка: ${err.message}`, 'error', '#promotionPage');
@@ -665,6 +708,7 @@
             }
         });
 
+        // Запись на экзамен
         document.getElementById('examForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button');
@@ -680,39 +724,19 @@
                     topic: document.getElementById('examTopic').value.trim(),
                     comment: document.getElementById('examComment').value.trim()
                 };
-                await sendToDiscord(formatExam(data), 'Запись на экзамен');
+                if (!data.name || !data.email || !data.examType || !data.date) {
+                    throw new Error('Заполните все обязательные поля');
+                }
+                await sendToDiscord(WEBHOOKS.exam, formatExam(data), 'Запись на экзамен');
                 showAlert('✅ Заявка на экзамен отправлена!', 'success', '#examPage');
                 e.target.reset();
             } catch (err) {
                 showAlert(`❌ Ошибка: ${err.message}`, 'error', '#examPage');
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fab fa-discord"></i> Записаться';
+                btn.innerHTML = '<i class="fab fa-discord"></i> Записаться на экзамен';
             }
         });
-
-        // Настройка Webhook через ссылку в шапке
-        document.getElementById('goToSettings')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            const newUrl = prompt('Введите Discord Webhook URL:', webhookUrl);
-            if (newUrl && newUrl.startsWith('https://discord.com/api/webhooks/')) {
-                webhookUrl = newUrl;
-                localStorage.setItem('discord_webhook', webhookUrl);
-                document.getElementById('webhookStatus').innerText = '✅ активен';
-                showAlert('Webhook сохранён!', 'success', '#weeklyPage');
-            } else if (newUrl) {
-                alert('Неверный URL. Должен начинаться с https://discord.com/api/webhooks/');
-            }
-        });
-
-        // Обновить статус webhook при загрузке
-        function updateWebhookStatus() {
-            if (webhookUrl && webhookUrl.startsWith('https://discord.com/api/webhooks/')) {
-                document.getElementById('webhookStatus').innerText = '✅ активен';
-            } else {
-                document.getElementById('webhookStatus').innerText = '⚠️ не настроен';
-            }
-        }
 
         // Навигация
         document.querySelectorAll('.nav-item').forEach(item => {
@@ -725,7 +749,6 @@
         
         // Инициализация
         initTheme();
-        updateWebhookStatus();
         navigateTo('weekly');
         
         // Установка текущей недели
@@ -734,7 +757,7 @@
         const weekNum = Math.ceil((((today - new Date(year, 0, 1)) / 86400000) + 1) / 7);
         document.getElementById('weeklyWeek').value = `${year}-W${weekNum.toString().padStart(2, '0')}`;
         
-        // Установка минимальной даты для экзамена (сегодня)
+        // Минимальная дата для экзамена
         document.getElementById('examDate').min = today.toISOString().split('T')[0];
     </script>
 </body>
