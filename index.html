@@ -55,22 +55,25 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 30px 20px;
+            padding: 20px 20px;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
+            margin-top: 10px;
         }
 
         .logo {
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
         }
 
         .logo-icon {
@@ -131,29 +134,31 @@
             transform: scale(1.02);
         }
 
-        /* 3 кнопки в одну полоску (горизонтально) */
+        /* 3 кнопки в одну полоску - выше и больше */
         .home-page {
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            flex: 1;
             min-height: calc(100vh - 180px);
         }
 
         .cards-grid {
             display: flex;
             justify-content: center;
-            gap: 24px;
+            gap: 30px;
             flex-wrap: wrap;
-            margin-top: 20px;
+            margin-top: 0;
         }
 
         .action-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 32px 28px;
-            width: 280px;
+            border-radius: 32px;
+            padding: 38px 32px;
+            width: 300px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             text-align: center;
@@ -167,15 +172,15 @@
         }
 
         .card-icon {
-            width: 70px;
-            height: 70px;
+            width: 75px;
+            height: 75px;
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(79, 70, 229, 0.1));
-            border-radius: 24px;
+            border-radius: 26px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 18px;
-            font-size: 34px;
+            margin: 0 auto 20px;
+            font-size: 36px;
             color: var(--accent);
             transition: all 0.3s;
         }
@@ -185,20 +190,21 @@
         }
 
         .action-card h3 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .action-card p {
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
         }
 
         .card-arrow {
-            margin-top: 16px;
-            font-size: 1rem;
+            margin-top: 18px;
+            font-size: 1.1rem;
             color: var(--accent);
             opacity: 0;
             transition: opacity 0.3s, transform 0.3s;
@@ -531,31 +537,31 @@
             display: flex;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 950px) {
             .cards-grid {
-                gap: 16px;
+                gap: 24px;
             }
             .action-card {
-                width: 240px;
-                padding: 24px 20px;
+                width: 270px;
+                padding: 32px 24px;
             }
             .action-card h3 {
-                font-size: 1.1rem;
+                font-size: 1.3rem;
             }
             .card-icon {
-                width: 55px;
-                height: 55px;
-                font-size: 28px;
+                width: 65px;
+                height: 65px;
+                font-size: 32px;
             }
         }
 
-        @media (max-width: 750px) {
+        @media (max-width: 850px) {
             .cards-grid {
                 flex-direction: column;
                 align-items: center;
             }
             .action-card {
-                width: 280px;
+                width: 300px;
             }
             .action-fields {
                 grid-template-columns: 1fr;
@@ -594,19 +600,19 @@
                 <div class="action-card" data-page="weekly">
                     <div class="card-icon"><i class="fas fa-calendar-week"></i></div>
                     <h3>📊 Еженедельный отчёт</h3>
-                    <p>Отчёт о работе с баллами</p>
+                    <p>Отчёт о работе с баллами и доказательствами</p>
                     <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="action-card" data-page="promotion">
                     <div class="card-icon"><i class="fas fa-arrow-up"></i></div>
                     <h3>⬆️ Отчёт на повышение</h3>
-                    <p>Заявка на повышение</p>
+                    <p>Заявка на повышение с достижениями</p>
                     <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="action-card" data-page="exam">
                     <div class="card-icon"><i class="fas fa-pen-clip"></i></div>
                     <h3>📝 Запись на экзамен</h3>
-                    <p>Запись на квалификацию</p>
+                    <p>Запись на квалификационный экзамен</p>
                     <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
             </div>
@@ -706,7 +712,7 @@
             </div>
         </div>
 
-        <!-- СТРАНИЦА 3: Запись на экзамен (обновлена) -->
+        <!-- СТРАНИЦА 3: Запись на экзамен -->
         <div id="examPage" class="form-page">
             <div class="back-btn" onclick="showHome()">
                 <i class="fas fa-arrow-left"></i> На главную
@@ -814,7 +820,6 @@
             return points * count;
         }
 
-        // ========== ЕЖЕНЕДЕЛЬНЫЙ ==========
         function updateWeeklyPeriodInfo() {
             const start = document.getElementById('weeklyDateStart').value;
             const end = document.getElementById('weeklyDateEnd').value;
@@ -933,7 +938,6 @@
             });
         }
 
-        // ========== ПОВЫШЕНИЕ ==========
         function updatePromotionDateInfo() {
             const date = document.getElementById('lastPromotionDate').value;
             const infoSpan = document.getElementById('promotionDateInfo');
@@ -1065,7 +1069,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Обработчики
         document.getElementById('weeklyAddActionBtn').addEventListener('click', () => { weeklyActions.push({ type: '', basePoints: 0, count: 1, proofs: '' }); renderWeeklyActions(); });
         document.getElementById('promotionAddActionBtn').addEventListener('click', () => { promotionActions.push({ type: '', basePoints: 0, count: 1, proofs: '' }); renderPromotionActions(); });
 
