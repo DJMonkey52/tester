@@ -1,453 +1,659 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <base target="_top">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      overflow: hidden;
-    }
-    .header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 30px;
-      text-align: center;
-    }
-    .header h1 { font-size: 2em; margin-bottom: 10px; }
-    .content { padding: 30px; }
-    .form-group { margin-bottom: 20px; }
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: #333;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      font-size: 16px;
-      transition: all 0.3s;
-    }
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: #667eea;
-    }
-    .row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .actions-list {
-      background: #f5f5f5;
-      border-radius: 15px;
-      padding: 20px;
-      margin-top: 20px;
-    }
-    .action-item {
-      background: white;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .action-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .action-name {
-      font-weight: bold;
-      font-size: 16px;
-    }
-    .action-points {
-      color: #667eea;
-      font-weight: bold;
-    }
-    .action-details {
-      display: grid;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .quantity-control {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .quantity-control input {
-      width: 100px;
-    }
-    .btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      transition: all 0.3s;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(102,126,234,0.4);
-    }
-    .btn-danger {
-      background: #ef4444;
-      color: white;
-    }
-    .btn-danger:hover {
-      background: #dc2626;
-    }
-    .btn-secondary {
-      background: #6b7280;
-      color: white;
-    }
-    .action-selector {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .action-selector select {
-      flex: 1;
-    }
-    .action-selector button {
-      white-space: nowrap;
-    }
-    .total-points {
-      position: sticky;
-      bottom: 20px;
-      background: white;
-      border-radius: 10px;
-      padding: 15px;
-      margin-top: 20px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .alert {
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-    .alert-success {
-      background: #d1fae5;
-      color: #065f46;
-      border: 1px solid #a7f3d0;
-    }
-    .alert-error {
-      background: #fee2e2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
-    }
-    @media (max-width: 768px) {
-      .row { grid-template-columns: 1fr; }
-      .action-header { flex-direction: column; align-items: flex-start; gap: 5px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR-портал | Отчёты в Discord</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #5865F2 0%, #404EED 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .webhook-status {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            font-weight: 600;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #404EED;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .tab-panel {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-panel.active-panel {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #5865F2;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            background: #5865F2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .report-list {
+            margin-top: 30px;
+            border-top: 2px solid #eee;
+            padding-top: 20px;
+        }
+
+        .report-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #5865F2;
+        }
+
+        .report-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #5865F2;
+        }
+
+        .report-meta {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .report-content {
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-sent {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .webhook-settings {
+            background: #f0f2f5;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+            .tab-panel {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <h1>📊 Система отчетов SWAT</h1>
-    <p>Заполните форму для отправки еженедельного отчета</p>
-  </div>
-  <div class="content">
-    <div id="alert"></div>
-    
-    <div class="form-group">
-      <label>👤 Игровой никнейм *</label>
-      <input type="text" id="employee" placeholder="Введите ваш игровой никнейм">
-    </div>
-    
-    <div class="row">
-      <div class="form-group">
-        <label>⭐ Ранг *</label>
-        <select id="rank"></select>
-      </div>
-      <div class="form-group">
-        <label>📅 Период (дней)</label>
-        <input type="number" id="periodDays" value="7" min="1" max="14">
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="form-group">
-        <label>📅 Дата начала *</label>
-        <input type="date" id="startDate">
-      </div>
-      <div class="form-group">
-        <label>📅 Дата окончания *</label>
-        <input type="date" id="endDate">
-      </div>
-    </div>
-    
-    <div class="actions-list">
-      <h3>📋 Список действий</h3>
-      <div class="action-selector">
-        <select id="actionType">
-          <option value="">Выберите действие...</option>
-        </select>
-        <button class="btn btn-primary" onclick="addAction()">➕ Добавить действие</button>
-      </div>
-      <div id="actionsContainer"></div>
-    </div>
-    
-    <div class="total-points" id="totalPoints">
-      Общие баллы: 0
-    </div>
-    
-    <div style="text-align: center; margin-top: 20px;">
-      <button class="btn btn-primary" onclick="submitReport()" style="padding: 15px 40px; font-size: 16px;">
-        📤 Отправить отчет
-      </button>
-    </div>
-  </div>
-</div>
-
-<script>
-let actions = [];
-let pointsData = {};
-let ranksData = {};
-
-// Инициализация
-async function init() {
-  try {
-    pointsData = await google.script.run.withSuccessHandler(data => {
-      pointsData = data;
-      populateActionSelect();
-    }).getPointsSystem();
-    
-    ranksData = await google.script.run.withSuccessHandler(data => {
-      ranksData = data;
-      populateRanks();
-    }).getRanks();
-    
-    // Установка дат
-    const today = new Date();
-    const weekAgo = new Date(today.getTime() - 7 * 86400000);
-    document.getElementById('startDate').value = weekAgo.toISOString().split('T')[0];
-    document.getElementById('endDate').value = today.toISOString().split('T')[0];
-  } catch (error) {
-    showAlert('Ошибка загрузки данных: ' + error.message, 'error');
-  }
-}
-
-function populateActionSelect() {
-  const select = document.getElementById('actionType');
-  select.innerHTML = '<option value="">Выберите действие...</option>';
-  for (const [key, value] of Object.entries(pointsData)) {
-    const option = document.createElement('option');
-    option.value = key;
-    option.textContent = `${value.name} (${value.points} баллов)`;
-    select.appendChild(option);
-  }
-}
-
-function populateRanks() {
-  const select = document.getElementById('rank');
-  select.innerHTML = '';
-  for (const [key, value] of Object.entries(ranksData)) {
-    const option = document.createElement('option');
-    option.value = key;
-    option.textContent = value.name;
-    select.appendChild(option);
-  }
-}
-
-function addAction() {
-  const select = document.getElementById('actionType');
-  const actionKey = select.value;
-  if (!actionKey) {
-    showAlert('Выберите действие', 'error');
-    return;
-  }
-  
-  const actionData = pointsData[actionKey];
-  if (!actionData) return;
-  
-  const quantity = actionData.requiresQuantity ? 1 : 1;
-  const points = actionData.requiresQuantity ? actionData.points * quantity : actionData.points;
-  
-  const action = {
-    id: Date.now() + Math.random(),
-    type: actionKey,
-    name: actionData.name,
-    basePoints: actionData.points,
-    points: points,
-    quantity: quantity,
-    category: actionData.category,
-    evidence: '',
-    requiresQuantity: actionData.requiresQuantity || false,
-    maxQuantity: actionData.maxQuantity || 1,
-    unit: actionData.unit || null
-  };
-  
-  actions.push(action);
-  renderActions();
-  select.value = '';
-  updateTotalPoints();
-}
-
-function removeAction(id) {
-  actions = actions.filter(a => a.id !== id);
-  renderActions();
-  updateTotalPoints();
-}
-
-function updateActionQuantity(id, quantity) {
-  const action = actions.find(a => a.id === id);
-  if (action) {
-    let qty = parseInt(quantity) || 1;
-    qty = Math.min(Math.max(qty, 1), action.maxQuantity);
-    action.quantity = qty;
-    action.points = action.basePoints * qty;
-    if (action.type === 'fish_seizure') action.points = qty;
-    renderActions();
-    updateTotalPoints();
-  }
-}
-
-function updateActionEvidence(id, evidence) {
-  const action = actions.find(a => a.id === id);
-  if (action) {
-    action.evidence = evidence;
-  }
-}
-
-function updateTotalPoints() {
-  const total = actions.reduce((sum, a) => sum + a.points, 0);
-  document.getElementById('totalPoints').innerHTML = `💰 Общие баллы: ${total}`;
-}
-
-function renderActions() {
-  const container = document.getElementById('actionsContainer');
-  if (actions.length === 0) {
-    container.innerHTML = '<p style="text-align: center; color: #999;">Нет добавленных действий. Выберите действие выше.</p>';
-    return;
-  }
-  
-  container.innerHTML = actions.map(action => `
-    <div class="action-item">
-      <div class="action-header">
-        <span class="action-name">${action.name}</span>
-        <span class="action-points">${action.points} баллов</span>
-        <button class="btn btn-danger" onclick="removeAction(${action.id})" style="padding: 5px 10px;">🗑️</button>
-      </div>
-      <div class="action-details">
-        ${action.requiresQuantity ? `
-          <div class="quantity-control">
-            <label>Количество (${action.unit || 'раз'}):</label>
-            <input type="number" min="1" max="${action.maxQuantity}" value="${action.quantity}" 
-                   onchange="updateActionQuantity(${action.id}, this.value)">
-            <span>× ${action.basePoints} = ${action.basePoints * action.quantity} баллов</span>
-          </div>
-        ` : ''}
-        <div>
-          <label>${action.category === 'withEvidence' ? '🔗 Ссылки на доказательства (по 1 на строку):' : '✅ Действие без доказательств'}</label>
-          ${action.category === 'withEvidence' ? 
-            `<textarea rows="3" placeholder="https://discord.com/channels/...&#10;https://imgur.com/..." 
-                       onchange="updateActionEvidence(${action.id}, this.value)">${action.evidence}</textarea>` :
-            '<input type="text" disabled value="Без доказательств">'
-          }
+    <div class="container">
+        <div class="header">
+            <h1>📊 HR-портал</h1>
+            <p>Система подачи отчётов с отправкой в Discord</p>
+            <div class="webhook-status">
+                🔗 Webhook: <span id="webhookStatus">не настроен</span>
+            </div>
         </div>
-      </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="weekly">📝 Еженедельный отчёт</button>
+            <button class="tab-btn" data-tab="promotion">⬆️ Запрос на повышение</button>
+            <button class="tab-btn" data-tab="history">📜 История отчётов</button>
+            <button class="tab-btn" data-tab="settings">⚙️ Настройки Discord</button>
+        </div>
+
+        <!-- Еженедельный отчёт -->
+        <div id="weekly" class="tab-panel active-panel">
+            <h2>📋 Еженедельный отчёт</h2>
+            <p style="color: #666; margin-bottom: 20px;">Заполните форму о проделанной работе за неделю</p>
+            
+            <form id="weeklyForm">
+                <div class="row">
+                    <div class="form-group">
+                        <label>👤 Ваше имя</label>
+                        <input type="text" id="weeklyName" required placeholder="Иванов Иван">
+                    </div>
+                    <div class="form-group">
+                        <label>📅 Неделя</label>
+                        <input type="week" id="weeklyWeek" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>✅ Что сделано за неделю?</label>
+                    <textarea id="weeklyDone" required placeholder="• Завершил модуль авторизации&#10;• Провёл код-ревью&#10;• Написал документацию"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>🎯 Планы на следующую неделю</label>
+                    <textarea id="weeklyPlan" required placeholder="• Начать разработку API&#10;• Провести встречу с командой"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>⚠️ Проблемы и блокеры</label>
+                    <textarea id="weeklyProblems" placeholder="Опишите возникшие сложности (необязательно)"></textarea>
+                </div>
+                <button type="submit">🚀 Отправить в Discord</button>
+            </form>
+        </div>
+
+        <!-- Запрос на повышение -->
+        <div id="promotion" class="tab-panel">
+            <h2>⬆️ Запрос на повышение</h2>
+            <p style="color: #666; margin-bottom: 20px;">Заполните заявку для рассмотрения вашей кандидатуры</p>
+            
+            <form id="promotionForm">
+                <div class="row">
+                    <div class="form-group">
+                        <label>👤 Ваше имя</label>
+                        <input type="text" id="promotionName" required placeholder="Иванов Иван">
+                    </div>
+                    <div class="form-group">
+                        <label>💼 Текущая должность</label>
+                        <input type="text" id="currentPosition" required placeholder="Junior Developer">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>🎯 Желаемая должность</label>
+                    <input type="text" id="desiredPosition" required placeholder="Middle Developer">
+                </div>
+                <div class="form-group">
+                    <label>📊 Достижения за последние 6 месяцев</label>
+                    <textarea id="achievements" required placeholder="• Увеличил покрытие тестами на 30%&#10;• Внедрил CI/CD пайплайн&#10;• Наставил 2 джуниоров"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>💡 Почему вы заслуживаете повышение?</label>
+                    <textarea id="motivation" required placeholder="Опишите ваши компетенции, ответственность и вклад в проекты..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>📈 Ожидаемый грейд / зарплата</label>
+                    <input type="text" id="expectedGrade" placeholder="Middle / 150,000₽">
+                </div>
+                <button type="submit">💎 Отправить запрос в Discord</button>
+            </form>
+        </div>
+
+        <!-- История -->
+        <div id="history" class="tab-panel">
+            <h2>📜 История всех отчётов</h2>
+            <div id="historyList" class="report-list">
+                <p style="color: #999;">Загрузка...</p>
+            </div>
+            <button id="clearHistoryBtn" style="background: #dc3545; margin-top: 20px;">🗑️ Очистить историю</button>
+        </div>
+
+        <!-- Настройки -->
+        <div id="settings" class="tab-panel">
+            <h2>⚙️ Настройки Discord Webhook</h2>
+            <div class="webhook-settings">
+                <div class="form-group">
+                    <label>🔗 Discord Webhook URL</label>
+                    <input type="url" id="webhookUrl" placeholder="https://discord.com/api/webhooks/...">
+                    <small style="color: #666;">Как создать webhook: Настройки сервера → Интеграции → Вебхуки → Создать</small>
+                </div>
+                <button id="saveWebhookBtn">💾 Сохранить Webhook</button>
+                <button id="testWebhookBtn" style="background: #23a55a; margin-left: 10px;">📡 Тестовое сообщение</button>
+            </div>
+            <div id="settingsMessage"></div>
+        </div>
     </div>
-  `).join('');
-}
 
-async function submitReport() {
-  const employee = document.getElementById('employee').value.trim();
-  const rank = document.getElementById('rank').value;
-  const rankSelect = document.getElementById('rank');
-  const rankName = rankSelect.options[rankSelect.selectedIndex]?.text || '';
-  const startDate = document.getElementById('startDate').value;
-  const endDate = document.getElementById('endDate').value;
-  const periodDays = parseInt(document.getElementById('periodDays').value);
-  
-  if (!employee) {
-    showAlert('Введите игровой никнейм', 'error');
-    return;
-  }
-  if (!rank) {
-    showAlert('Выберите ранг', 'error');
-    return;
-  }
-  if (!startDate || !endDate) {
-    showAlert('Выберите период', 'error');
-    return;
-  }
-  if (actions.length === 0) {
-    showAlert('Добавьте хотя бы одно действие', 'error');
-    return;
-  }
-  
-  const formData = {
-    employee: employee,
-    rank: rank,
-    rankName: rankName,
-    startDate: startDate,
-    endDate: endDate,
-    periodDays: periodDays,
-    actions: actions.map(a => ({
-      type: a.type,
-      name: a.name,
-      quantity: a.quantity,
-      basePoints: a.basePoints,
-      points: a.points,
-      evidence: a.evidence,
-      category: a.category,
-      unit: a.unit
-    }))
-  };
-  
-  try {
-    showAlert('⏳ Отправка отчета...', 'info');
-    const result = await google.script.run.withSuccessHandler(data => {
-      if (data.success) {
-        showAlert(data.message, 'success');
-        actions = [];
-        renderActions();
-        updateTotalPoints();
-        document.getElementById('employee').value = '';
-      } else {
-        showAlert(data.message, 'error');
-      }
-    }).withFailureHandler(error => {
-      showAlert('Ошибка: ' + error.message, 'error');
-    }).processForm(formData);
-  } catch (error) {
-    showAlert('Ошибка: ' + error.message, 'error');
-  }
-}
+    <script>
+        // Данные
+        let reports = [];
+        let webhookUrl = '';
 
-function showAlert(message, type) {
-  const alertDiv = document.getElementById('alert');
-  const alertClass = type === 'error' ? 'alert-error' : (type === 'success' ? 'alert-success' : 'alert-info');
-  alertDiv.innerHTML = `<div class="alert ${alertClass}">${message}</div>`;
-  setTimeout(() => {
-    alertDiv.innerHTML = '';
-  }, 5000);
-}
+        // Загрузка данных из localStorage
+        function loadData() {
+            const savedReports = localStorage.getItem('hr_reports');
+            if (savedReports) {
+                reports = JSON.parse(savedReports);
+            }
+            
+            const savedWebhook = localStorage.getItem('discord_webhook');
+            if (savedWebhook) {
+                webhookUrl = savedWebhook;
+                document.getElementById('webhookUrl').value = webhookUrl;
+                updateWebhookStatus();
+            }
+            
+            renderHistory();
+        }
 
-// Запуск инициализации
-init();
-</script>
+        // Обновление статуса webhook
+        function updateWebhookStatus() {
+            const statusSpan = document.getElementById('webhookStatus');
+            if (webhookUrl && webhookUrl.startsWith('https://discord.com/api/webhooks/')) {
+                statusSpan.innerHTML = '✅ настроен и активен';
+                statusSpan.style.color = '#a5d6a5';
+            } else {
+                statusSpan.innerHTML = '⚠️ не настроен (перейдите в настройки)';
+                statusSpan.style.color = '#ffcc80';
+            }
+        }
+
+        // Отправка в Discord
+        async function sendToDiscord(content, username = 'HR Portal') {
+            if (!webhookUrl) {
+                throw new Error('Webhook не настроен. Перейдите в настройки и добавьте Discord Webhook URL.');
+            }
+            
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    content: content,
+                    embeds: []
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Ошибка HTTP: ${response.status}`);
+            }
+            
+            return true;
+        }
+
+        // Форматирование отчёта для Discord
+        function formatWeeklyReport(data) {
+            return `**📊 Еженедельный отчёт**
+**Сотрудник:** ${data.name}
+**Неделя:** ${data.week}
+
+**✅ Сделано:**
+${data.done}
+
+**🎯 Планы:**
+${data.plan}
+
+**⚠️ Проблемы:**
+${data.problems || 'Нет'}
+
+_Отправлено через HR-портал_`;
+        }
+
+        function formatPromotionReport(data) {
+            return `**⬆️ ЗАПРОС НА ПОВЫШЕНИЕ**
+**Сотрудник:** ${data.name}
+**Текущая должность:** ${data.currentPosition}
+**Желаемая должность:** ${data.desiredPosition}
+**Ожидания:** ${data.expectedGrade || 'Не указано'}
+
+**📈 Достижения (6 месяцев):**
+${data.achievements}
+
+**💡 Обоснование:**
+${data.motivation}
+
+_Требует рассмотрения руководством_`;
+        }
+
+        // Показать уведомление
+        function showAlert(message, type, containerId = 'weekly') {
+            const panel = document.getElementById(containerId);
+            const existingAlert = panel.querySelector('.alert');
+            if (existingAlert) existingAlert.remove();
+            
+            const alert = document.createElement('div');
+            alert.className = `alert ${type}`;
+            alert.textContent = message;
+            panel.insertBefore(alert, panel.firstChild);
+            
+            setTimeout(() => {
+                if (alert) alert.remove();
+            }, 5000);
+        }
+
+        // Сохранить отчёт и отправить
+        async function saveReport(type, data) {
+            const report = {
+                id: Date.now(),
+                type: type,
+                ...data,
+                timestamp: new Date().toISOString(),
+                status: 'pending'
+            };
+            
+            try {
+                await sendToDiscord(
+                    type === 'weekly' ? formatWeeklyReport(data) : formatPromotionReport(data),
+                    type === 'weekly' ? 'Еженедельный отчёт' : 'Запрос на повышение'
+                );
+                report.status = 'sent';
+                report.discordError = null;
+            } catch (error) {
+                report.status = 'error';
+                report.discordError = error.message;
+                throw error;
+            } finally {
+                reports.unshift(report);
+                localStorage.setItem('hr_reports', JSON.stringify(reports));
+                renderHistory();
+            }
+        }
+
+        // Обработка еженедельного отчёта
+        document.getElementById('weeklyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('weeklyName').value.trim();
+            const week = document.getElementById('weeklyWeek').value;
+            const done = document.getElementById('weeklyDone').value.trim();
+            const plan = document.getElementById('weeklyPlan').value.trim();
+            const problems = document.getElementById('weeklyProblems').value.trim();
+            
+            if (!name || !week || !done || !plan) {
+                showAlert('Заполните все обязательные поля', 'error', 'weekly');
+                return;
+            }
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправка...';
+            
+            try {
+                await saveReport('weekly', { name, week, done, plan, problems });
+                showAlert('✅ Отчёт успешно отправлен в Discord!', 'success', 'weekly');
+                e.target.reset();
+                document.getElementById('weeklyWeek').value = '';
+            } catch (error) {
+                showAlert(`❌ Ошибка: ${error.message}`, 'error', 'weekly');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 Отправить в Discord';
+            }
+        });
+        
+        // Обработка запроса на повышение
+        document.getElementById('promotionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('promotionName').value.trim();
+            const currentPosition = document.getElementById('currentPosition').value.trim();
+            const desiredPosition = document.getElementById('desiredPosition').value.trim();
+            const achievements = document.getElementById('achievements').value.trim();
+            const motivation = document.getElementById('motivation').value.trim();
+            const expectedGrade = document.getElementById('expectedGrade').value.trim();
+            
+            if (!name || !currentPosition || !desiredPosition || !achievements || !motivation) {
+                showAlert('Заполните все обязательные поля', 'error', 'promotion');
+                return;
+            }
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправка...';
+            
+            try {
+                await saveReport('promotion', { name, currentPosition, desiredPosition, achievements, motivation, expectedGrade });
+                showAlert('✅ Запрос на повышение отправлен в Discord!', 'success', 'promotion');
+                e.target.reset();
+            } catch (error) {
+                showAlert(`❌ Ошибка: ${error.message}`, 'error', 'promotion');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '💎 Отправить запрос в Discord';
+            }
+        });
+        
+        // История
+        function renderHistory() {
+            const container = document.getElementById('historyList');
+            if (!container) return;
+            
+            if (reports.length === 0) {
+                container.innerHTML = '<p style="color: #999; text-align: center;">📭 Пока нет ни одного отчёта</p>';
+                return;
+            }
+            
+            container.innerHTML = reports.map(report => `
+                <div class="report-item">
+                    <div class="report-title">
+                        ${report.type === 'weekly' ? '📊 Еженедельный отчёт' : '⬆️ Запрос на повышение'}
+                        <span class="status-badge status-${report.status}">
+                            ${report.status === 'sent' ? '✅ Отправлен' : '❌ Ошибка'}
+                        </span>
+                    </div>
+                    <div class="report-meta">
+                        👤 ${report.name} | 🕒 ${new Date(report.timestamp).toLocaleString('ru-RU')}
+                    </div>
+                    <div class="report-content">
+                        ${report.type === 'weekly' ? `
+                            <strong>Неделя:</strong> ${report.week}<br>
+                            <strong>Сделано:</strong> ${report.done.substring(0, 100)}${report.done.length > 100 ? '...' : ''}
+                        ` : `
+                            <strong>${report.currentPosition} → ${report.desiredPosition}</strong><br>
+                            <strong>Достижения:</strong> ${report.achievements.substring(0, 100)}${report.achievements.length > 100 ? '...' : ''}
+                        `}
+                    </div>
+                    ${report.discordError ? `<div class="report-meta" style="color: #dc3545;">⚠️ ${report.discordError}</div>` : ''}
+                </div>
+            `).join('');
+        }
+        
+        // Очистка истории
+        document.getElementById('clearHistoryBtn')?.addEventListener('click', () => {
+            if (confirm('Вы уверены, что хотите очистить всю историю отчётов?')) {
+                reports = [];
+                localStorage.setItem('hr_reports', JSON.stringify(reports));
+                renderHistory();
+                showAlert('История очищена', 'success', 'history');
+            }
+        });
+        
+        // Сохранение webhook
+        document.getElementById('saveWebhookBtn')?.addEventListener('click', () => {
+            const newUrl = document.getElementById('webhookUrl').value.trim();
+            if (!newUrl || !newUrl.startsWith('https://discord.com/api/webhooks/')) {
+                showAlert('Введите корректный Discord Webhook URL (начинается с https://discord.com/api/webhooks/)', 'error', 'settings');
+                return;
+            }
+            
+            webhookUrl = newUrl;
+            localStorage.setItem('discord_webhook', webhookUrl);
+            updateWebhookStatus();
+            showAlert('✅ Webhook сохранён! Теперь можно отправлять отчёты.', 'success', 'settings');
+        });
+        
+        // Тестовое сообщение
+        document.getElementById('testWebhookBtn')?.addEventListener('click', async () => {
+            const testUrl = document.getElementById('webhookUrl').value.trim();
+            if (!testUrl) {
+                showAlert('Сначала введите и сохраните Webhook URL', 'error', 'settings');
+                return;
+            }
+            
+            try {
+                const response = await fetch(testUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: 'HR Portal',
+                        content: '✅ **Тестовое сообщение**\nWebhook настроен корректно! Можете отправлять отчёты.'
+                    })
+                });
+                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                showAlert('🎉 Тестовое сообщение успешно отправлено! Проверьте Discord.', 'success', 'settings');
+            } catch (error) {
+                showAlert(`❌ Ошибка: ${error.message}. Проверьте URL и права доступа.`, 'error', 'settings');
+            }
+        });
+        
+        // Переключение вкладок
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active-panel'));
+                document.getElementById(tabId).classList.add('active-panel');
+            });
+        });
+        
+        // Инициализация
+        loadData();
+        
+        // Установка текущей недели по умолчанию
+        const today = new Date();
+        const weekInput = document.getElementById('weeklyWeek');
+        if (weekInput) {
+            const year = today.getFullYear();
+            const weekNumber = Math.ceil((((today - new Date(year, 0, 1)) / 86400000) + 1) / 7);
+            weekInput.value = `${year}-W${weekNumber.toString().padStart(2, '0')}`;
+        }
+    </script>
 </body>
 </html>
