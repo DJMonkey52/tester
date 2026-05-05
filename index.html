@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Aetheris HR | Отчёты с баллами</title>
+    <title>Aetheris HR | Центр отчётов</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -24,11 +24,9 @@
             background: linear-gradient(135deg, #e8edf9 0%, #f0f4ff 100%);
         }
 
-        /* CSS переменные */
         :root {
             --glass-bg: rgba(18, 22, 45, 0.95);
             --glass-border: rgba(88, 101, 242, 0.3);
-            --card-bg: rgba(18, 22, 45, 0.95);
             --text-primary: #F0F3FA;
             --text-secondary: #A0A8C3;
             --text-muted: #6C728E;
@@ -46,7 +44,6 @@
         body.light {
             --glass-bg: rgba(255, 255, 255, 0.95);
             --glass-border: rgba(99, 102, 241, 0.2);
-            --card-bg: rgba(255, 255, 255, 0.95);
             --text-primary: #111827;
             --text-secondary: #4b5563;
             --text-muted: #9ca3af;
@@ -61,6 +58,7 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 40px 20px;
+            min-height: 100vh;
         }
 
         /* Header */
@@ -135,21 +133,94 @@
             transform: scale(1.02);
         }
 
-        /* Главная карточка */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            border-radius: 32px;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow-md);
-            overflow: hidden;
-            animation: slideUp 0.5s ease;
+        /* ========== 3 КНОПКИ НА ГЛАВНОЙ ========== */
+        .home-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: calc(100vh - 200px);
         }
 
-        @keyframes slideUp {
+        .cards-grid {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .action-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 40px 32px;
+            width: 300px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .action-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--accent);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(79, 70, 229, 0.1));
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+
+        .action-card:hover .card-icon {
+            transform: scale(1.05);
+        }
+
+        .action-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .action-card p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .card-arrow {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .action-card:hover .card-arrow {
+            opacity: 1;
+            transform: translateX(6px);
+        }
+
+        /* ========== СТРАНИЦЫ ФОРМ ========== */
+        .form-page {
+            display: none;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -157,14 +228,44 @@
             }
         }
 
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 10px 22px;
+            color: var(--text-primary);
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 24px;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            border-color: var(--accent);
+            transform: translateX(-4px);
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border-radius: 32px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
         .card-header {
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(79, 70, 229, 0.05));
-            padding: 24px 32px;
+            padding: 20px 28px;
             border-bottom: 1px solid var(--border-light);
         }
 
         .card-header h2 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--text-primary);
             display: flex;
@@ -177,31 +278,30 @@
         }
 
         .card-body {
-            padding: 32px;
+            padding: 28px;
         }
 
-        /* Поля ввода */
         .input-group {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .input-group label {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: var(--accent-glow);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .input-group input, .input-group select {
             width: 100%;
-            padding: 14px 16px;
+            padding: 12px 14px;
             background: var(--input-bg);
             border: 1px solid var(--border-light);
-            border-radius: 16px;
-            font-size: 0.95rem;
+            border-radius: 14px;
+            font-size: 0.9rem;
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             transition: all 0.2s;
@@ -213,71 +313,52 @@
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
         }
 
-        /* Период */
         .period-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 16px;
+            gap: 16px;
+            margin-bottom: 12px;
         }
 
         .period-info {
             background: rgba(99, 102, 241, 0.08);
-            border-radius: 14px;
-            padding: 12px 16px;
+            border-radius: 12px;
+            padding: 10px 14px;
             text-align: center;
             color: var(--accent-glow);
-            font-size: 0.9rem;
-            margin-top: 8px;
+            font-size: 0.85rem;
         }
 
-        /* ========== КАРТОЧКА ДЕЙСТВИЯ ========== */
+        /* ========== КАРТОЧКИ ДЕЙСТВИЙ ========== */
         .actions-container {
-            margin: 24px 0;
+            margin: 20px 0;
         }
 
-        .action-card {
-            background: rgba(15, 18, 35, 0.6);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 16px;
+        .action-item {
+            background: rgba(15, 18, 35, 0.5);
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 14px;
             border: 1px solid var(--border-light);
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            animation: actionAppear 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.2s;
         }
 
-        @keyframes actionAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.95) translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .action-card:hover {
+        .action-item:hover {
             border-color: var(--accent);
-            transform: translateX(4px);
-            box-shadow: 0 5px 20px rgba(99, 102, 241, 0.2);
+            transform: translateX(3px);
         }
 
         .action-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 12px;
+            margin-bottom: 14px;
         }
 
         .action-title {
-            font-weight: 700;
+            font-weight: 600;
             color: var(--text-primary);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -291,43 +372,40 @@
             background: rgba(239, 68, 68, 0.15);
             border: none;
             color: #f87171;
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             transition: all 0.2s;
         }
 
         .remove-action:hover {
             background: rgba(239, 68, 68, 0.3);
-            transform: scale(1.02);
         }
 
-        /* Поля внутри карточки действия */
         .action-fields {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 16px;
+            gap: 14px;
+            margin-bottom: 14px;
         }
 
         .action-field {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
         }
 
         .action-field label {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 600;
             text-transform: uppercase;
             color: var(--text-muted);
-            letter-spacing: 0.3px;
         }
 
         .action-field select, .action-field input {
-            padding: 10px 14px;
+            padding: 8px 12px;
             background: var(--input-bg);
             border: 1px solid var(--border-light);
             border-radius: 12px;
@@ -335,60 +413,49 @@
             color: var(--text-primary);
         }
 
-        .action-field select:focus, .action-field input:focus {
-            border-color: var(--accent);
-        }
-
         .proofs-field {
             grid-column: span 2;
-        }
-
-        .proofs-field input {
-            width: 100%;
-            padding: 10px 14px;
         }
 
         .points-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 12px;
+            padding-top: 10px;
             border-top: 1px solid var(--border-light);
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
         .points-badge {
             background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            padding: 6px 16px;
+            padding: 5px 14px;
             border-radius: 30px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: white;
         }
 
         .count-badge {
             background: rgba(99, 102, 241, 0.15);
-            padding: 6px 16px;
+            padding: 5px 14px;
             border-radius: 30px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--accent-glow);
         }
 
-        /* Кнопка добавления */
         .add-btn {
             width: 100%;
             background: rgba(99, 102, 241, 0.12);
             border: 1px dashed var(--accent);
-            border-radius: 18px;
-            padding: 16px;
+            border-radius: 16px;
+            padding: 14px;
             color: var(--accent);
             font-weight: 600;
-            font-size: 0.9rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             transition: all 0.3s;
             margin: 16px 0;
         }
@@ -396,40 +463,31 @@
         .add-btn:hover {
             background: rgba(99, 102, 241, 0.25);
             transform: translateY(-2px);
-            gap: 16px;
         }
 
-        /* Пустое состояние */
         .empty-state {
             text-align: center;
-            padding: 40px;
+            padding: 30px;
             color: var(--text-muted);
             background: rgba(15, 18, 35, 0.4);
-            border-radius: 20px;
-            margin-bottom: 16px;
-            animation: fadeIn 0.5s ease;
+            border-radius: 18px;
+            margin-bottom: 14px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Кнопка отправки */
         .submit-btn {
             width: 100%;
             background: linear-gradient(105deg, var(--accent), var(--accent-dark));
             border: none;
-            padding: 16px;
-            border-radius: 24px;
-            font-size: 1rem;
+            padding: 14px;
+            border-radius: 22px;
+            font-size: 0.95rem;
             font-weight: 700;
             color: white;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             transition: all 0.3s;
             margin-top: 16px;
         }
@@ -437,7 +495,7 @@
         .submit-btn:hover {
             transform: translateY(-3px);
             filter: brightness(1.05);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
         }
 
         .submit-btn:disabled {
@@ -445,20 +503,20 @@
             transform: none;
         }
 
-        /* Уведомления */
         .alert {
-            padding: 14px 18px;
-            border-radius: 16px;
-            margin-bottom: 24px;
+            padding: 12px 16px;
+            border-radius: 14px;
+            margin-bottom: 20px;
             display: none;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-weight: 500;
+            font-size: 0.85rem;
             animation: slideIn 0.3s ease;
         }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-20px); }
+            from { opacity: 0; transform: translateX(-15px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
@@ -490,6 +548,13 @@
             .card-body {
                 padding: 20px;
             }
+            .cards-grid {
+                gap: 20px;
+            }
+            .action-card {
+                width: 260px;
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
@@ -508,90 +573,163 @@
             <p class="subtitle">Система подачи отчётов с балльной системой</p>
         </div>
 
-        <div class="glass-card">
-            <div class="card-header">
-                <h2>
-                    <i class="fas fa-user"></i>
-                    ИНФОРМАЦИЯ О СОТРУДНИКЕ
-                </h2>
+        <!-- ГЛАВНАЯ СТРАНИЦА с 3 кнопками -->
+        <div id="homePage" class="home-page">
+            <div class="cards-grid">
+                <div class="action-card" data-page="weekly">
+                    <div class="card-icon"><i class="fas fa-calendar-week"></i></div>
+                    <h3>📊 Еженедельный отчёт</h3>
+                    <p>Отчёт о проделанной работе с баллами и доказательствами</p>
+                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="action-card" data-page="promotion">
+                    <div class="card-icon"><i class="fas fa-arrow-up"></i></div>
+                    <h3>⬆️ Отчёт на повышение</h3>
+                    <p>Заявка на повышение с описанием достижений</p>
+                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="action-card" data-page="exam">
+                    <div class="card-icon"><i class="fas fa-pen-clip"></i></div>
+                    <h3>📝 Запись на экзамен</h3>
+                    <p>Запись на техническое собеседование или экзамен</p>
+                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
             </div>
-            <div class="card-body">
-                <div id="alertContainer"></div>
+        </div>
 
-                <!-- Игровой никнейм -->
-                <div class="input-group">
-                    <label>ИГРОВОЙ НИКНЕЙМ</label>
-                    <input type="text" id="nickname" placeholder="Введите никнейм">
+        <!-- СТРАНИЦА 1: Еженедельный отчёт -->
+        <div id="weeklyPage" class="form-page">
+            <div class="back-btn" onclick="showHome()">
+                <i class="fas fa-arrow-left"></i> На главную
+            </div>
+            <div class="glass-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-calendar-week"></i> Еженедельный отчёт</h2>
                 </div>
+                <div class="card-body">
+                    <div id="weeklyAlert"></div>
 
-                <!-- Ранг -->
-                <div class="input-group">
-                    <label>РАНГ СОТРУДНИКА</label>
-                    <select id="rank">
-                        <option value="">-- Выберите ранг --</option>
-                        <option value="Специалист (3)">Специалист (3)</option>
-                        <option value="Капрал (4)">Капрал (4)</option>
-                        <option value="Сержант (5)">Сержант (5)</option>
-                        <option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
-                        <option value="Уорент-офицер (7)">Уорент-офицер (7)</option>
-                        <option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
-                        <option value="Лейтенант (9)">Лейтенант (9)</option>
-                        <option value="Капитан (10)">Капитан (10)</option>
-                        <option value="Майор (11)">Майор (11)</option>
-                        <option value="Подполковник (12)">Подполковник (12)</option>
-                    </select>
-                </div>
-
-                <!-- Период -->
-                <div class="period-row">
                     <div class="input-group">
-                        <label>ДАТА НАЧАЛА</label>
-                        <input type="date" id="dateStart">
+                        <label>ИГРОВОЙ НИКНЕЙМ</label>
+                        <input type="text" id="weeklyNickname" placeholder="Введите никнейм">
                     </div>
+
                     <div class="input-group">
-                        <label>ДАТА ОКОНЧАНИЯ</label>
-                        <input type="date" id="dateEnd">
+                        <label>РАНГ СОТРУДНИКА</label>
+                        <select id="weeklyRank">
+                            <option value="">-- Выберите ранг --</option>
+                            <option value="Специалист (3)">Специалист (3)</option>
+                            <option value="Капрал (4)">Капрал (4)</option>
+                            <option value="Сержант (5)">Сержант (5)</option>
+                            <option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
+                            <option value="Уорент-офицер (7)">Уорент-офицер (7)</option>
+                            <option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
+                            <option value="Лейтенант (9)">Лейтенант (9)</option>
+                            <option value="Капитан (10)">Капитан (10)</option>
+                            <option value="Майор (11)">Майор (11)</option>
+                            <option value="Подполковник (12)">Подполковник (12)</option>
+                        </select>
                     </div>
-                </div>
-                <div class="period-info" id="periodInfo">
-                    04.05.2026 – 10.05.2026 (7 дн.)
-                </div>
 
-                <!-- ДЕЙСТВИЯ С ДОКАЗАТЕЛЬСТВАМИ -->
-                <div style="margin-top: 32px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                        <label style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
-                            <i class="fas fa-clipboard-list"></i> ДЕЙСТВИЯ С ДОКАЗАТЕЛЬСТВАМИ
-                        </label>
-                    </div>
-
-                    <div id="actionsContainer">
-                        <div id="emptyActions" class="empty-state">
-                            <i class="fas fa-info-circle"></i> Нет действий с доказательствами
+                    <div class="period-row">
+                        <div class="input-group">
+                            <label>ДАТА НАЧАЛА</label>
+                            <input type="date" id="weeklyDateStart">
                         </div>
-                        <div id="actionsList"></div>
+                        <div class="input-group">
+                            <label>ДАТА ОКОНЧАНИЯ</label>
+                            <input type="date" id="weeklyDateEnd">
+                        </div>
+                    </div>
+                    <div class="period-info" id="weeklyPeriodInfo"></div>
+
+                    <div style="margin-top: 24px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                            <label style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
+                                <i class="fas fa-clipboard-list"></i> ДЕЙСТВИЯ С ДОКАЗАТЕЛЬСТВАМИ
+                            </label>
+                        </div>
+                        <div id="weeklyActionsContainer">
+                            <div id="weeklyEmptyActions" class="empty-state">
+                                <i class="fas fa-info-circle"></i> Нет действий с доказательствами
+                            </div>
+                            <div id="weeklyActionsList"></div>
+                        </div>
+                        <button class="add-btn" id="weeklyAddActionBtn">
+                            <i class="fas fa-plus-circle"></i> ДОБАВИТЬ
+                        </button>
                     </div>
 
-                    <button class="add-btn" id="addActionBtn">
-                        <i class="fas fa-plus-circle"></i> ДОБАВИТЬ
+                    <button class="submit-btn" id="weeklySubmitBtn">
+                        <i class="fab fa-discord"></i> ОТПРАВИТЬ ОТЧЁТ
                     </button>
                 </div>
+            </div>
+        </div>
 
-                <!-- Кнопка отправки -->
-                <button class="submit-btn" id="submitBtn">
-                    <i class="fab fa-discord"></i> ОТПРАВИТЬ ОТЧЁТ
-                </button>
+        <!-- СТРАНИЦА 2: Отчёт на повышение -->
+        <div id="promotionPage" class="form-page">
+            <div class="back-btn" onclick="showHome()">
+                <i class="fas fa-arrow-left"></i> На главную
+            </div>
+            <div class="glass-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-arrow-up"></i> Отчёт на повышение</h2>
+                </div>
+                <div class="card-body">
+                    <div id="promotionAlert"></div>
+                    <div class="input-group"><label>ФИО</label><input type="text" id="promotionName" placeholder="Иванов Иван"></div>
+                    <div class="input-group"><label>Текущая должность</label><input type="text" id="currentPosition" placeholder="Junior Developer"></div>
+                    <div class="input-group"><label>Желаемая должность</label><input type="text" id="desiredPosition" placeholder="Middle Developer"></div>
+                    <div class="input-group"><label>Ожидания (грейд/ЗП)</label><input type="text" id="expectedGrade" placeholder="Middle / от 180 000₽"></div>
+                    <div class="input-group"><label>Достижения за 6 месяцев</label><textarea id="achievements" rows="3" style="resize: vertical; background: var(--input-bg); border: 1px solid var(--border-light); border-radius: 14px; padding: 12px; color: var(--text-primary); width: 100%;"></textarea></div>
+                    <div class="input-group"><label>Почему вы заслуживаете повышение?</label><textarea id="motivation" rows="3" style="resize: vertical; background: var(--input-bg); border: 1px solid var(--border-light); border-radius: 14px; padding: 12px; color: var(--text-primary); width: 100%;"></textarea></div>
+                    <button class="submit-btn" id="promotionSubmitBtn"><i class="fab fa-discord"></i> Отправить запрос</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- СТРАНИЦА 3: Запись на экзамен -->
+        <div id="examPage" class="form-page">
+            <div class="back-btn" onclick="showHome()">
+                <i class="fas fa-arrow-left"></i> На главную
+            </div>
+            <div class="glass-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-pen-clip"></i> Запись на экзамен</h2>
+                </div>
+                <div class="card-body">
+                    <div id="examAlert"></div>
+                    <div class="input-group"><label>ФИО</label><input type="text" id="examName" placeholder="Иванов Иван"></div>
+                    <div class="input-group"><label>Email</label><input type="email" id="examEmail" placeholder="ivan@example.com"></div>
+                    <div class="input-group">
+                        <label>Тип экзамена</label>
+                        <select id="examType">
+                            <option value="">Выберите...</option>
+                            <option value="Техническое собеседование">💻 Техническое собеседование</option>
+                            <option value="Экзамен на грейд">📈 Экзамен на грейд</option>
+                            <option value="Сертификация">📜 Сертификация</option>
+                        </select>
+                    </div>
+                    <div class="input-group"><label>Желаемая дата</label><input type="date" id="examDate"></div>
+                    <div class="input-group"><label>Направление / технология</label><input type="text" id="examTopic" placeholder="React, Java, Python..."></div>
+                    <div class="input-group"><label>Комментарий</label><textarea id="examComment" rows="2" style="resize: vertical; background: var(--input-bg); border: 1px solid var(--border-light); border-radius: 14px; padding: 12px; color: var(--text-primary); width: 100%;"></textarea></div>
+                    <button class="submit-btn" id="examSubmitBtn"><i class="fab fa-discord"></i> Записаться на экзамен</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         // ============================================
-        // 🔒 ВЕБХУК (ЗАМЕНИТЕ НА ВАШ)
+        // 🔒 ФИКСИРОВАННЫЕ ВЕБХУКИ (ЗАМЕНИТЕ НА ВАШИ)
         // ============================================
-        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1501267296432291945/fCHeDuYb4eVyHyUT_SRJgtnjE6DlbTCwubCKP_NEfytsMohVPDz5wHSYObiEmNqvEM2b';
+        const WEBHOOKS = {
+            weekly: 'https://discord.com/api/webhooks/1501267296432291945/fCHeDuYb4eVyHyUT_SRJgtnjE6DlbTCwubCKP_NEfytsMohVPDz5wHSYObiEmNqvEM2b',
+            promotion: 'https://discord.com/api/webhooks/1501267296432291945/fCHeDuYb4eVyHyUT_SRJgtnjE6DlbTCwubCKP_NEfytsMohVPDz5wHSYObiEmNqvEM2b',
+            exam: 'https://discord.com/api/webhooks/1501267296432291945/fCHeDuYb4eVyHyUT_SRJgtnjE6DlbTCwubCKP_NEfytsMohVPDz5wHSYObiEmNqvEM2b'
+        };
 
-        // Список типов активностей с баллами
         const ACTIVITY_TYPES = [
             { name: "Участие в ГМП", basePoints: 10 },
             { name: "Участие в МП", basePoints: 5 },
@@ -614,7 +752,7 @@
             { name: "Передача задержанного сотрудникам CID", basePoints: 10 }
         ];
 
-        let actions = [];
+        let weeklyActions = [];
 
         // Утилиты
         function formatDate(dateStr) {
@@ -633,14 +771,21 @@
             });
         }
 
-        function updatePeriodInfo() {
-            const start = document.getElementById('dateStart').value;
-            const end = document.getElementById('dateEnd').value;
-            const infoSpan = document.getElementById('periodInfo');
+        function calculatePoints(action) {
+            let points = action.basePoints || 0;
+            let count = parseInt(action.count) || 1;
+            if (action.type === "Патруль по ФЗ (1 час)" || action.type === "Патруль вне ФЗ (1 час)") {
+                points = points * count;
+            }
+            return points * count;
+        }
+
+        function updateWeeklyPeriodInfo() {
+            const start = document.getElementById('weeklyDateStart').value;
+            const end = document.getElementById('weeklyDateEnd').value;
+            const infoSpan = document.getElementById('weeklyPeriodInfo');
             if (start && end) {
-                const startDate = new Date(start);
-                const endDate = new Date(end);
-                const diffDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+                const diffDays = Math.ceil((new Date(end) - new Date(start)) / (1000 * 60 * 60 * 24)) + 1;
                 infoSpan.innerHTML = `${formatDate(start)} – ${formatDate(end)} (${diffDays} дн.)`;
             } else {
                 const today = new Date();
@@ -652,45 +797,32 @@
             }
         }
 
-        function calculatePoints(action) {
-            let points = action.basePoints || 0;
-            let count = parseInt(action.count) || 1;
-            if (action.type === "Патруль по ФЗ (1 час)" || action.type === "Патруль вне ФЗ (1 час)") {
-                points = points * count;
-            }
-            return points * count;
-        }
-
-        function renderActions() {
-            const container = document.getElementById('actionsList');
-            const emptyDiv = document.getElementById('emptyActions');
+        // Рендер без пересоздания DOM — обновляем только значения
+        function renderWeeklyActions() {
+            const container = document.getElementById('weeklyActionsList');
+            const emptyDiv = document.getElementById('weeklyEmptyActions');
             
-            if (actions.length === 0) {
+            if (weeklyActions.length === 0) {
                 emptyDiv.style.display = 'block';
                 container.innerHTML = '';
                 return;
             }
-            
             emptyDiv.style.display = 'none';
             
-            container.innerHTML = actions.map((action, idx) => {
-                const totalPoints = calculatePoints(action);
-                return `
-                    <div class="action-card" data-idx="${idx}">
+            // Создаём HTML только если контейнер пуст или количество изменилось
+            if (container.children.length !== weeklyActions.length) {
+                container.innerHTML = weeklyActions.map((action, idx) => `
+                    <div class="action-item" data-idx="${idx}">
                         <div class="action-header">
-                            <div class="action-title">
-                                <i class="fas fa-tag"></i> ДЕЙСТВИЕ #${idx + 1}
-                            </div>
-                            <button class="remove-action" data-idx="${idx}">
-                                <i class="fas fa-trash"></i> Удалить
-                            </button>
+                            <div class="action-title"><i class="fas fa-tag"></i> ДЕЙСТВИЕ #${idx + 1}</div>
+                            <button class="remove-action" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button>
                         </div>
                         <div class="action-fields">
                             <div class="action-field">
                                 <label>ТИП</label>
                                 <select class="action-type" data-idx="${idx}">
                                     <option value="">-- Выберите --</option>
-                                    ${ACTIVITY_TYPES.map(t => `<option value="${escapeHtml(t.name)}" data-points="${t.basePoints}" ${action.type === t.name ? 'selected' : ''}>${escapeHtml(t.name)}</option>`).join('')}
+                                    ${ACTIVITY_TYPES.map(t => `<option value="${escapeHtml(t.name)}" data-points="${t.basePoints}">${escapeHtml(t.name)}</option>`).join('')}
                                 </select>
                             </div>
                             <div class="action-field">
@@ -703,59 +835,92 @@
                             </div>
                         </div>
                         <div class="points-row">
-                            <span class="count-badge"><i class="fas fa-hashtag"></i> КОЛ-ВО: ${action.count || 1}</span>
-                            <span class="points-badge"><i class="fas fa-star"></i> БАЛЛЫ: ${totalPoints}</span>
+                            <span class="count-badge" data-idx="${idx}"><i class="fas fa-hashtag"></i> КОЛ-ВО: ${action.count || 1}</span>
+                            <span class="points-badge" data-idx="${idx}"><i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(action)}</span>
                         </div>
                     </div>
-                `;
-            }).join('');
-            
-            // Назначить обработчики
-            document.querySelectorAll('.action-type').forEach(select => {
-                select.addEventListener('change', (e) => {
+                `).join('');
+                
+                // Назначаем обработчики на новые элементы
+                document.querySelectorAll('#weeklyActionsList .action-type').forEach(select => {
                     const idx = parseInt(select.dataset.idx);
-                    const selectedOption = select.options[select.selectedIndex];
-                    const points = parseInt(selectedOption.dataset.points) || 0;
-                    if (!isNaN(idx) && actions[idx]) {
-                        actions[idx].type = select.value;
-                        actions[idx].basePoints = points;
-                        renderActions();
+                    if (!isNaN(idx) && weeklyActions[idx]) {
+                        select.value = weeklyActions[idx].type || '';
+                        select.addEventListener('change', (e) => {
+                            const idx2 = parseInt(select.dataset.idx);
+                            const selectedOption = select.options[select.selectedIndex];
+                            const points = parseInt(selectedOption.dataset.points) || 0;
+                            if (!isNaN(idx2) && weeklyActions[idx2]) {
+                                weeklyActions[idx2].type = select.value;
+                                weeklyActions[idx2].basePoints = points;
+                                // Обновляем отображение баллов и количества
+                                const actionDiv = select.closest('.action-item');
+                                const countSpan = actionDiv.querySelector('.count-badge');
+                                const pointsSpan = actionDiv.querySelector('.points-badge');
+                                if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${weeklyActions[idx2].count || 1}`;
+                                if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(weeklyActions[idx2])}`;
+                            }
+                        });
                     }
                 });
-            });
-            
-            document.querySelectorAll('.action-count').forEach(input => {
-                input.addEventListener('input', (e) => {
+                
+                document.querySelectorAll('#weeklyActionsList .action-count').forEach(input => {
                     const idx = parseInt(input.dataset.idx);
-                    if (!isNaN(idx) && actions[idx]) {
-                        actions[idx].count = parseInt(input.value) || 1;
-                        renderActions();
+                    if (!isNaN(idx) && weeklyActions[idx]) {
+                        input.value = weeklyActions[idx].count || 1;
+                        input.addEventListener('input', (e) => {
+                            const idx2 = parseInt(input.dataset.idx);
+                            const newCount = parseInt(input.value) || 1;
+                            if (!isNaN(idx2) && weeklyActions[idx2]) {
+                                weeklyActions[idx2].count = newCount;
+                                const actionDiv = input.closest('.action-item');
+                                const countSpan = actionDiv.querySelector('.count-badge');
+                                const pointsSpan = actionDiv.querySelector('.points-badge');
+                                if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${newCount}`;
+                                if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(weeklyActions[idx2])}`;
+                            }
+                        });
                     }
                 });
-            });
-            
-            document.querySelectorAll('.action-proofs').forEach(input => {
-                input.addEventListener('input', (e) => {
-                    const idx = parseInt(input.dataset.idx);
-                    if (!isNaN(idx) && actions[idx]) {
-                        actions[idx].proofs = input.value;
+                
+                document.querySelectorAll('#weeklyActionsList .action-proofs').forEach(inp => {
+                    const idx = parseInt(inp.dataset.idx);
+                    if (!isNaN(idx) && weeklyActions[idx]) {
+                        inp.value = weeklyActions[idx].proofs || '';
+                        inp.addEventListener('input', (e) => {
+                            const idx2 = parseInt(inp.dataset.idx);
+                            if (!isNaN(idx2) && weeklyActions[idx2]) {
+                                weeklyActions[idx2].proofs = inp.value;
+                            }
+                        });
                     }
                 });
-            });
-            
-            document.querySelectorAll('.remove-action').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const idx = parseInt(btn.dataset.idx);
-                    if (!isNaN(idx)) {
-                        actions.splice(idx, 1);
-                        renderActions();
+                
+                document.querySelectorAll('#weeklyActionsList .remove-action').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const idx = parseInt(btn.dataset.idx);
+                        if (!isNaN(idx)) {
+                            weeklyActions.splice(idx, 1);
+                            renderWeeklyActions();
+                        }
+                    });
+                });
+            } else {
+                // Обновляем только значения без перерисовки
+                weeklyActions.forEach((action, idx) => {
+                    const actionDiv = container.children[idx];
+                    if (actionDiv) {
+                        const countSpan = actionDiv.querySelector('.count-badge');
+                        const pointsSpan = actionDiv.querySelector('.points-badge');
+                        if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${action.count || 1}`;
+                        if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(action)}`;
                     }
                 });
-            });
+            }
         }
 
-        function showAlert(message, type) {
-            const container = document.getElementById('alertContainer');
+        function showAlert(containerId, message, type) {
+            const container = document.getElementById(containerId);
             const alert = document.createElement('div');
             alert.className = `alert ${type}`;
             alert.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${message}`;
@@ -763,118 +928,136 @@
             setTimeout(() => alert.remove(), 5000);
         }
 
-        async function sendToDiscord(content) {
-            if (!WEBHOOK_URL) throw new Error('Webhook не настроен');
-            const response = await fetch(WEBHOOK_URL, {
+        async function sendToDiscord(webhookUrl, content, username = 'Aetheris HR') {
+            const response = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: 'HR Отчёт', content })
+                body: JSON.stringify({ username, content })
             });
             if (!response.ok) throw new Error(`Ошибка HTTP ${response.status}`);
             return true;
         }
 
-        function formatReport() {
-            const nickname = document.getElementById('nickname').value.trim() || 'Не указан';
-            const rank = document.getElementById('rank').value || 'Не выбран';
-            const start = document.getElementById('dateStart').value;
-            const end = document.getElementById('dateEnd').value;
-            let period = '';
-            if (start && end) period = `${formatDate(start)} – ${formatDate(end)}`;
-            else period = 'Не указан';
+        function formatWeeklyReport() {
+            const nickname = document.getElementById('weeklyNickname').value.trim() || 'Не указан';
+            const rank = document.getElementById('weeklyRank').value || 'Не выбран';
+            const start = document.getElementById('weeklyDateStart').value;
+            const end = document.getElementById('weeklyDateEnd').value;
+            let period = (start && end) ? `${formatDate(start)} – ${formatDate(end)}` : 'Не указан';
             
             let actionsText = '';
             let totalPoints = 0;
-            
-            actions.forEach((action, idx) => {
+            weeklyActions.forEach((action, idx) => {
                 const points = calculatePoints(action);
                 totalPoints += points;
                 actionsText += `\n**${idx + 1}. ${action.type || 'Не выбран'}**`;
                 actionsText += `\n   📊 Кол-во: ${action.count || 1} | 🎯 Баллы: ${points}`;
-                if (action.proofs) actionsText += `\n   📎 Доказательства: ${action.proofs}`;
-                else actionsText += `\n   ⚠️ Доказательства не приложены`;
-                actionsText += `\n`;
+                actionsText += `\n   📎 Доказательства: ${action.proofs || 'Не приложены'}\n`;
             });
+            if (weeklyActions.length === 0) actionsText = '\nНет действий с доказательствами';
             
-            if (actions.length === 0) actionsText = '\nНет действий с доказательствами';
-            
-            return `**📋 ЕЖЕНЕДЕЛЬНЫЙ ОТЧЁТ**
-
-**👤 Игровой никнейм:** ${nickname}
-**🎖️ Ранг:** ${rank}
-**📅 Период:** ${period}
-
-**📊 ДЕЙСТВИЯ:**
-${actionsText}
-
-**🏆 ИТОГО БАЛЛОВ:** ${totalPoints}
-
-_Отправлено через Aetheris HR_`;
+            return `**📋 ЕЖЕНЕДЕЛЬНЫЙ ОТЧЁТ**\n\n**👤 Игровой никнейм:** ${nickname}\n**🎖️ Ранг:** ${rank}\n**📅 Период:** ${period}\n\n**📊 ДЕЙСТВИЯ:**${actionsText}\n\n**🏆 ИТОГО БАЛЛОВ:** ${totalPoints}`;
         }
 
-        // Добавление нового действия
-        document.getElementById('addActionBtn').addEventListener('click', () => {
-            actions.push({
-                type: '',
-                basePoints: 0,
-                count: 1,
-                proofs: ''
-            });
-            renderActions();
-            // Плавный скролл к новому действию
-            setTimeout(() => {
-                const lastAction = document.querySelector('.action-card:last-child');
-                if (lastAction) {
-                    lastAction.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    lastAction.style.borderColor = 'var(--accent)';
-                    setTimeout(() => {
-                        lastAction.style.borderColor = '';
-                    }, 1000);
-                }
-            }, 100);
-        });
+        function formatPromotionReport() {
+            return `**⬆️ ЗАПРОС НА ПОВЫШЕНИЕ**\n\n**👤 ФИО:** ${document.getElementById('promotionName').value.trim() || 'Не указан'}\n**💼 Текущая должность:** ${document.getElementById('currentPosition').value.trim() || 'Не указана'}\n**🎯 Желаемая должность:** ${document.getElementById('desiredPosition').value.trim() || 'Не указана'}\n**💰 Ожидания:** ${document.getElementById('expectedGrade').value.trim() || 'Не указано'}\n\n**🏆 ДОСТИЖЕНИЯ:**\n${document.getElementById('achievements').value.trim() || 'Не указаны'}\n\n**💡 ОБОСНОВАНИЕ:**\n${document.getElementById('motivation').value.trim() || 'Не указано'}`;
+        }
 
-        // Отправка отчёта
-        document.getElementById('submitBtn').addEventListener('click', async () => {
-            const nickname = document.getElementById('nickname').value.trim();
-            if (!nickname) {
-                showAlert('Введите игровой никнейм', 'error');
-                return;
-            }
-            
-            const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
-            
-            try {
-                const content = formatReport();
-                await sendToDiscord(content);
-                showAlert('✅ Отчёт успешно отправлен в Discord!', 'success');
-                
-                // Очистка формы
-                document.getElementById('nickname').value = '';
-                document.getElementById('rank').value = '';
-                actions = [];
-                renderActions();
-                setDefaultDates();
-            } catch (err) {
-                showAlert(`❌ Ошибка: ${err.message}`, 'error');
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fab fa-discord"></i> ОТПРАВИТЬ ОТЧЁТ';
-            }
-        });
+        function formatExamReport() {
+            return `**📝 ЗАПИСЬ НА ЭКЗАМЕН**\n\n**👤 ФИО:** ${document.getElementById('examName').value.trim() || 'Не указан'}\n**📧 Email:** ${document.getElementById('examEmail').value.trim() || 'Не указан'}\n**📚 Тип экзамена:** ${document.getElementById('examType').value || 'Не выбран'}\n**📅 Желаемая дата:** ${document.getElementById('examDate').value ? formatDate(document.getElementById('examDate').value) : 'Не указана'}\n**🏷️ Направление:** ${document.getElementById('examTopic').value.trim() || 'Не указано'}\n**💬 Комментарий:** ${document.getElementById('examComment').value.trim() || '—'}`;
+        }
 
-        function setDefaultDates() {
+        function setDefaultWeeklyDates() {
             const today = new Date();
             const monday = new Date(today);
             monday.setDate(today.getDate() - (today.getDay() === 0 ? 6 : today.getDay() - 1));
             const sunday = new Date(monday);
             sunday.setDate(monday.getDate() + 6);
-            document.getElementById('dateStart').value = monday.toISOString().split('T')[0];
-            document.getElementById('dateEnd').value = sunday.toISOString().split('T')[0];
-            updatePeriodInfo();
+            document.getElementById('weeklyDateStart').value = monday.toISOString().split('T')[0];
+            document.getElementById('weeklyDateEnd').value = sunday.toISOString().split('T')[0];
+            updateWeeklyPeriodInfo();
         }
+
+        // Навигация
+        function showHome() {
+            document.getElementById('homePage').style.display = 'flex';
+            document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
+        }
+
+        function showFormPage(pageId) {
+            document.getElementById('homePage').style.display = 'none';
+            document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
+            document.getElementById(pageId).style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Обработчики
+        document.getElementById('weeklyAddActionBtn').addEventListener('click', () => {
+            weeklyActions.push({ type: '', basePoints: 0, count: 1, proofs: '' });
+            renderWeeklyActions();
+        });
+
+        document.getElementById('weeklySubmitBtn').addEventListener('click', async () => {
+            if (!document.getElementById('weeklyNickname').value.trim()) {
+                showAlert('weeklyAlert', 'Введите игровой никнейм', 'error');
+                return;
+            }
+            const btn = document.getElementById('weeklySubmitBtn');
+            btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
+            try {
+                await sendToDiscord(WEBHOOKS.weekly, formatWeeklyReport(), 'Еженедельный отчёт');
+                showAlert('weeklyAlert', '✅ Отчёт отправлен в Discord!', 'success');
+                document.getElementById('weeklyNickname').value = '';
+                document.getElementById('weeklyRank').value = '';
+                weeklyActions = [];
+                renderWeeklyActions();
+                setDefaultWeeklyDates();
+            } catch (err) { showAlert('weeklyAlert', `❌ Ошибка: ${err.message}`, 'error'); }
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> ОТПРАВИТЬ ОТЧЁТ'; }
+        });
+
+        document.getElementById('promotionSubmitBtn').addEventListener('click', async () => {
+            if (!document.getElementById('promotionName').value.trim()) { showAlert('promotionAlert', 'Введите ФИО', 'error'); return; }
+            const btn = document.getElementById('promotionSubmitBtn');
+            btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
+            try {
+                await sendToDiscord(WEBHOOKS.promotion, formatPromotionReport(), 'Запрос на повышение');
+                showAlert('promotionAlert', '✅ Запрос отправлен!', 'success');
+                document.getElementById('promotionName').value = '';
+                document.getElementById('currentPosition').value = '';
+                document.getElementById('desiredPosition').value = '';
+                document.getElementById('expectedGrade').value = '';
+                document.getElementById('achievements').value = '';
+                document.getElementById('motivation').value = '';
+            } catch (err) { showAlert('promotionAlert', `❌ Ошибка: ${err.message}`, 'error'); }
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> Отправить запрос'; }
+        });
+
+        document.getElementById('examSubmitBtn').addEventListener('click', async () => {
+            if (!document.getElementById('examName').value.trim()) { showAlert('examAlert', 'Введите ФИО', 'error'); return; }
+            const btn = document.getElementById('examSubmitBtn');
+            btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
+            try {
+                await sendToDiscord(WEBHOOKS.exam, formatExamReport(), 'Запись на экзамен');
+                showAlert('examAlert', '✅ Заявка отправлена!', 'success');
+                document.getElementById('examName').value = '';
+                document.getElementById('examEmail').value = '';
+                document.getElementById('examType').value = '';
+                document.getElementById('examDate').value = '';
+                document.getElementById('examTopic').value = '';
+                document.getElementById('examComment').value = '';
+            } catch (err) { showAlert('examAlert', `❌ Ошибка: ${err.message}`, 'error'); }
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> Записаться на экзамен'; }
+        });
+
+        document.querySelectorAll('.action-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const page = card.dataset.page;
+                if (page === 'weekly') showFormPage('weeklyPage');
+                else if (page === 'promotion') showFormPage('promotionPage');
+                else if (page === 'exam') showFormPage('examPage');
+            });
+        });
 
         // Тема
         function initTheme() {
@@ -885,29 +1068,25 @@ _Отправлено через Aetheris HR_`;
                 document.querySelector('#themeSwitch span').innerText = 'Тёмная тема';
             }
         }
-
         function toggleTheme() {
             document.body.classList.toggle('light');
             const isLight = document.body.classList.contains('light');
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
             const icon = document.querySelector('#themeSwitch i');
             const text = document.querySelector('#themeSwitch span');
-            if (isLight) {
-                icon.className = 'fas fa-moon';
-                text.innerText = 'Тёмная тема';
-            } else {
-                icon.className = 'fas fa-sun';
-                text.innerText = 'Светлая тема';
-            }
+            if (isLight) { icon.className = 'fas fa-moon'; text.innerText = 'Тёмная тема'; }
+            else { icon.className = 'fas fa-sun'; text.innerText = 'Светлая тема'; }
         }
 
         document.getElementById('themeSwitch').addEventListener('click', toggleTheme);
-        document.getElementById('dateStart').addEventListener('change', updatePeriodInfo);
-        document.getElementById('dateEnd').addEventListener('change', updatePeriodInfo);
+        document.getElementById('weeklyDateStart').addEventListener('change', updateWeeklyPeriodInfo);
+        document.getElementById('weeklyDateEnd').addEventListener('change', updateWeeklyPeriodInfo);
+        document.getElementById('examDate').min = new Date().toISOString().split('T')[0];
         
         initTheme();
-        setDefaultDates();
-        renderActions();
+        showHome();
+        setDefaultWeeklyDates();
+        renderWeeklyActions();
     </script>
 </body>
 </html>
