@@ -1,6 +1,6 @@
 const CONFIG = {
   DISCORD_WEBHOOK: 'https://discord.com/api/webhooks/1501267299422699521/MKan0SBG-vznscN4Jt1e8cxBdc3p8LT0uFuroNzll2ITBJgCQKpAHrfWyQ4j51SsPVlk',
-  SPREADSHEET_ID: '1o84Ae3W9-mEWHje378Vb7P70nq6aw-jxJ1hyalh-f4Y', // чтобы зайти в таблицу
+  SPREADSHEET_ID: '1o84Ae3W9-mEWHje378Vb7P70nq6aw-jxJ1hyalh-f4Y',
   SHEET_NAME: 'Лист1',
   MAX_ACTIONS_PER_REQUEST: 30,
   MAX_ACTIONS_TOTAL: 100,
@@ -8,30 +8,30 @@ const CONFIG = {
 };
 
 const POINTS_SYSTEM = {
-  'shooting_training_small': { name: '🔫 Тренировка по стрельбе (до 5 чел.)', points: 5, category: 'withEvidence' },
-  'shooting_training_large': { name: '🔫 Тренировка по стрельбе (от 6 чел.)', points: 10, category: 'withEvidence' },
-  'black_market_defense': { name: '🏴 Участие в отбитии черного рынка', points: 10, category: 'withEvidence' },
-  'gs_defense': { name: '🎖️ Участие в отбитии ГШ', points: 8, category: 'withEvidence' },
-  'racket_defense': { name: '💰 Отбитие рэкета/сдача денег с рэкета', points: 5, category: 'withEvidence' },
-  'raid': { name: '⚔️ Рейд', points: 10, category: 'withEvidence' },
-  'butterfly_surrender': { name: '🦋 Сдача бабочки', points: 4, category: 'withEvidence' },
-  'ft_fz_defense': { name: '🛡️ Отбитие ФТ/ФЗ', points: 10, category: 'withEvidence' },
-  'fishing_license_check': { name: '🎣 Проверка лицензий на рыбалку', points: 1, category: 'withEvidence' },
-  'med_proc_check': { name: '🏥 Прохождение мед/прок проверки', points: 10, category: 'withEvidence' },
-  'fish_seizure': { name: '🐟 Изъятие рыбы (за 1 кг)', points: 1, category: 'withEvidence' },
-  'mp_gmp_participation': { name: '🎭 Участие в МП/ГМП', points: 15, category: 'withEvidence' },
-  'bank_robbery_cordon': { name: '🚧 Участие в оцеплении при ограблении банка/Пуша ПД/СД/ФИБ/Мэрии', points: 10, category: 'withEvidence' },
-  'army_training': { name: '💪 Участие в тренировке армии', points: 10, category: 'withEvidence' },
-  'training': { name: '🏋️ Участие в тренировке', points: 5, category: 'withEvidence' },
-  'trainee_training': { name: '👨‍🏫 Участие в обучении стажеров', points: 8, category: 'withEvidence' },
-  'supply_ng_ems': { name: '📦 Поставка NG/EMS', points: 10, category: 'withEvidence' },
-  'drop': { name: '💎 Дроп', points: 5, category: 'withEvidence' },
-  'train_anal_defense': { name: '🚂 Участие в отбитии Поезда/Анала', points: 8, category: 'withEvidence' },
-  'arrest': { name: '👮 Арест', points: 5, category: 'withEvidence' },
-  'license_seizure': { name: '📜 Изъятие лицензий на оружие/охоту/рыбалку/вождение', points: 2, category: 'withEvidence' },
-  'fine_issuance': { name: '💸 Штраф', points: 2, category: 'withEvidence' },
-  'carjack_surrender': { name: '🚗 Сдача угонки', points: 6, category: 'withEvidence' },
-  'car_registration': { name: '📝 Регистрация авто', points: 2, category: 'withEvidence' }
+  'shooting_training_small': { name: '🔫 Тренировка по стрельбе (до 5 чел.)', points: 5, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'shooting_training_large': { name: '🔫 Тренировка по стрельбе (от 6 чел.)', points: 10, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'black_market_defense': { name: '🏴 Участие в отбитии черного рынка', points: 10, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'gs_defense': { name: '🎖️ Участие в отбитии ГШ', points: 8, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'racket_defense': { name: '💰 Отбитие рэкета/сдача денег с рэкета', points: 5, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'raid': { name: '⚔️ Рейд', points: 10, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'butterfly_surrender': { name: '🦋 Сдача бабочки', points: 4, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'ft_fz_defense': { name: '🛡️ Отбитие ФТ/ФЗ', points: 10, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'fishing_license_check': { name: '🎣 Проверка лицензий на рыбалку', points: 1, category: 'withEvidence', requiresQuantity: true, maxQuantity: 50, unit: 'раз' },
+  'med_proc_check': { name: '🏥 Прохождение мед/прок проверки', points: 10, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'fish_seizure': { name: '🐟 Изъятие рыбы', points: 1, category: 'withEvidence', requiresQuantity: true, maxQuantity: 100, unit: 'кг' },
+  'mp_gmp_participation': { name: '🎭 Участие в МП/ГМП', points: 15, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'bank_robbery_cordon': { name: '🚧 Участие в оцеплении при ограблении', points: 10, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'army_training': { name: '💪 Участие в тренировке армии', points: 10, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'training': { name: '🏋️ Участие в тренировке', points: 5, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'trainee_training': { name: '👨‍🏫 Участие в обучении стажеров', points: 8, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'supply_ng_ems': { name: '📦 Поставка NG/EMS', points: 10, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'drop': { name: '💎 Дроп', points: 5, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'train_anal_defense': { name: '🚂 Участие в отбитии Поезда/Анала', points: 8, category: 'withEvidence', requiresQuantity: false, maxQuantity: 1 },
+  'arrest': { name: '👮 Арест', points: 5, category: 'withEvidence', requiresQuantity: true, maxQuantity: 50, unit: 'раз' },
+  'license_seizure': { name: '📜 Изъятие лицензий', points: 2, category: 'withEvidence', requiresQuantity: true, maxQuantity: 50, unit: 'шт' },
+  'fine_issuance': { name: '💸 Штраф', points: 2, category: 'withEvidence', requiresQuantity: true, maxQuantity: 100, unit: 'раз' },
+  'carjack_surrender': { name: '🚗 Сдача угонки', points: 6, category: 'withEvidence', requiresQuantity: true, maxQuantity: 10, unit: 'раз' },
+  'car_registration': { name: '📝 Регистрация авто', points: 2, category: 'withEvidence', requiresQuantity: true, maxQuantity: 50, unit: 'раз' }
 };
 
 const RANKS = {
@@ -84,7 +84,13 @@ function processForm(data) {
         if (a.type === 'fish_seizure') pts = a.quantity;
         totalPoints += pts;
 
-        const desc = a.quantity > 1 ? `${a.name} (×${a.quantity})` : a.name;
+        let desc = a.name;
+        if (a.quantity > 1 && a.unit) {
+          desc = `${a.name} (×${a.quantity} ${a.unit})`;
+        } else if (a.quantity > 1) {
+          desc = `${a.name} (×${a.quantity})`;
+        }
+        
         let evidence = a.evidence?.trim() || '';
         if (a.category === 'withoutEvidence') evidence = '✅ Без доказательств';
         else if (!evidence) evidence = '⚠️ Доказательства не предоставлены';
@@ -144,7 +150,13 @@ function sendToDiscord(data) {
       chunk.forEach((a, idx) => {
         let pts = a.points || a.basePoints * a.quantity;
         if (a.type === 'fish_seizure') pts = a.quantity;
-        desc += `**${i+idx+1}. ${a.name}**\n${a.quantity>1 ? `×${a.quantity} → ` : ''}${pts} баллов\n`;
+        let actionText = a.name;
+        if (a.quantity > 1 && a.unit) {
+          actionText = `${a.name} ×${a.quantity} ${a.unit}`;
+        } else if (a.quantity > 1) {
+          actionText = `${a.name} ×${a.quantity}`;
+        }
+        desc += `**${i+idx+1}. ${actionText}** → ${pts} баллов\n`;
         const links = a.evidence.split('\n').filter(l => l.trim()).slice(0, 3);
         if (links.length) desc += `📎 ${links.join(', ')}\n`;
         if (idx < chunk.length-1) desc += '━━━━━━━━\n';
@@ -159,7 +171,13 @@ function sendToDiscord(data) {
       chunk.forEach((a, idx) => {
         let pts = a.points || a.basePoints * a.quantity;
         if (a.type === 'fish_seizure') pts = a.quantity;
-        desc += `**${i+idx+1}. ${a.name}**\n${a.quantity>1 ? `×${a.quantity} → ` : ''}${pts} баллов\n`;
+        let actionText = a.name;
+        if (a.quantity > 1 && a.unit) {
+          actionText = `${a.name} ×${a.quantity} ${a.unit}`;
+        } else if (a.quantity > 1) {
+          actionText = `${a.name} ×${a.quantity}`;
+        }
+        desc += `**${i+idx+1}. ${actionText}** → ${pts} баллов\n`;
         if (a.category === 'withoutEvidence') desc += '✅ без док-в\n';
         else desc += '⚠️ док-ва не приложены\n';
         if (idx < chunk.length-1) desc += '━━━━━━━━\n';
@@ -170,7 +188,7 @@ function sendToDiscord(data) {
     const payload = {
       username: 'Отчет SWAT',
       avatar_url: 'https://i.ytimg.com/vi/-73syMbr0oA/maxresdefault.jpg',
-      content: '<@&718381675972657193> <@&718381766901104670> <@&727914806233006140>', // роли
+      content: '<@&718381675972657193> <@&718381766901104670> <@&727914806233006140>',
       embeds: embeds.slice(0, 10)
     };
 
@@ -200,8 +218,8 @@ function testSystem() {
     endDate: fmt(today),
     periodDays: 7,
     actions: [
-      { type: 'shooting_training_small', name: '🔫 Тренировка (до 5)', quantity: 2, basePoints: 5, points: 10, evidence: 'https://discord.com/...', category: 'withEvidence' },
-      { type: 'arrest', name: '👮 Арест', quantity: 3, basePoints: 5, points: 15, evidence: '', category: 'withoutEvidence' }
+      { type: 'shooting_training_small', name: '🔫 Тренировка (до 5)', quantity: 1, basePoints: 5, points: 5, evidence: 'https://discord.com/...', category: 'withEvidence', unit: null },
+      { type: 'arrest', name: '👮 Арест', quantity: 3, basePoints: 5, points: 15, evidence: '', category: 'withoutEvidence', unit: 'раз' }
     ]
   });
 }
