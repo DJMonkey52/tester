@@ -2,215 +2,269 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR-портал | Отчёты в Discord</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Aetheris HR | Discord Reports</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-        }
-
-        /* Светлая тема (по умолчанию) */
-        :root {
-            --bg-gradient-start: #5865F2;
-            --bg-gradient-end: #404EED;
-            --panel-bg: #ffffff;
-            --text-primary: #333333;
-            --text-secondary: #666666;
-            --text-light: #999999;
-            --border-color: #e0e0e0;
-            --card-bg: #f8f9fa;
-            --card-border: #5865F2;
-            --input-bg: #ffffff;
-            --input-border: #e0e0e0;
-            --input-focus: #5865F2;
-            --button-bg: #5865F2;
-            --button-hover: #4752C4;
-            --danger-bg: #dc3545;
-            --success-bg: #d4edda;
-            --success-text: #155724;
-            --error-bg: #f8d7da;
-            --error-text: #721c24;
-            --webhook-settings-bg: #f0f2f5;
-            --tab-inactive: rgba(255,255,255,0.2);
-            --tab-active: #ffffff;
-            --tab-active-text: #404EED;
-            --header-text: #ffffff;
-        }
-
-        /* Тёмная тема */
-        body.dark {
-            --bg-gradient-start: #1a1a2e;
-            --bg-gradient-end: #16213e;
-            --panel-bg: #2d2d44;
-            --text-primary: #e0e0e0;
-            --text-secondary: #b0b0b0;
-            --text-light: #808080;
-            --border-color: #3d3d5a;
-            --card-bg: #252540;
-            --card-border: #5865F2;
-            --input-bg: #1e1e2f;
-            --input-border: #3d3d5a;
-            --input-focus: #7984f5;
-            --button-bg: #5865F2;
-            --button-hover: #7984f5;
-            --danger-bg: #c82333;
-            --success-bg: #1e3a2f;
-            --success-text: #a5d6a5;
-            --error-bg: #3d1a1a;
-            --error-text: #ff9999;
-            --webhook-settings-bg: #1e1e30;
-            --tab-inactive: rgba(255,255,255,0.1);
-            --tab-active: #2d2d44;
-            --tab-active-text: #7984f5;
-            --header-text: #e0e0e0;
         }
 
         body {
-            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 20% 30%, rgba(88, 101, 242, 0.15), transparent 70%),
+                        radial-gradient(circle at 80% 70%, rgba(114, 46, 209, 0.12), transparent 60%),
+                        linear-gradient(135deg, #0B0C10 0%, #1A1B2E 50%, #0F0F1A 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 24px 20px;
+            transition: background 0.3s ease;
+        }
+
+        /* светлая тема */
+        body.light {
+            background: radial-gradient(circle at 20% 30%, rgba(88, 101, 242, 0.08), transparent 70%),
+                        radial-gradient(circle at 80% 70%, rgba(114, 46, 209, 0.05), transparent 60%),
+                        linear-gradient(135deg, #f5f7ff 0%, #eef2ff 100%);
+        }
+
+        /* CSS переменные темы */
+        body {
+            --glass-bg: rgba(20, 22, 36, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --panel-bg: rgba(18, 20, 32, 0.85);
+            --text-primary: #F0F3FA;
+            --text-secondary: #A0A8C3;
+            --text-muted: #6C728E;
+            --accent: #6366F1;
+            --accent-glow: #818cf8;
+            --accent-dark: #4f46e5;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --card-bg: rgba(30, 33, 48, 0.7);
+            --border-light: rgba(255, 255, 255, 0.06);
+            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 20px 35px -10px rgba(0, 0, 0, 0.4);
+            --input-bg: rgba(15, 17, 26, 0.8);
+        }
+
+        body.light {
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(0, 0, 0, 0.05);
+            --panel-bg: rgba(255, 255, 255, 0.92);
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --text-muted: #9ca3af;
+            --accent: #5865F2;
+            --accent-glow: #7984f5;
+            --accent-dark: #4752C4;
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --border-light: rgba(0, 0, 0, 0.08);
+            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
+            --input-bg: rgba(255, 255, 255, 0.9);
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            backdrop-filter: blur(2px);
         }
 
-        /* Header */
+        /* header */
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            color: var(--header-text);
+            margin-bottom: 40px;
+            position: relative;
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-size: 3.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FFFFFF 0%, #A5B4FC 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        body.light .header h1 {
+            background: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
         }
 
-        /* Theme Toggle */
+        .sub {
+            color: var(--text-secondary);
+            margin-top: 8px;
+            font-size: 1.05rem;
+        }
+
+        /* theme toggle */
         .theme-toggle {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 24px;
+            right: 28px;
             z-index: 1000;
         }
 
-        .theme-switch {
-            background: var(--panel-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 50px;
-            padding: 8px 16px;
-            cursor: pointer;
+        .glass-switch {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 60px;
+            padding: 8px 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            font-weight: 600;
+            gap: 12px;
+            cursor: pointer;
+            font-weight: 500;
             color: var(--text-primary);
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: var(--shadow-sm);
         }
 
-        .theme-switch:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        .glass-switch:hover {
+            transform: scale(1.03);
+            border-color: var(--accent);
+            gap: 14px;
         }
 
-        .theme-icon {
-            font-size: 1.2rem;
-        }
-
-        .webhook-status {
-            background: rgba(0,0,0,0.2);
-            border-radius: 10px;
-            padding: 10px;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            display: inline-block;
-        }
-
+        /* tabs */
         .tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 12px;
+            margin-bottom: 32px;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .tab-btn {
-            background: var(--tab-inactive);
-            border: none;
-            padding: 12px 24px;
-            font-size: 1rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: var(--header-text);
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 12px 28px;
+            font-size: 0.95rem;
             font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn i {
+            font-size: 1.1rem;
         }
 
         .tab-btn.active {
-            background: var(--tab-active);
-            color: var(--tab-active-text);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
         }
 
         .tab-btn:hover:not(.active) {
-            background: rgba(255,255,255,0.3);
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--text-primary);
+            border-color: var(--accent);
+            transform: translateY(-2px);
         }
 
+        /* panels */
         .tab-panel {
             display: none;
-            background: var(--panel-bg);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            animation: fadeIn 0.3s;
+            animation: fadeUp 0.4s ease;
         }
 
         .tab-panel.active-panel {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .glass-card {
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            border-radius: 36px;
+            padding: 32px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-md);
+            transition: all 0.2s;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            border-left: 3px solid var(--accent);
+            padding-left: 14px;
+        }
+
+        /* form */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .full-width {
+            grid-column: span 2;
         }
 
         label {
-            display: block;
-            margin-bottom: 8px;
             font-weight: 600;
-            color: var(--text-primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--accent-glow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         input, select, textarea {
-            width: 100%;
-            padding: 12px;
             background: var(--input-bg);
-            border: 2px solid var(--input-border);
-            border-radius: 10px;
-            font-size: 1rem;
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 14px 18px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
             color: var(--text-primary);
-            transition: border 0.3s;
+            transition: all 0.2s;
+            outline: none;
         }
 
         input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--input-focus);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
         }
 
         textarea {
@@ -219,608 +273,452 @@
         }
 
         button {
-            background: var(--button-bg);
-            color: white;
+            background: linear-gradient(105deg, var(--accent), var(--accent-dark));
             border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-size: 1rem;
+            padding: 14px 32px;
+            border-radius: 40px;
             font-weight: 600;
+            font-size: 0.95rem;
+            color: white;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         button:hover {
-            background: var(--button-hover);
-            transform: translateY(-2px);
-        }
-
-        button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
+            transform: translateY(-3px);
+            filter: brightness(1.05);
+            box-shadow: 0 12px 22px -8px rgba(99, 102, 241, 0.5);
         }
 
         .report-list {
-            margin-top: 30px;
-            border-top: 2px solid var(--border-color);
-            padding-top: 20px;
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        .report-item {
+        .report-card {
             background: var(--card-bg);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--card-border);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 20px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.2s;
         }
 
-        .report-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            color: var(--card-border);
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
         }
 
-        .report-meta {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-        }
-
-        .report-content {
-            color: var(--text-primary);
-            line-height: 1.4;
-        }
-
-        .status-badge {
-            display: inline-block;
+        .badge {
             padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 700;
         }
 
-        .status-sent {
-            background: var(--success-bg);
-            color: var(--success-text);
+        .badge-sent {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
         }
 
-        .status-error {
-            background: var(--error-bg);
-            color: var(--error-text);
+        .badge-error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
         }
 
         .webhook-settings {
-            background: var(--webhook-settings-bg);
-            padding: 20px;
-            border-radius: 15px;
+            background: var(--card-bg);
+            border-radius: 28px;
+            padding: 24px;
             margin-bottom: 20px;
+        }
+
+        .flex-btns {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+            flex-wrap: wrap;
         }
 
         .alert {
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 14px 20px;
+            border-radius: 28px;
+            margin-bottom: 24px;
+            font-weight: 500;
             display: none;
+            animation: slideIn 0.2s;
         }
 
         .alert.success {
-            background: var(--success-bg);
-            color: var(--success-text);
-            display: block;
+            background: rgba(16, 185, 129, 0.18);
+            border-left: 4px solid #10b981;
+            color: #34d399;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .alert.error {
-            background: var(--error-bg);
-            color: var(--error-text);
-            display: block;
+            background: rgba(239, 68, 68, 0.15);
+            border-left: 4px solid #ef4444;
+            color: #fca5a5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-12px);}
+            to { opacity: 1; transform: translateX(0);}
         }
 
-        @media (max-width: 768px) {
-            .row {
+        .webhook-status-badge {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 60px;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        hr {
+            margin: 20px 0;
+            border-color: var(--border-light);
+        }
+
+        @media (max-width: 760px) {
+            .form-grid {
                 grid-template-columns: 1fr;
+                gap: 16px;
             }
-            .tab-panel {
+            .full-width {
+                grid-column: span 1;
+            }
+            .glass-card {
                 padding: 20px;
             }
-            .theme-toggle {
-                top: 10px;
-                right: 10px;
+            .header h1 {
+                font-size: 2.2rem;
             }
-            .theme-switch {
-                padding: 6px 12px;
-                font-size: 0.9rem;
+            .theme-toggle {
+                top: 16px;
+                right: 16px;
+            }
+            .glass-switch {
+                padding: 6px 14px;
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="theme-toggle">
-        <div class="theme-switch" id="themeSwitch">
-            <span class="theme-icon" id="themeIcon">🌞</span>
+        <div class="glass-switch" id="themeSwitch">
+            <i class="fas fa-sun" id="themeIcon"></i>
             <span id="themeText">Светлая тема</span>
         </div>
     </div>
 
     <div class="container">
         <div class="header">
-            <h1>📊 HR-портал</h1>
-            <p>Система подачи отчётов с отправкой в Discord</p>
-            <div class="webhook-status">
-                🔗 Webhook: <span id="webhookStatus">не настроен</span>
+            <h1><i class="fas fa-feather-alt"></i> Aetheris HR</h1>
+            <p class="sub">отчёты с душой • Discord integration</p>
+            <div class="webhook-status-badge" style="margin-top: 16px;">
+                <i class="fab fa-discord"></i> Webhook: <span id="webhookStatus">не настроен</span>
             </div>
         </div>
 
         <div class="tabs">
-            <button class="tab-btn active" data-tab="weekly">📝 Еженедельный отчёт</button>
-            <button class="tab-btn" data-tab="promotion">⬆️ Запрос на повышение</button>
-            <button class="tab-btn" data-tab="history">📜 История отчётов</button>
-            <button class="tab-btn" data-tab="settings">⚙️ Настройки Discord</button>
+            <button class="tab-btn active" data-tab="weekly"><i class="fas fa-calendar-week"></i> Еженедельный отчёт</button>
+            <button class="tab-btn" data-tab="promotion"><i class="fas fa-arrow-up"></i> Запрос на повышение</button>
+            <button class="tab-btn" data-tab="history"><i class="fas fa-clock"></i> История</button>
+            <button class="tab-btn" data-tab="settings"><i class="fas fa-sliders-h"></i> Discord Webhook</button>
         </div>
 
-        <!-- Еженедельный отчёт -->
+        <!-- Еженедельный -->
         <div id="weekly" class="tab-panel active-panel">
-            <h2>📋 Еженедельный отчёт</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 20px;">Заполните форму о проделанной работе за неделю</p>
-            
-            <form id="weeklyForm">
-                <div class="row">
-                    <div class="form-group">
-                        <label>👤 Ваше имя</label>
-                        <input type="text" id="weeklyName" required placeholder="Иванов Иван">
+            <div class="glass-card">
+                <h2><i class="fas fa-pen-fancy"></i> Еженедельная рефлексия</h2>
+                <div class="section-desc">Опишите ключевые результаты и планы</div>
+                <form id="weeklyForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label><i class="fas fa-user-astronaut"></i> Имя сотрудника</label>
+                            <input type="text" id="weeklyName" placeholder="Алексей Смирнов" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-alt"></i> Отчётная неделя</label>
+                            <input type="week" id="weeklyWeek" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label><i class="fas fa-check-circle"></i> Что сделано?</label>
+                            <textarea id="weeklyDone" placeholder="• Закончен спринт №12&#10;• Настроен мониторинг&#10;• 3 код-ревью" required></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label><i class="fas fa-rocket"></i> Планы на следующую неделю</label>
+                            <textarea id="weeklyPlan" placeholder="• Рефакторинг модуля&#10;• Внедрение аналитики" required></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label><i class="fas fa-exclamation-triangle"></i> Блокеры / сложности</label>
+                            <textarea id="weeklyProblems" placeholder="Опишите проблемы, если есть"></textarea>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>📅 Неделя</label>
-                        <input type="week" id="weeklyWeek" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>✅ Что сделано за неделю?</label>
-                    <textarea id="weeklyDone" required placeholder="• Завершил модуль авторизации&#10;• Провёл код-ревью&#10;• Написал документацию"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>🎯 Планы на следующую неделю</label>
-                    <textarea id="weeklyPlan" required placeholder="• Начать разработку API&#10;• Провести встречу с командой"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>⚠️ Проблемы и блокеры</label>
-                    <textarea id="weeklyProblems" placeholder="Опишите возникшие сложности (необязательно)"></textarea>
-                </div>
-                <button type="submit">🚀 Отправить в Discord</button>
-            </form>
+                    <button type="submit"><i class="fab fa-discord"></i> Отправить в Discord</button>
+                </form>
+            </div>
         </div>
 
-        <!-- Запрос на повышение -->
+        <!-- повышение -->
         <div id="promotion" class="tab-panel">
-            <h2>⬆️ Запрос на повышение</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 20px;">Заполните заявку для рассмотрения вашей кандидатуры</p>
-            
-            <form id="promotionForm">
-                <div class="row">
-                    <div class="form-group">
-                        <label>👤 Ваше имя</label>
-                        <input type="text" id="promotionName" required placeholder="Иванов Иван">
+            <div class="glass-card">
+                <h2><i class="fas fa-trophy"></i> Кейс на повышение</h2>
+                <div class="section-desc">Аргументированная заявка на грейд</div>
+                <form id="promotionForm">
+                    <div class="form-grid">
+                        <div class="form-group"><label><i class="fas fa-user"></i> ФИО</label><input type="text" id="promotionName" required></div>
+                        <div class="form-group"><label><i class="fas fa-briefcase"></i> Текущая роль</label><input type="text" id="currentPosition" required></div>
+                        <div class="form-group"><label><i class="fas fa-chart-line"></i> Желаемая должность</label><input type="text" id="desiredPosition" required></div>
+                        <div class="form-group"><label><i class="fas fa-coins"></i> Ожидания (грейд/зп)</label><input type="text" id="expectedGrade" placeholder="Middle / от 180k"></div>
+                        <div class="form-group full-width"><label><i class="fas fa-medal"></i> Достижения за 6 месяцев</label><textarea id="achievements" required></textarea></div>
+                        <div class="form-group full-width"><label><i class="fas fa-heart"></i> Почему вы?</label><textarea id="motivation" required></textarea></div>
                     </div>
-                    <div class="form-group">
-                        <label>💼 Текущая должность</label>
-                        <input type="text" id="currentPosition" required placeholder="Junior Developer">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>🎯 Желаемая должность</label>
-                    <input type="text" id="desiredPosition" required placeholder="Middle Developer">
-                </div>
-                <div class="form-group">
-                    <label>📊 Достижения за последние 6 месяцев</label>
-                    <textarea id="achievements" required placeholder="• Увеличил покрытие тестами на 30%&#10;• Внедрил CI/CD пайплайн&#10;• Наставил 2 джуниоров"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>💡 Почему вы заслуживаете повышение?</label>
-                    <textarea id="motivation" required placeholder="Опишите ваши компетенции, ответственность и вклад в проекты..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>📈 Ожидаемый грейд / зарплата</label>
-                    <input type="text" id="expectedGrade" placeholder="Middle / 150,000₽">
-                </div>
-                <button type="submit">💎 Отправить запрос в Discord</button>
-            </form>
+                    <button type="submit"><i class="fab fa-discord"></i> Отправить запрос</button>
+                </form>
+            </div>
         </div>
 
-        <!-- История -->
+        <!-- история -->
         <div id="history" class="tab-panel">
-            <h2>📜 История всех отчётов</h2>
-            <div id="historyList" class="report-list">
-                <p style="color: var(--text-light);">Загрузка...</p>
+            <div class="glass-card">
+                <h2><i class="fas fa-archive"></i> Архив отправлений</h2>
+                <div id="historyList" class="report-list">Загрузка...</div>
+                <button id="clearHistoryBtn" style="background: #2d2f42; margin-top: 20px;"><i class="fas fa-trash-alt"></i> Очистить историю</button>
             </div>
-            <button id="clearHistoryBtn" style="background: var(--danger-bg); margin-top: 20px;">🗑️ Очистить историю</button>
         </div>
 
-        <!-- Настройки -->
+        <!-- настройки -->
         <div id="settings" class="tab-panel">
-            <h2>⚙️ Настройки Discord Webhook</h2>
-            <div class="webhook-settings">
-                <div class="form-group">
-                    <label>🔗 Discord Webhook URL</label>
-                    <input type="url" id="webhookUrl" placeholder="https://discord.com/api/webhooks/...">
-                    <small style="color: var(--text-secondary);">Как создать webhook: Настройки сервера → Интеграции → Вебхуки → Создать</small>
+            <div class="glass-card">
+                <h2><i class="fab fa-discord"></i> Интеграция Discord</h2>
+                <div class="webhook-settings">
+                    <div class="form-group">
+                        <label><i class="fas fa-link"></i> Webhook URL</label>
+                        <input type="url" id="webhookUrl" placeholder="https://discord.com/api/webhooks/...">
+                        <small style="color: var(--text-muted); margin-top: 8px; display: block;">Создайте вебхук на сервере Discord → интеграции</small>
+                    </div>
+                    <div class="flex-btns">
+                        <button id="saveWebhookBtn"><i class="fas fa-save"></i> Сохранить</button>
+                        <button id="testWebhookBtn" style="background: #2c6e5c;"><i class="fas fa-vial"></i> Тест</button>
+                    </div>
                 </div>
-                <button id="saveWebhookBtn">💾 Сохранить Webhook</button>
-                <button id="testWebhookBtn" style="background: #23a55a; margin-left: 10px;">📡 Тестовое сообщение</button>
+                <div id="settingsMessage"></div>
             </div>
-            <div id="settingsMessage"></div>
         </div>
     </div>
 
     <script>
-        // Данные
         let reports = [];
-        let webhookUrl = '';
+        let webhookUrl = "";
 
-        // Тема
+        // тема
         function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark');
-                updateThemeUI('dark');
+            const saved = localStorage.getItem("theme_premium");
+            if (saved === "light") {
+                document.body.classList.add("light");
+                updateThemeUI("light");
             } else {
-                document.body.classList.remove('dark');
-                updateThemeUI('light');
+                document.body.classList.remove("light");
+                updateThemeUI("dark");
             }
         }
-
         function updateThemeUI(theme) {
-            const themeIcon = document.getElementById('themeIcon');
-            const themeText = document.getElementById('themeText');
-            if (theme === 'dark') {
-                themeIcon.textContent = '🌙';
-                themeText.textContent = 'Тёмная тема';
+            const icon = document.getElementById("themeIcon");
+            const textSpan = document.getElementById("themeText");
+            if (theme === "light") {
+                icon.className = "fas fa-moon";
+                textSpan.innerText = "Тёмная тема";
             } else {
-                themeIcon.textContent = '🌞';
-                themeText.textContent = 'Светлая тема';
+                icon.className = "fas fa-sun";
+                textSpan.innerText = "Светлая тема";
             }
         }
-
         function toggleTheme() {
-            if (document.body.classList.contains('dark')) {
-                document.body.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                updateThemeUI('light');
+            if (document.body.classList.contains("light")) {
+                document.body.classList.remove("light");
+                localStorage.setItem("theme_premium", "dark");
+                updateThemeUI("dark");
             } else {
-                document.body.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                updateThemeUI('dark');
+                document.body.classList.add("light");
+                localStorage.setItem("theme_premium", "light");
+                updateThemeUI("light");
             }
         }
 
-        // Загрузка данных из localStorage
-        function loadData() {
-            const savedReports = localStorage.getItem('hr_reports');
-            if (savedReports) {
-                reports = JSON.parse(savedReports);
-            }
-            
-            const savedWebhook = localStorage.getItem('discord_webhook');
-            if (savedWebhook) {
-                webhookUrl = savedWebhook;
-                document.getElementById('webhookUrl').value = webhookUrl;
-                updateWebhookStatus();
-            }
-            
-            renderHistory();
-        }
-
-        // Обновление статуса webhook
-        function updateWebhookStatus() {
-            const statusSpan = document.getElementById('webhookStatus');
-            if (webhookUrl && webhookUrl.startsWith('https://discord.com/api/webhooks/')) {
-                statusSpan.innerHTML = '✅ настроен и активен';
-                statusSpan.style.color = '#a5d6a5';
-            } else {
-                statusSpan.innerHTML = '⚠️ не настроен (перейдите в настройки)';
-                statusSpan.style.color = '#ffcc80';
-            }
-        }
-
-        // Отправка в Discord
-        async function sendToDiscord(content, username = 'HR Portal') {
-            if (!webhookUrl) {
-                throw new Error('Webhook не настроен. Перейдите в настройки и добавьте Discord Webhook URL.');
-            }
-            
-            const response = await fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: username,
-                    content: content,
-                    embeds: []
-                })
+        async function sendToDiscord(content, username = "Aetheris HR") {
+            if (!webhookUrl) throw new Error("Webhook не настроен");
+            const res = await fetch(webhookUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, content })
             });
-            
-            if (!response.ok) {
-                throw new Error(`Ошибка HTTP: ${response.status}`);
-            }
-            
+            if (!res.ok) throw new Error(`Ошибка ${res.status}`);
             return true;
         }
 
-        // Форматирование отчёта для Discord
-        function formatWeeklyReport(data) {
-            return `**📊 Еженедельный отчёт**
-**Сотрудник:** ${data.name}
-**Неделя:** ${data.week}
-
-**✅ Сделано:**
-${data.done}
-
-**🎯 Планы:**
-${data.plan}
-
-**⚠️ Проблемы:**
-${data.problems || 'Нет'}
-
-_Отправлено через HR-портал_`;
+        function formatWeekly(data) {
+            return `**📊 Еженедельный отчёт**\n**👤 ${data.name}** | неделя ${data.week}\n\n✅ **Сделано:**\n${data.done}\n\n🎯 **Планы:**\n${data.plan}\n\n⚠️ **Проблемы:**\n${data.problems || "—"}\n\n🔹 *Отчёт через Aetheris*`;
+        }
+        function formatPromotion(data) {
+            return `**⬆️ ЗАПРОС ПОВЫШЕНИЯ**\n👤 ${data.name} | ${data.currentPosition} → ${data.desiredPosition}\n💰 Ожидания: ${data.expectedGrade || "обсуждаемо"}\n\n🏆 **Достижения 6 мес:**\n${data.achievements}\n\n💡 **Обоснование:**\n${data.motivation}`;
         }
 
-        function formatPromotionReport(data) {
-            return `**⬆️ ЗАПРОС НА ПОВЫШЕНИЕ**
-**Сотрудник:** ${data.name}
-**Текущая должность:** ${data.currentPosition}
-**Желаемая должность:** ${data.desiredPosition}
-**Ожидания:** ${data.expectedGrade || 'Не указано'}
-
-**📈 Достижения (6 месяцев):**
-${data.achievements}
-
-**💡 Обоснование:**
-${data.motivation}
-
-_Требует рассмотрения руководством_`;
+        function showAlert(message, type, panelId = "weekly") {
+            const panel = document.getElementById(panelId);
+            const old = panel.querySelector(".alert");
+            if(old) old.remove();
+            const div = document.createElement("div");
+            div.className = `alert ${type}`;
+            div.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${message}`;
+            panel.querySelector(".glass-card").prepend(div);
+            setTimeout(() => div.remove(), 5000);
         }
 
-        // Показать уведомление
-        function showAlert(message, type, containerId = 'weekly') {
-            const panel = document.getElementById(containerId);
-            const existingAlert = panel.querySelector('.alert');
-            if (existingAlert) existingAlert.remove();
-            
-            const alert = document.createElement('div');
-            alert.className = `alert ${type}`;
-            alert.textContent = message;
-            panel.insertBefore(alert, panel.firstChild);
-            
-            setTimeout(() => {
-                if (alert) alert.remove();
-            }, 5000);
-        }
-
-        // Сохранить отчёт и отправить
-        async function saveReport(type, data) {
-            const report = {
-                id: Date.now(),
-                type: type,
-                ...data,
-                timestamp: new Date().toISOString(),
-                status: 'pending'
-            };
-            
+        async function saveReport(type, data, formId) {
+            const report = { id: Date.now(), type, ...data, timestamp: new Date().toISOString(), status: "pending" };
             try {
-                await sendToDiscord(
-                    type === 'weekly' ? formatWeeklyReport(data) : formatPromotionReport(data),
-                    type === 'weekly' ? 'Еженедельный отчёт' : 'Запрос на повышение'
-                );
-                report.status = 'sent';
-                report.discordError = null;
-            } catch (error) {
-                report.status = 'error';
-                report.discordError = error.message;
-                throw error;
+                await sendToDiscord(type === "weekly" ? formatWeekly(data) : formatPromotion(data));
+                report.status = "sent";
+                showAlert("✅ Успешно отправлено в Discord!", "success", formId);
+                if(formId === "weekly") document.getElementById("weeklyForm").reset();
+                else document.getElementById("promotionForm").reset();
+                if(type === "weekly") {
+                    const today = new Date();
+                    const yr = today.getFullYear();
+                    const wk = Math.ceil((((today - new Date(yr, 0, 1)) / 86400000) + 1) / 7);
+                    document.getElementById("weeklyWeek").value = `${yr}-W${wk.toString().padStart(2,'0')}`;
+                }
+            } catch(e) {
+                report.status = "error";
+                report.discordError = e.message;
+                showAlert(`❌ Ошибка: ${e.message}`, "error", formId);
+                throw e;
             } finally {
                 reports.unshift(report);
-                localStorage.setItem('hr_reports', JSON.stringify(reports));
+                localStorage.setItem("hr_reports", JSON.stringify(reports));
                 renderHistory();
             }
         }
 
-        // Обработка еженедельного отчёта
-        document.getElementById('weeklyForm').addEventListener('submit', async (e) => {
+        // listeners
+        document.getElementById("weeklyForm").addEventListener("submit", async(e) => {
             e.preventDefault();
-            
-            const name = document.getElementById('weeklyName').value.trim();
-            const week = document.getElementById('weeklyWeek').value;
-            const done = document.getElementById('weeklyDone').value.trim();
-            const plan = document.getElementById('weeklyPlan').value.trim();
-            const problems = document.getElementById('weeklyProblems').value.trim();
-            
-            if (!name || !week || !done || !plan) {
-                showAlert('Заполните все обязательные поля', 'error', 'weekly');
-                return;
-            }
-            
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Отправка...';
-            
+            const btn = e.target.querySelector("button");
+            btn.disabled = true; btn.innerHTML = "<i class='fas fa-spinner fa-pulse'></i> Отправка...";
             try {
-                await saveReport('weekly', { name, week, done, plan, problems });
-                showAlert('✅ Отчёт успешно отправлен в Discord!', 'success', 'weekly');
-                e.target.reset();
-                document.getElementById('weeklyWeek').value = '';
-                // Установить текущую неделю снова
-                const today = new Date();
-                const year = today.getFullYear();
-                const weekNumber = Math.ceil((((today - new Date(year, 0, 1)) / 86400000) + 1) / 7);
-                document.getElementById('weeklyWeek').value = `${year}-W${weekNumber.toString().padStart(2, '0')}`;
-            } catch (error) {
-                showAlert(`❌ Ошибка: ${error.message}`, 'error', 'weekly');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = '🚀 Отправить в Discord';
-            }
+                await saveReport("weekly", {
+                    name: document.getElementById("weeklyName").value.trim(),
+                    week: document.getElementById("weeklyWeek").value,
+                    done: document.getElementById("weeklyDone").value.trim(),
+                    plan: document.getElementById("weeklyPlan").value.trim(),
+                    problems: document.getElementById("weeklyProblems").value.trim()
+                }, "weekly");
+            } catch(err) {}
+            btn.disabled = false; btn.innerHTML = "<i class='fab fa-discord'></i> Отправить в Discord";
         });
-        
-        // Обработка запроса на повышение
-        document.getElementById('promotionForm').addEventListener('submit', async (e) => {
+
+        document.getElementById("promotionForm").addEventListener("submit", async(e) => {
             e.preventDefault();
-            
-            const name = document.getElementById('promotionName').value.trim();
-            const currentPosition = document.getElementById('currentPosition').value.trim();
-            const desiredPosition = document.getElementById('desiredPosition').value.trim();
-            const achievements = document.getElementById('achievements').value.trim();
-            const motivation = document.getElementById('motivation').value.trim();
-            const expectedGrade = document.getElementById('expectedGrade').value.trim();
-            
-            if (!name || !currentPosition || !desiredPosition || !achievements || !motivation) {
-                showAlert('Заполните все обязательные поля', 'error', 'promotion');
-                return;
-            }
-            
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Отправка...';
-            
+            const btn = e.target.querySelector("button");
+            btn.disabled = true; btn.innerHTML = "<i class='fas fa-spinner fa-pulse'></i> Отправка...";
             try {
-                await saveReport('promotion', { name, currentPosition, desiredPosition, achievements, motivation, expectedGrade });
-                showAlert('✅ Запрос на повышение отправлен в Discord!', 'success', 'promotion');
-                e.target.reset();
-            } catch (error) {
-                showAlert(`❌ Ошибка: ${error.message}`, 'error', 'promotion');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = '💎 Отправить запрос в Discord';
-            }
+                await saveReport("promotion", {
+                    name: document.getElementById("promotionName").value.trim(),
+                    currentPosition: document.getElementById("currentPosition").value.trim(),
+                    desiredPosition: document.getElementById("desiredPosition").value.trim(),
+                    achievements: document.getElementById("achievements").value.trim(),
+                    motivation: document.getElementById("motivation").value.trim(),
+                    expectedGrade: document.getElementById("expectedGrade").value.trim()
+                }, "promotion");
+            } catch(err) {}
+            btn.disabled = false; btn.innerHTML = "<i class='fab fa-discord'></i> Отправить запрос";
         });
-        
-        // История
+
         function renderHistory() {
-            const container = document.getElementById('historyList');
-            if (!container) return;
-            
-            if (reports.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-light); text-align: center;">📭 Пока нет ни одного отчёта</p>';
-                return;
-            }
-            
-            container.innerHTML = reports.map(report => `
-                <div class="report-item">
-                    <div class="report-title">
-                        ${report.type === 'weekly' ? '📊 Еженедельный отчёт' : '⬆️ Запрос на повышение'}
-                        <span class="status-badge status-${report.status}">
-                            ${report.status === 'sent' ? '✅ Отправлен' : '❌ Ошибка'}
-                        </span>
+            const container = document.getElementById("historyList");
+            if(!container) return;
+            if(reports.length === 0) { container.innerHTML = "<div style='text-align:center;padding:40px'>✨ История пуста, отправьте первый отчёт</div>"; return; }
+            container.innerHTML = reports.map(r => `
+                <div class="report-card">
+                    <div class="report-header">
+                        <strong><i class="fas ${r.type === 'weekly' ? 'fa-calendar-week' : 'fa-arrow-up'}"></i> ${r.type === 'weekly' ? 'Еженедельный' : 'Повышение'}</strong>
+                        <span class="badge badge-${r.status}">${r.status === 'sent' ? '✅ Отправлен' : '❌ Ошибка'}</span>
                     </div>
-                    <div class="report-meta">
-                        👤 ${escapeHtml(report.name)} | 🕒 ${new Date(report.timestamp).toLocaleString('ru-RU')}
-                    </div>
-                    <div class="report-content">
-                        ${report.type === 'weekly' ? `
-                            <strong>Неделя:</strong> ${escapeHtml(report.week)}<br>
-                            <strong>Сделано:</strong> ${escapeHtml(report.done.substring(0, 100))}${report.done.length > 100 ? '...' : ''}
-                        ` : `
-                            <strong>${escapeHtml(report.currentPosition)} → ${escapeHtml(report.desiredPosition)}</strong><br>
-                            <strong>Достижения:</strong> ${escapeHtml(report.achievements.substring(0, 100))}${report.achievements.length > 100 ? '...' : ''}
-                        `}
-                    </div>
-                    ${report.discordError ? `<div class="report-meta" style="color: var(--error-text);">⚠️ ${escapeHtml(report.discordError)}</div>` : ''}
+                    <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom: 8px;">👤 ${escapeHtml(r.name)} • ${new Date(r.timestamp).toLocaleString()}</div>
+                    <div class="report-content">${r.type === 'weekly' ? `📌 Сделано: ${escapeHtml(r.done.substring(0,90))}...` : `🏆 ${escapeHtml(r.currentPosition)} → ${escapeHtml(r.desiredPosition)}`}</div>
+                    ${r.discordError ? `<div style="color:#f87171; font-size:0.75rem; margin-top:8px;"><i class="fas fa-skull-crosswalk"></i> ${escapeHtml(r.discordError)}</div>` : ''}
                 </div>
-            `).join('');
+            `).join("");
         }
 
-        // Защита от XSS
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
-        }
-        
-        // Очистка истории
-        document.getElementById('clearHistoryBtn')?.addEventListener('click', () => {
-            if (confirm('Вы уверены, что хотите очистить всю историю отчётов?')) {
-                reports = [];
-                localStorage.setItem('hr_reports', JSON.stringify(reports));
-                renderHistory();
-                showAlert('История очищена', 'success', 'history');
-            }
+        function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+        document.getElementById("clearHistoryBtn").addEventListener("click", ()=>{
+            if(confirm("Очистить всю историю?")) { reports = []; localStorage.setItem("hr_reports", "[]"); renderHistory(); showAlert("История очищена", "success", "history"); }
         });
-        
-        // Сохранение webhook
-        document.getElementById('saveWebhookBtn')?.addEventListener('click', () => {
-            const newUrl = document.getElementById('webhookUrl').value.trim();
-            if (!newUrl || !newUrl.startsWith('https://discord.com/api/webhooks/')) {
-                showAlert('Введите корректный Discord Webhook URL (начинается с https://discord.com/api/webhooks/)', 'error', 'settings');
-                return;
-            }
-            
-            webhookUrl = newUrl;
-            localStorage.setItem('discord_webhook', webhookUrl);
-            updateWebhookStatus();
-            showAlert('✅ Webhook сохранён! Теперь можно отправлять отчёты.', 'success', 'settings');
+
+        document.getElementById("saveWebhookBtn").addEventListener("click", ()=>{
+            const url = document.getElementById("webhookUrl").value.trim();
+            if(!url.startsWith("https://discord.com/api/webhooks/")) { showAlert("Неверный Discord Webhook URL", "error", "settings"); return; }
+            webhookUrl = url;
+            localStorage.setItem("discord_webhook", webhookUrl);
+            document.getElementById("webhookStatus").innerText = "✅ активен";
+            showAlert("Webhook сохранён! Можно отправлять отчёты", "success", "settings");
         });
-        
-        // Тестовое сообщение
-        document.getElementById('testWebhookBtn')?.addEventListener('click', async () => {
-            const testUrl = document.getElementById('webhookUrl').value.trim();
-            if (!testUrl) {
-                showAlert('Сначала введите и сохраните Webhook URL', 'error', 'settings');
-                return;
-            }
-            
+
+        document.getElementById("testWebhookBtn").addEventListener("click", async()=>{
+            const url = document.getElementById("webhookUrl").value.trim();
+            if(!url) { showAlert("Сначала введите URL", "error", "settings"); return; }
             try {
-                const response = await fetch(testUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        username: 'HR Portal',
-                        content: '✅ **Тестовое сообщение**\nWebhook настроен корректно! Можете отправлять отчёты.'
-                    })
-                });
-                
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                showAlert('🎉 Тестовое сообщение успешно отправлено! Проверьте Discord.', 'success', 'settings');
-            } catch (error) {
-                showAlert(`❌ Ошибка: ${error.message}. Проверьте URL и права доступа.`, 'error', 'settings');
-            }
+                await fetch(url, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ username:"Aetheris", content: "✨ **Тест** — вебхук работает отлично ✨" })});
+                showAlert("Тестовое сообщение улетело в Discord! 🎉", "success", "settings");
+            } catch(e) { showAlert("Ошибка: "+e.message, "error", "settings"); }
         });
-        
-        // Переключение вкладок
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tabId = btn.getAttribute('data-tab');
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active-panel'));
-                document.getElementById(tabId).classList.add('active-panel');
+
+        // tabs
+        document.querySelectorAll(".tab-btn").forEach(btn => {
+            btn.addEventListener("click", ()=>{
+                const tab = btn.dataset.tab;
+                document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+                btn.classList.add("active");
+                document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active-panel"));
+                document.getElementById(tab).classList.add("active-panel");
             });
         });
-        
-        // Переключение темы
-        document.getElementById('themeSwitch').addEventListener('click', toggleTheme);
-        
-        // Инициализация
+
+        function loadData() {
+            const savedRep = localStorage.getItem("hr_reports");
+            if(savedRep) reports = JSON.parse(savedRep);
+            const savedWh = localStorage.getItem("discord_webhook");
+            if(savedWh) { webhookUrl = savedWh; document.getElementById("webhookUrl").value = webhookUrl; document.getElementById("webhookStatus").innerText = "✅ активен"; }
+            else document.getElementById("webhookStatus").innerText = "⚠️ не задан";
+            renderHistory();
+        }
+
+        document.getElementById("themeSwitch").addEventListener("click", toggleTheme);
         initTheme();
         loadData();
-        
-        // Установка текущей недели по умолчанию
         const today = new Date();
-        const weekInput = document.getElementById('weeklyWeek');
-        if (weekInput) {
-            const year = today.getFullYear();
-            const weekNumber = Math.ceil((((today - new Date(year, 0, 1)) / 86400000) + 1) / 7);
-            weekInput.value = `${year}-W${weekNumber.toString().padStart(2, '0')}`;
-        }
+        const year = today.getFullYear();
+        const weekNum = Math.ceil((((today - new Date(year,0,1)) / 86400000) + 1) / 7);
+        document.getElementById("weeklyWeek").value = `${year}-W${weekNum.toString().padStart(2,'0')}`;
     </script>
 </body>
 </html>
