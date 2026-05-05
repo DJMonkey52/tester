@@ -1,6 +1,6 @@
 const CONFIG = {
   DISCORD_WEBHOOK: 'https://discord.com/api/webhooks/1501267299422699521/MKan0SBG-vznscN4Jt1e8cxBdc3p8LT0uFuroNzll2ITBJgCQKpAHrfWyQ4j51SsPVlk',
-  SPREADSHEET_ID: '', // чтобы зайти в таблицу
+  SPREADSHEET_ID: '1o84Ae3W9-mEWHje378Vb7P70nq6aw-jxJ1hyalh-f4Y', // чтобы зайти в таблицу
   SHEET_NAME: 'Лист1',
   MAX_ACTIONS_PER_REQUEST: 30,
   MAX_ACTIONS_TOTAL: 100,
