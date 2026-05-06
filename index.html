@@ -1,1159 +1,604 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Aetheris HR | Центр отчётов</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
-            min-height: 100vh;
-            transition: background 0.3s ease;
-        }
-
-        body.light {
-            background: linear-gradient(135deg, #e8edf9 0%, #f0f4ff 100%);
-        }
-
-        :root {
-            --glass-bg: rgba(18, 22, 45, 0.95);
-            --glass-border: rgba(88, 101, 242, 0.3);
-            --text-primary: #F0F3FA;
-            --text-secondary: #A0A8C3;
-            --text-muted: #6C728E;
-            --accent: #6366F1;
-            --accent-glow: #818cf8;
-            --accent-dark: #4f46e5;
-            --success: #10b981;
-            --danger: #ef4444;
-            --border-light: rgba(255, 255, 255, 0.08);
-            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 20px 35px -10px rgba(0, 0, 0, 0.4);
-            --input-bg: rgba(15, 18, 35, 0.9);
-        }
-
-        body.light {
-            --glass-bg: rgba(255, 255, 255, 0.95);
-            --glass-border: rgba(99, 102, 241, 0.2);
-            --text-primary: #111827;
-            --text-secondary: #4b5563;
-            --text-muted: #9ca3af;
-            --accent: #5865F2;
-            --accent-glow: #7984f5;
-            --accent-dark: #4752C4;
-            --border-light: rgba(0, 0, 0, 0.08);
-            --input-bg: rgba(255, 255, 255, 0.9);
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            margin-top: 10px;
-        }
-
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 8px;
-        }
-
-        .logo-icon {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            color: white;
-            box-shadow: var(--shadow-sm);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .logo h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #FFFFFF, #A5B4FC);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            padding: 8px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            color: var(--text-primary);
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-            z-index: 100;
-        }
-
-        .theme-toggle:hover {
-            border-color: var(--accent);
-            transform: scale(1.02);
-        }
-
-        /* 3 кнопки в одну полоску - выше и больше */
-        .home-page {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
-            min-height: calc(100vh - 180px);
-        }
-
-        .cards-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-top: 0;
-        }
-
-        .action-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 32px;
-            padding: 38px 32px;
-            width: 300px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            text-align: center;
-            box-shadow: var(--shadow-md);
-        }
-
-        .action-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .card-icon {
-            width: 75px;
-            height: 75px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(79, 70, 229, 0.1));
-            border-radius: 26px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 36px;
-            color: var(--accent);
-            transition: all 0.3s;
-        }
-
-        .action-card:hover .card-icon {
-            transform: scale(1.05);
-        }
-
-        .action-card h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-
-        .action-card p {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-
-        .card-arrow {
-            margin-top: 18px;
-            font-size: 1.1rem;
-            color: var(--accent);
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-        }
-
-        .action-card:hover .card-arrow {
-            opacity: 1;
-            transform: translateX(6px);
-        }
-
-        /* Страницы форм */
-        .form-page {
-            display: none;
-            animation: fadeInUp 0.4s ease;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            padding: 10px 22px;
-            color: var(--text-primary);
-            font-weight: 500;
-            cursor: pointer;
-            margin-bottom: 24px;
-            transition: all 0.2s;
-        }
-
-        .back-btn:hover {
-            border-color: var(--accent);
-            transform: translateX(-4px);
-        }
-
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            border-radius: 32px;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow-md);
-            overflow: hidden;
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(79, 70, 229, 0.05));
-            padding: 20px 28px;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .card-header h2 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card-header h2 i {
-            color: var(--accent);
-        }
-
-        .card-body {
-            padding: 28px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--accent-glow);
-            margin-bottom: 6px;
-        }
-
-        .input-group input, .input-group select, .input-group textarea {
-            width: 100%;
-            padding: 12px 14px;
-            background: var(--input-bg);
-            border: 1px solid var(--border-light);
-            border-radius: 14px;
-            font-size: 0.9rem;
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            transition: all 0.2s;
-        }
-
-        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-        }
-
-        .input-group textarea {
-            resize: vertical;
-        }
-
-        .period-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 12px;
-        }
-
-        .period-info {
-            background: rgba(99, 102, 241, 0.08);
-            border-radius: 12px;
-            padding: 10px 14px;
-            text-align: center;
-            color: var(--accent-glow);
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-        }
-
-        /* Карточки действий */
-        .actions-container {
-            margin: 20px 0;
-        }
-
-        .action-item {
-            background: rgba(15, 18, 35, 0.5);
-            border-radius: 18px;
-            padding: 16px;
-            margin-bottom: 14px;
-            border: 1px solid var(--border-light);
-            transition: all 0.2s;
-        }
-
-        .action-item:hover {
-            border-color: var(--accent);
-            transform: translateX(3px);
-        }
-
-        .action-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-        }
-
-        .action-title {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .action-title i {
-            color: var(--accent);
-        }
-
-        .remove-action {
-            background: rgba(239, 68, 68, 0.15);
-            border: none;
-            color: #f87171;
-            padding: 5px 12px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.7rem;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .remove-action:hover {
-            background: rgba(239, 68, 68, 0.3);
-        }
-
-        .action-fields {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-            margin-bottom: 14px;
-        }
-
-        .action-field {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .action-field label {
-            font-size: 0.65rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        .action-field select, .action-field input {
-            padding: 8px 12px;
-            background: var(--input-bg);
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
-            font-size: 0.85rem;
-            color: var(--text-primary);
-        }
-
-        .proofs-field {
-            grid-column: span 2;
-        }
-
-        .points-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 10px;
-            border-top: 1px solid var(--border-light);
-            margin-top: 6px;
-        }
-
-        .points-badge {
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            padding: 5px 14px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: white;
-        }
-
-        .count-badge {
-            background: rgba(99, 102, 241, 0.15);
-            padding: 5px 14px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            color: var(--accent-glow);
-        }
-
-        .add-btn {
-            width: 100%;
-            background: rgba(99, 102, 241, 0.12);
-            border: 1px dashed var(--accent);
-            border-radius: 16px;
-            padding: 14px;
-            color: var(--accent);
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.3s;
-            margin: 16px 0;
-        }
-
-        .add-btn:hover {
-            background: rgba(99, 102, 241, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 30px;
-            color: var(--text-muted);
-            background: rgba(15, 18, 35, 0.4);
-            border-radius: 18px;
-            margin-bottom: 14px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: linear-gradient(105deg, var(--accent), var(--accent-dark));
-            border: none;
-            padding: 14px;
-            border-radius: 22px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.3s;
-            margin-top: 16px;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            filter: brightness(1.05);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            transform: none;
-        }
-
-        .alert {
-            padding: 12px 16px;
-            border-radius: 14px;
-            margin-bottom: 20px;
-            display: none;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-            font-size: 0.85rem;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-15px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .alert.success {
-            background: rgba(16, 185, 129, 0.15);
-            border-left: 3px solid #10b981;
-            color: #34d399;
-            display: flex;
-        }
-
-        .alert.error {
-            background: rgba(239, 68, 68, 0.12);
-            border-left: 3px solid #ef4444;
-            color: #fca5a5;
-            display: flex;
-        }
-
-        @media (max-width: 950px) {
-            .cards-grid {
-                gap: 24px;
-            }
-            .action-card {
-                width: 270px;
-                padding: 32px 24px;
-            }
-            .action-card h3 {
-                font-size: 1.3rem;
-            }
-            .card-icon {
-                width: 65px;
-                height: 65px;
-                font-size: 32px;
-            }
-        }
-
-        @media (max-width: 850px) {
-            .cards-grid {
-                flex-direction: column;
-                align-items: center;
-            }
-            .action-card {
-                width: 300px;
-            }
-            .action-fields {
-                grid-template-columns: 1fr;
-            }
-            .proofs-field {
-                grid-column: span 1;
-            }
-            .period-row {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            .card-body {
-                padding: 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>ARMY | Система отчётов</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+    }
+
+    body {
+      background: #1a1e1b;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 750px;
+      width: 100%;
+      background: #0f1211;
+      border-radius: 2.5rem;
+      box-shadow: 0 25px 50px -8px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
+      padding: 2rem 1.8rem 2.5rem;
+      border: 1px solid #3e4a3c;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    h1 {
+      font-size: 4.2rem;
+      font-weight: 800;
+      letter-spacing: 12px;
+      text-align: center;
+      color: #d4cba0;
+      text-shadow: 0 4px 0 #3b4a2c, 0 8px 12px black;
+      background: linear-gradient(180deg, #2d3522 0%, #141b10 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 2px 4px #1f2e0a);
+      margin-bottom: 0.2rem;
+      word-break: break-word;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.3rem;
+    }
+
+    .nav-btn {
+      background: #232e21;
+      border: none;
+      padding: 0.9rem 1.4rem;
+      border-radius: 2.5rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.8px;
+      color: #c2bc8b;
+      background: #1e2619;
+      box-shadow: 0 6px 0 #0b0f09, 0 8px 18px rgba(0,0,0,0.7);
+      border: 1px solid #5a6e47;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-transform: uppercase;
+      flex: 1 1 auto;
+      min-width: 130px;
+      white-space: nowrap;
+    }
+
+    .nav-btn.active {
+      background: #3f5530;
+      color: #f3efc7;
+      border-color: #b9aa5c;
+      box-shadow: 0 4px 0 #1e2716, 0 10px 18px black;
+      transform: translateY(2px);
+    }
+
+    .nav-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #0e1308, 0 8px 14px black;
+    }
+
+    .form-panel {
+      display: none;
+      flex-direction: column;
+      gap: 1.5rem;
+      background: #1e241c;
+      border-radius: 2rem;
+      padding: 1.8rem 1.5rem;
+      border: 1px solid #414f38;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
+    }
+
+    .form-panel.active {
+      display: flex;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .field {
+      flex: 1 1 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      color: #b9b382;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    input, select {
+      background: #12160f;
+      border: 1px solid #4b5a3a;
+      border-radius: 1.2rem;
+      padding: 0.8rem 1rem;
+      color: #ede7c0;
+      font-weight: 500;
+      font-size: 0.95rem;
+      outline: none;
+      box-shadow: inset 0 2px 6px black;
+      transition: 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: #c7b95e;
+      box-shadow: 0 0 10px #5f6b3c;
+    }
+
+    .date-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .activities-box {
+      background: #0e130d;
+      border-radius: 1.5rem;
+      padding: 1.2rem;
+      border: 1px solid #465538;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      background: #1b2319;
+      padding: 0.7rem 1rem;
+      border-radius: 1.2rem;
+      border: 1px solid #3b4a30;
+    }
+
+    .activity-item input {
+      flex: 2 1 130px;
+      min-width: 130px;
+    }
+
+    .activity-item input[type="number"] {
+      flex: 1 1 80px;
+      min-width: 70px;
+      max-width: 100px;
+    }
+
+    .remove-activity {
+      background: #421f1a;
+      border: none;
+      color: #e0b4a8;
+      font-weight: bold;
+      font-size: 1.2rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 1px solid #7b4a3a;
+      transition: 0.2s;
+      background: #2f1e17;
+    }
+
+    .remove-activity:hover {
+      background: #6b3729;
+      color: white;
+    }
+
+    .add-activity-btn {
+      background: #2d3a22;
+      border: 1px dashed #b9aa5c;
+      color: #dacd7c;
+      font-weight: bold;
+      padding: 0.7rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.2s;
+      font-size: 0.9rem;
+      letter-spacing: 0.4px;
+    }
+
+    .add-activity-btn:hover {
+      background: #3f512e;
+      color: #f7efb0;
+    }
+
+    .total-score {
+      color: #efdb7c;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-align: right;
+      margin-top: 0.3rem;
+      background: #1b2117;
+      padding: 0.5rem 1.2rem;
+      border-radius: 2rem;
+      display: inline-block;
+      align-self: flex-end;
+      border: 1px solid #6f7a46;
+    }
+
+    .exam-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .discord-tag {
+      background: #1a1c1a;
+    }
+
+    button.submit-btn {
+      background: #5b6b3a;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 2.5rem;
+      font-weight: bold;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      color: #f7f3cf;
+      background: #414f2a;
+      box-shadow: 0 6px 0 #222f17, 0 8px 18px black;
+      border: 1px solid #a3a064;
+      cursor: pointer;
+      transition: 0.15s;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    button.submit-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #191f10, 0 8px 18px black;
+    }
+
+    .promotion-date {
+      width: 100%;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 1.5rem 1rem;
+      }
+      h1 {
+        font-size: 3.2rem;
+        letter-spacing: 6px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="theme-toggle" id="themeSwitch">
-        <i class="fas fa-sun"></i>
-        <span>Светлая тема</span>
+<div class="container">
+  <h1>ARMY</h1>
+
+  <div class="nav-buttons">
+    <button class="nav-btn active" data-panel="weekly">📋 Еженедельный отчёт</button>
+    <button class="nav-btn" data-panel="promotion">⬆️ Отчёт на повышение</button>
+    <button class="nav-btn" data-panel="exam">📝 Запись на экзамен</button>
+  </div>
+
+  <!-- Еженедельный отчёт -->
+  <div id="weekly-panel" class="form-panel active">
+    <div class="row">
+      <div class="field">
+        <label>Имя Фамилия</label>
+        <input type="text" id="weeklyName" placeholder="Введите имя и фамилию">
+      </div>
+      <div class="field">
+        <label>Ваш ранг</label>
+        <select id="weeklyRank">
+          <option value="Специалист (3)">Специалист (3)</option>
+          <option value="Капрал (4)">Капрал (4)</option>
+          <option value="Сержант (5)">Сержант (5)</option>
+          <option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
+          <option value="Уорент-офицер (7)">Уорент-офицер (7)</option>
+          <option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
+          <option value="Лейтенант (9)">Лейтенант (9)</option>
+          <option value="Капитан (10)">Капитан (10)</option>
+          <option value="Майор (11)">Майор (11)</option>
+          <option value="Подполковник (12)">Подполковник (12)</option>
+        </select>
+      </div>
     </div>
 
-    <div class="container">
-        <div class="header">
-            <div class="logo">
-                <div class="logo-icon"><i class="fas fa-scroll"></i></div>
-                <h1>Aetheris HR</h1>
-            </div>
-            <p class="subtitle">Система подачи отчётов с балльной системой</p>
-        </div>
-
-        <!-- ГЛАВНАЯ СТРАНИЦА с 3 кнопками в одну полоску -->
-        <div id="homePage" class="home-page">
-            <div class="cards-grid">
-                <div class="action-card" data-page="weekly">
-                    <div class="card-icon"><i class="fas fa-calendar-week"></i></div>
-                    <h3>📊 Еженедельный отчёт</h3>
-                    <p>Отчёт о работе с баллами и доказательствами</p>
-                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
-                </div>
-                <div class="action-card" data-page="promotion">
-                    <div class="card-icon"><i class="fas fa-arrow-up"></i></div>
-                    <h3>⬆️ Отчёт на повышение</h3>
-                    <p>Заявка на повышение с достижениями</p>
-                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
-                </div>
-                <div class="action-card" data-page="exam">
-                    <div class="card-icon"><i class="fas fa-pen-clip"></i></div>
-                    <h3>📝 Запись на экзамен</h3>
-                    <p>Запись на квалификационный экзамен</p>
-                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- СТРАНИЦА 1: Еженедельный отчёт -->
-        <div id="weeklyPage" class="form-page">
-            <div class="back-btn" onclick="showHome()">
-                <i class="fas fa-arrow-left"></i> На главную
-            </div>
-            <div class="glass-card">
-                <div class="card-header">
-                    <h2><i class="fas fa-calendar-week"></i> Еженедельный отчёт</h2>
-                </div>
-                <div class="card-body">
-                    <div id="weeklyAlert"></div>
-                    <div class="input-group"><label>ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="weeklyNickname" placeholder="Введите никнейм"></div>
-                    <div class="input-group">
-                        <label>РАНГ СОТРУДНИКА</label>
-                        <select id="weeklyRank">
-                            <option value="">-- Выберите ранг --</option>
-                            <option value="Специалист (3)">Специалист (3)</option>
-                            <option value="Капрал (4)">Капрал (4)</option>
-                            <option value="Сержант (5)">Сержант (5)</option>
-                            <option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
-                            <option value="Уорент-офицер (7)">Уорент-офицер (7)</option>
-                            <option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
-                            <option value="Лейтенант (9)">Лейтенант (9)</option>
-                            <option value="Капитан (10)">Капитан (10)</option>
-                            <option value="Майор (11)">Майор (11)</option>
-                            <option value="Подполковник (12)">Подполковник (12)</option>
-                        </select>
-                    </div>
-                    <div class="period-row">
-                        <div class="input-group"><label>ДАТА НАЧАЛА</label><input type="date" id="weeklyDateStart"></div>
-                        <div class="input-group"><label>ДАТА ОКОНЧАНИЯ</label><input type="date" id="weeklyDateEnd"></div>
-                    </div>
-                    <div class="period-info" id="weeklyPeriodInfo"></div>
-
-                    <div style="margin-top: 24px;">
-                        <label style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
-                            <i class="fas fa-clipboard-list"></i> ДЕЙСТВИЯ С ДОКАЗАТЕЛЬСТВАМИ
-                        </label>
-                        <div id="weeklyActionsContainer">
-                            <div id="weeklyEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий с доказательствами</div>
-                            <div id="weeklyActionsList"></div>
-                        </div>
-                        <button class="add-btn" id="weeklyAddActionBtn"><i class="fas fa-plus-circle"></i> ДОБАВИТЬ</button>
-                    </div>
-                    <button class="submit-btn" id="weeklySubmitBtn"><i class="fab fa-discord"></i> ОТПРАВИТЬ ОТЧЁТ</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- СТРАНИЦА 2: Отчёт на повышение -->
-        <div id="promotionPage" class="form-page">
-            <div class="back-btn" onclick="showHome()">
-                <i class="fas fa-arrow-left"></i> На главную
-            </div>
-            <div class="glass-card">
-                <div class="card-header">
-                    <h2><i class="fas fa-arrow-up"></i> Отчёт на повышение</h2>
-                </div>
-                <div class="card-body">
-                    <div id="promotionAlert"></div>
-                    <div class="input-group"><label>ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="promotionNickname" placeholder="Введите никнейм"></div>
-                    <div class="input-group">
-                        <label>ЖЕЛАЕМЫЙ РАНГ (ТЕКУЩИЙ → НОВЫЙ)</label>
-                        <select id="promotionRank">
-                            <option value="">-- Выберите повышение --</option>
-                            <option value="3 → 4">3 → 4</option>
-                            <option value="4 → 5">4 → 5</option>
-                            <option value="5 → 6">5 → 6</option>
-                            <option value="6 → 7">6 → 7</option>
-                            <option value="7 → 8">7 → 8</option>
-                            <option value="8 → 9">8 → 9</option>
-                            <option value="9 → 10">9 → 10</option>
-                            <option value="10 → 11">10 → 11</option>
-                            <option value="11 → 12">11 → 12</option>
-                        </select>
-                    </div>
-                    <div class="input-group"><label>ДАТА ПОСЛЕДНЕГО ПОВЫШЕНИЯ</label><input type="date" id="lastPromotionDate"></div>
-                    <div class="period-info" id="promotionDateInfo"></div>
-
-                    <div style="margin-top: 24px;">
-                        <label style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
-                            <i class="fas fa-clipboard-list"></i> ДЕЙСТВИЯ С ДОКАЗАТЕЛЬСТВАМИ
-                        </label>
-                        <div id="promotionActionsContainer">
-                            <div id="promotionEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий с доказательствами</div>
-                            <div id="promotionActionsList"></div>
-                        </div>
-                        <button class="add-btn" id="promotionAddActionBtn"><i class="fas fa-plus-circle"></i> ДОБАВИТЬ</button>
-                    </div>
-                    <button class="submit-btn" id="promotionSubmitBtn"><i class="fab fa-discord"></i> ОТПРАВИТЬ ЗАПРОС</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- СТРАНИЦА 3: Запись на экзамен -->
-        <div id="examPage" class="form-page">
-            <div class="back-btn" onclick="showHome()">
-                <i class="fas fa-arrow-left"></i> На главную
-            </div>
-            <div class="glass-card">
-                <div class="card-header">
-                    <h2><i class="fas fa-pen-clip"></i> Запись на экзамен</h2>
-                </div>
-                <div class="card-body">
-                    <div id="examAlert"></div>
-                    
-                    <div class="input-group">
-                        <label>ИМЯ И ФАМИЛИЯ</label>
-                        <input type="text" id="examFullName" placeholder="Иванов Иван">
-                    </div>
-
-                    <div class="input-group">
-                        <label>ТИП ЭКЗАМЕНА</label>
-                        <select id="examType">
-                            <option value="">-- Выберите экзамен --</option>
-                            <option value="Acd.Delta">🎓 Acd.Delta</option>
-                            <option value="3 → 4">📈 3 → 4</option>
-                            <option value="4 → 5">📈 4 → 5</option>
-                            <option value="5 → 6">📈 5 → 6</option>
-                            <option value="6 → 7">📈 6 → 7</option>
-                            <option value="7 → 8">📈 7 → 8</option>
-                            <option value="8 → 9">📈 8 → 9</option>
-                            <option value="9 → 10">📈 9 → 10</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group">
-                        <label>DISCORD @ТЕГ</label>
-                        <input type="text" id="examDiscord" placeholder="@username или username#1234">
-                    </div>
-
-                    <div class="input-group">
-                        <label>УДОБНОЕ ВРЕМЯ</label>
-                        <input type="text" id="examTime" placeholder="Например: понедельник 18:00, или 15.05 20:00 МСК">
-                    </div>
-
-                    <button class="submit-btn" id="examSubmitBtn"><i class="fab fa-discord"></i> ЗАПИСАТЬСЯ НА ЭКЗАМЕН</button>
-                </div>
-            </div>
-        </div>
+    <div class="date-row">
+      <div class="field">
+        <label>Дата начала</label>
+        <input type="date" id="weeklyStartDate">
+      </div>
+      <div class="field">
+        <label>Дата окончания</label>
+        <input type="date" id="weeklyEndDate">
+      </div>
     </div>
 
-    <script>
-        // ============================================
-        // 🔒 ФИКСИРОВАННЫЕ ВЕБХУКИ (ЗАМЕНИТЕ НА ВАШИ)
-        // ============================================
-        const WEBHOOKS = {
-            weekly: 'https://discord.com/api/webhooks/1501309143691297043/BeXtbLJ7CY0cM83HIQjDInoS7vR2rQwPwt2QJ0yUXoWJiNVBOlLI-XMZfBEXiADxcVyl',
-            promotion: 'https://discord.com/api/webhooks/1501309143691297043/BeXtbLJ7CY0cM83HIQjDInoS7vR2rQwPwt2QJ0yUXoWJiNVBOlLI-XMZfBEXiADxcVyl',
-            exam: 'https://discord.com/api/webhooks/1501309143691297043/BeXtbLJ7CY0cM83HIQjDInoS7vR2rQwPwt2QJ0yUXoWJiNVBOlLI-XMZfBEXiADxcVyl'
-        };
+    <div class="activities-box" id="weeklyActivitiesContainer">
+      <div class="activity-item">
+        <input type="text" placeholder="Название активности" class="activity-name" value="Патруль">
+        <input type="number" placeholder="Баллы" class="activity-points" value="5" min="1">
+        <button class="remove-activity" type="button">✕</button>
+      </div>
+      <button class="add-activity-btn" id="addWeeklyActivity">➕ Добавить активность</button>
+    </div>
+    <div class="total-score" id="weeklyTotal">Всего баллов: 5</div>
+    <button class="submit-btn" id="submitWeekly">📨 Отправить еженедельный отчёт</button>
+  </div>
 
-        const ACTIVITY_TYPES = [
-            { name: "Участие в ГМП", basePoints: 10 },
-            { name: "Участие в МП", basePoints: 5 },
-            { name: "Участие в лекции/тренировке", basePoints: 5 },
-            { name: "Проведение лекции/тренировки", basePoints: 10 },
-            { name: "Отбитие ФЗ/ФТ", basePoints: 15 },
-            { name: "Участие в оцеплении захваченной Государственной структуры/Банка", basePoints: 10 },
-            { name: "Участие в отбитии поезда", basePoints: 5 },
-            { name: "Участие в рейде/экономическом рейде", basePoints: 10 },
-            { name: "Участие в поставке", basePoints: 10 },
-            { name: "Участие в отбитие анальгетика", basePoints: 15 },
-            { name: "Задержание", basePoints: 5 },
-            { name: "Участие в мед. проверке", basePoints: 10 },
-            { name: "Участие в прок. проверке", basePoints: 10 },
-            { name: "Участие в AirDrop", basePoints: 5 },
-            { name: "Патруль по ФЗ (1 час)", basePoints: 4 },
-            { name: "Патруль вне ФЗ (1 час)", basePoints: 8 },
-            { name: "Участие в Вечернем построении", basePoints: 4 },
-            { name: "Участие в ЧР", basePoints: 10 },
-            { name: "Передача задержанного сотрудникам CID", basePoints: 10 }
-        ];
+  <!-- Отчёт на повышение -->
+  <div id="promotion-panel" class="form-panel">
+    <div class="row">
+      <div class="field">
+        <label>Имя Фамилия</label>
+        <input type="text" id="promoName" placeholder="Имя и фамилия">
+      </div>
+      <div class="field">
+        <label>Ваш ранг</label>
+        <select id="promoRank">
+          <option value="Специалист (3)">Специалист (3)</option>
+          <option value="Капрал (4)">Капрал (4)</option>
+          <option value="Сержант (5)">Сержант (5)</option>
+          <option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
+          <option value="Уорент-офицер (7)">Уорент-офицер (7)</option>
+          <option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
+          <option value="Лейтенант (9)">Лейтенант (9)</option>
+          <option value="Капитан (10)">Капитан (10)</option>
+          <option value="Майор (11)">Майор (11)</option>
+          <option value="Подполковник (12)">Подполковник (12)</option>
+        </select>
+      </div>
+    </div>
 
-        let weeklyActions = [];
-        let promotionActions = [];
+    <div class="field promotion-date">
+      <label>Дата последнего повышения</label>
+      <input type="date" id="lastPromotionDate">
+    </div>
 
-        function formatDate(dateStr) {
-            if (!dateStr) return '';
-            const d = new Date(dateStr);
-            return d.toLocaleDateString('ru-RU');
+    <div class="activities-box" id="promoActivitiesContainer">
+      <div class="activity-item">
+        <input type="text" placeholder="Активность" class="activity-name" value="Обучение">
+        <input type="number" placeholder="Баллы" class="activity-points" value="10" min="1">
+        <button class="remove-activity" type="button">✕</button>
+      </div>
+      <button class="add-activity-btn" id="addPromoActivity">➕ Добавить активность</button>
+    </div>
+    <div class="total-score" id="promoTotal">Всего баллов: 10</div>
+    <button class="submit-btn" id="submitPromotion">📤 Подать на повышение</button>
+  </div>
+
+  <!-- Запись на экзамен -->
+  <div id="exam-panel" class="form-panel">
+    <div class="row">
+      <div class="field">
+        <label>Имя Фамилия</label>
+        <input type="text" id="examName" placeholder="Введите имя">
+      </div>
+      <div class="field">
+        <label>Тип экзамена</label>
+        <select id="examType">
+          <option value="Acd. Delta">Acd. Delta</option>
+          <option value="3->4">3->4</option>
+          <option value="4->5">4->5</option>
+          <option value="5->6">5->6</option>
+          <option value="6->7">6->7</option>
+          <option value="7->8">7->8</option>
+          <option value="8->9">8->9</option>
+          <option value="9->10">9->10</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Discord тег</label>
+        <input type="text" id="discordTag" placeholder="user#0000" class="discord-tag">
+      </div>
+      <div class="field">
+        <label>Удобное время</label>
+        <input type="text" id="examTime" placeholder="Например: 20:00 МСК">
+      </div>
+    </div>
+    <button class="submit-btn" id="submitExam" style="margin-top:0.8rem;">✅ Записаться на экзамен</button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Переключение панелей
+    const navBtns = document.querySelectorAll('.nav-btn');
+    const panels = {
+      weekly: document.getElementById('weekly-panel'),
+      promotion: document.getElementById('promotion-panel'),
+      exam: document.getElementById('exam-panel')
+    };
+
+    navBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const panelKey = this.dataset.panel;
+        navBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        for (let [key, panel] of Object.entries(panels)) {
+          panel.classList.remove('active');
+          if (key === panelKey) panel.classList.add('active');
         }
+      });
+    });
 
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
+    // Утилита пересчета баллов
+    function recalcTotal(containerId, totalId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const pointInputs = container.querySelectorAll('.activity-points');
+      let total = 0;
+      pointInputs.forEach(inp => {
+        let val = parseFloat(inp.value);
+        if (!isNaN(val) && val > 0) total += val;
+      });
+      const totalEl = document.getElementById(totalId);
+      if (totalEl) totalEl.textContent = `Всего баллов: ${total}`;
+    }
+
+    // Функция добавления активности
+    function addActivity(containerId, totalId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const activityDiv = document.createElement('div');
+      activityDiv.className = 'activity-item';
+      activityDiv.innerHTML = `
+        <input type="text" placeholder="Название активности" class="activity-name" value="">
+        <input type="number" placeholder="Баллы" class="activity-points" value="1" min="1">
+        <button class="remove-activity" type="button">✕</button>
+      `;
+      // Вставляем перед кнопкой добавления
+      const addBtn = container.querySelector('.add-activity-btn');
+      container.insertBefore(activityDiv, addBtn);
+      
+      // Навесить слушатели на новые поля и кнопку удаления
+      const pointsInput = activityDiv.querySelector('.activity-points');
+      const removeBtn = activityDiv.querySelector('.remove-activity');
+      
+      pointsInput.addEventListener('input', () => recalcTotal(containerId, totalId));
+      removeBtn.addEventListener('click', function() {
+        activityDiv.remove();
+        recalcTotal(containerId, totalId);
+      });
+      
+      recalcTotal(containerId, totalId);
+    }
+
+    // Инициализация существующих активностей и делегирование удаления
+    function initActivities(containerId, totalId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      
+      // Удаление через делегирование (на всякий случай и для динамических)
+      container.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove-activity')) {
+          const item = e.target.closest('.activity-item');
+          if (item) {
+            item.remove();
+            recalcTotal(containerId, totalId);
+          }
         }
+      });
 
-        function calculatePoints(action) {
-            let points = action.basePoints || 0;
-            let count = parseInt(action.count) || 1;
-            if (action.type === "Патруль по ФЗ (1 час)" || action.type === "Патруль вне ФЗ (1 час)") {
-                points = points * count;
-            }
-            return points * count;
+      // Пересчет при изменении баллов
+      container.addEventListener('input', (e) => {
+        if (e.target.classList.contains('activity-points')) {
+          recalcTotal(containerId, totalId);
         }
+      });
 
-        function updateWeeklyPeriodInfo() {
-            const start = document.getElementById('weeklyDateStart').value;
-            const end = document.getElementById('weeklyDateEnd').value;
-            const infoSpan = document.getElementById('weeklyPeriodInfo');
-            if (start && end) {
-                const diffDays = Math.ceil((new Date(end) - new Date(start)) / (1000 * 60 * 60 * 24)) + 1;
-                infoSpan.innerHTML = `${formatDate(start)} – ${formatDate(end)} (${diffDays} дн.)`;
-            } else {
-                const today = new Date();
-                const monday = new Date(today);
-                monday.setDate(today.getDate() - (today.getDay() === 0 ? 6 : today.getDay() - 1));
-                const sunday = new Date(monday);
-                sunday.setDate(monday.getDate() + 6);
-                infoSpan.innerHTML = `${formatDate(monday)} – ${formatDate(sunday)} (7 дн.)`;
-            }
+      // Первичный обсчет
+      recalcTotal(containerId, totalId);
+    }
+
+    // Привязка кнопок добавления
+    document.getElementById('addWeeklyActivity').addEventListener('click', () => {
+      addActivity('weeklyActivitiesContainer', 'weeklyTotal');
+    });
+    document.getElementById('addPromoActivity').addEventListener('click', () => {
+      addActivity('promoActivitiesContainer', 'promoTotal');
+    });
+
+    // Инициализация
+    initActivities('weeklyActivitiesContainer', 'weeklyTotal');
+    initActivities('promoActivitiesContainer', 'promoTotal');
+
+    // Отправка форм (демо-обработчики)
+    function gatherActivityData(containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return [];
+      const items = container.querySelectorAll('.activity-item');
+      const data = [];
+      items.forEach(item => {
+        const nameInput = item.querySelector('.activity-name');
+        const pointsInput = item.querySelector('.activity-points');
+        const name = nameInput ? nameInput.value.trim() : '';
+        const points = pointsInput ? parseFloat(pointsInput.value) || 0 : 0;
+        if (name !== '') {
+          data.push({ name, points });
         }
+      });
+      return data;
+    }
 
-        function renderWeeklyActions() {
-            const container = document.getElementById('weeklyActionsList');
-            const emptyDiv = document.getElementById('weeklyEmptyActions');
-            if (weeklyActions.length === 0) {
-                emptyDiv.style.display = 'block';
-                container.innerHTML = '';
-                return;
-            }
-            emptyDiv.style.display = 'none';
-            if (container.children.length !== weeklyActions.length) {
-                container.innerHTML = weeklyActions.map((action, idx) => `
-                    <div class="action-item" data-idx="${idx}">
-                        <div class="action-header">
-                            <div class="action-title"><i class="fas fa-tag"></i> ДЕЙСТВИЕ #${idx + 1}</div>
-                            <button class="remove-action" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button>
-                        </div>
-                        <div class="action-fields">
-                            <div class="action-field"><label>ТИП</label><select class="action-type" data-idx="${idx}"><option value="">-- Выберите --</option>${ACTIVITY_TYPES.map(t => `<option value="${escapeHtml(t.name)}" data-points="${t.basePoints}">${escapeHtml(t.name)}</option>`).join('')}</select></div>
-                            <div class="action-field"><label>КОЛ-ВО</label><input type="number" class="action-count" data-idx="${idx}" value="${action.count || 1}" min="1" step="1"></div>
-                            <div class="action-field proofs-field"><label>ДОКАЗАТЕЛЬСТВА (ССЫЛКИ)</label><input type="text" class="action-proofs" data-idx="${idx}" placeholder="Ссылки на скриншоты/видео..." value="${escapeHtml(action.proofs || '')}"></div>
-                        </div>
-                        <div class="points-row"><span class="count-badge"><i class="fas fa-hashtag"></i> КОЛ-ВО: ${action.count || 1}</span><span class="points-badge"><i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(action)}</span></div>
-                    </div>
-                `).join('');
-                attachActionEvents('weekly');
-            } else {
-                weeklyActions.forEach((action, idx) => {
-                    const actionDiv = container.children[idx];
-                    if (actionDiv) {
-                        const countSpan = actionDiv.querySelector('.count-badge');
-                        const pointsSpan = actionDiv.querySelector('.points-badge');
-                        if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${action.count || 1}`;
-                        if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(action)}`;
-                    }
-                });
-            }
-        }
+    document.getElementById('submitWeekly').addEventListener('click', () => {
+      const name = document.getElementById('weeklyName').value.trim();
+      const rank = document.getElementById('weeklyRank').value;
+      const start = document.getElementById('weeklyStartDate').value;
+      const end = document.getElementById('weeklyEndDate').value;
+      const activities = gatherActivityData('weeklyActivitiesContainer');
+      
+      if (!name || !start || !end) {
+        alert('Пожалуйста, заполните имя, даты начала и окончания.');
+        return;
+      }
+      
+      console.log('Еженедельный отчёт:', { name, rank, start, end, activities });
+      alert(`Еженедельный отчёт для ${name} (${rank}) отправлен.\nПериод: ${start} – ${end}\nАктивностей: ${activities.length}`);
+    });
 
-        function attachActionEvents(prefix) {
-            document.querySelectorAll(`#${prefix}ActionsList .action-type`).forEach(select => {
-                const idx = parseInt(select.dataset.idx);
-                const actionsArray = prefix === 'weekly' ? weeklyActions : promotionActions;
-                if (!isNaN(idx) && actionsArray[idx]) {
-                    select.value = actionsArray[idx].type || '';
-                    select.addEventListener('change', (e) => {
-                        const idx2 = parseInt(select.dataset.idx);
-                        const selectedOption = select.options[select.selectedIndex];
-                        const points = parseInt(selectedOption.dataset.points) || 0;
-                        if (!isNaN(idx2) && actionsArray[idx2]) {
-                            actionsArray[idx2].type = select.value;
-                            actionsArray[idx2].basePoints = points;
-                            const actionDiv = select.closest('.action-item');
-                            const pointsSpan = actionDiv.querySelector('.points-badge');
-                            if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(actionsArray[idx2])}`;
-                        }
-                    });
-                }
-            });
-            document.querySelectorAll(`#${prefix}ActionsList .action-count`).forEach(input => {
-                const idx = parseInt(input.dataset.idx);
-                const actionsArray = prefix === 'weekly' ? weeklyActions : promotionActions;
-                if (!isNaN(idx) && actionsArray[idx]) {
-                    input.value = actionsArray[idx].count || 1;
-                    input.addEventListener('input', (e) => {
-                        const idx2 = parseInt(input.dataset.idx);
-                        const newCount = parseInt(input.value) || 1;
-                        if (!isNaN(idx2) && actionsArray[idx2]) {
-                            actionsArray[idx2].count = newCount;
-                            const actionDiv = input.closest('.action-item');
-                            const countSpan = actionDiv.querySelector('.count-badge');
-                            const pointsSpan = actionDiv.querySelector('.points-badge');
-                            if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${newCount}`;
-                            if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(actionsArray[idx2])}`;
-                        }
-                    });
-                }
-            });
-            document.querySelectorAll(`#${prefix}ActionsList .action-proofs`).forEach(inp => {
-                const idx = parseInt(inp.dataset.idx);
-                const actionsArray = prefix === 'weekly' ? weeklyActions : promotionActions;
-                if (!isNaN(idx) && actionsArray[idx]) {
-                    inp.value = actionsArray[idx].proofs || '';
-                    inp.addEventListener('input', (e) => {
-                        const idx2 = parseInt(inp.dataset.idx);
-                        if (!isNaN(idx2) && actionsArray[idx2]) actionsArray[idx2].proofs = inp.value;
-                    });
-                }
-            });
-            document.querySelectorAll(`#${prefix}ActionsList .remove-action`).forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const idx = parseInt(btn.dataset.idx);
-                    const actionsArray = prefix === 'weekly' ? weeklyActions : promotionActions;
-                    if (!isNaN(idx)) {
-                        actionsArray.splice(idx, 1);
-                        if (prefix === 'weekly') renderWeeklyActions();
-                        else renderPromotionActions();
-                    }
-                });
-            });
-        }
+    document.getElementById('submitPromotion').addEventListener('click', () => {
+      const name = document.getElementById('promoName').value.trim();
+      const rank = document.getElementById('promoRank').value;
+      const lastPromo = document.getElementById('lastPromotionDate').value;
+      const activities = gatherActivityData('promoActivitiesContainer');
+      
+      if (!name || !lastPromo) {
+        alert('Заполните имя и дату последнего повышения.');
+        return;
+      }
+      
+      console.log('Отчёт на повышение:', { name, rank, lastPromo, activities });
+      alert(`Запрос на повышение для ${name} (${rank}).\nПоследнее повышение: ${lastPromo}\nАктивностей: ${activities.length}`);
+    });
 
-        function updatePromotionDateInfo() {
-            const date = document.getElementById('lastPromotionDate').value;
-            const infoSpan = document.getElementById('promotionDateInfo');
-            if (date) {
-                const d = new Date(date);
-                const monthsDiff = Math.floor((new Date() - d) / (1000 * 60 * 60 * 24 * 30));
-                infoSpan.innerHTML = `📅 Дата последнего повышения: ${formatDate(date)} (прошло ${monthsDiff} мес.)`;
-            } else {
-                infoSpan.innerHTML = `📅 Укажите дату последнего повышения`;
-            }
-        }
+    document.getElementById('submitExam').addEventListener('click', () => {
+      const name = document.getElementById('examName').value.trim();
+      const examType = document.getElementById('examType').value;
+      const discord = document.getElementById('discordTag').value.trim();
+      const time = document.getElementById('examTime').value.trim();
+      
+      if (!name || !discord || !time) {
+        alert('Заполните имя, Discord тег и удобное время.');
+        return;
+      }
+      
+      console.log('Запись на экзамен:', { name, examType, discord, time });
+      alert(`Запись на экзамен "${examType}" для ${name}.\nDiscord: ${discord}\nВремя: ${time}`);
+    });
 
-        function renderPromotionActions() {
-            const container = document.getElementById('promotionActionsList');
-            const emptyDiv = document.getElementById('promotionEmptyActions');
-            if (promotionActions.length === 0) {
-                emptyDiv.style.display = 'block';
-                container.innerHTML = '';
-                return;
-            }
-            emptyDiv.style.display = 'none';
-            if (container.children.length !== promotionActions.length) {
-                container.innerHTML = promotionActions.map((action, idx) => `
-                    <div class="action-item" data-idx="${idx}">
-                        <div class="action-header">
-                            <div class="action-title"><i class="fas fa-tag"></i> ДЕЙСТВИЕ #${idx + 1}</div>
-                            <button class="remove-action" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button>
-                        </div>
-                        <div class="action-fields">
-                            <div class="action-field"><label>ТИП</label><select class="action-type" data-idx="${idx}"><option value="">-- Выберите --</option>${ACTIVITY_TYPES.map(t => `<option value="${escapeHtml(t.name)}" data-points="${t.basePoints}">${escapeHtml(t.name)}</option>`).join('')}</select></div>
-                            <div class="action-field"><label>КОЛ-ВО</label><input type="number" class="action-count" data-idx="${idx}" value="${action.count || 1}" min="1" step="1"></div>
-                            <div class="action-field proofs-field"><label>ДОКАЗАТЕЛЬСТВА (ССЫЛКИ)</label><input type="text" class="action-proofs" data-idx="${idx}" placeholder="Ссылки на скриншоты/видео..." value="${escapeHtml(action.proofs || '')}"></div>
-                        </div>
-                        <div class="points-row"><span class="count-badge"><i class="fas fa-hashtag"></i> КОЛ-ВО: ${action.count || 1}</span><span class="points-badge"><i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(action)}</span></div>
-                    </div>
-                `).join('');
-                attachActionEvents('promotion');
-            } else {
-                promotionActions.forEach((action, idx) => {
-                    const actionDiv = container.children[idx];
-                    if (actionDiv) {
-                        const countSpan = actionDiv.querySelector('.count-badge');
-                        const pointsSpan = actionDiv.querySelector('.points-badge');
-                        if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${action.count || 1}`;
-                        if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(action)}`;
-                    }
-                });
-            }
-        }
-
-        function formatWeeklyReport() {
-            const nickname = document.getElementById('weeklyNickname').value.trim() || 'Не указан';
-            const rank = document.getElementById('weeklyRank').value || 'Не выбран';
-            const start = document.getElementById('weeklyDateStart').value;
-            const end = document.getElementById('weeklyDateEnd').value;
-            let period = (start && end) ? `${formatDate(start)} – ${formatDate(end)}` : 'Не указан';
-            let actionsText = '', totalPoints = 0;
-            weeklyActions.forEach((action, idx) => {
-                const points = calculatePoints(action);
-                totalPoints += points;
-                actionsText += `\n**${idx + 1}. ${action.type || 'Не выбран'}**\n   📊 Кол-во: ${action.count || 1} | 🎯 Баллы: ${points}\n   📎 Доказательства: ${action.proofs || 'Не приложены'}\n`;
-            });
-            if (weeklyActions.length === 0) actionsText = '\nНет действий с доказательствами';
-            return `**📋 ЕЖЕНЕДЕЛЬНЫЙ ОТЧЁТ**\n\n**👤 Игровой никнейм:** ${nickname}\n**🎖️ Ранг:** ${rank}\n**📅 Период:** ${period}\n\n**📊 ДЕЙСТВИЯ:**${actionsText}\n\n**🏆 ИТОГО БАЛЛОВ:** ${totalPoints}`;
-        }
-
-        function formatPromotionReport() {
-            const nickname = document.getElementById('promotionNickname').value.trim() || 'Не указан';
-            const rank = document.getElementById('promotionRank').value || 'Не выбран';
-            const lastPromotion = document.getElementById('lastPromotionDate').value;
-            const lastPromotionFormatted = lastPromotion ? formatDate(lastPromotion) : 'Не указана';
-            let actionsText = '', totalPoints = 0;
-            promotionActions.forEach((action, idx) => {
-                const points = calculatePoints(action);
-                totalPoints += points;
-                actionsText += `\n**${idx + 1}. ${action.type || 'Не выбран'}**\n   📊 Кол-во: ${action.count || 1} | 🎯 Баллы: ${points}\n   📎 Доказательства: ${action.proofs || 'Не приложены'}\n`;
-            });
-            if (promotionActions.length === 0) actionsText = '\nНет действий с доказательствами';
-            return `**⬆️ ЗАПРОС НА ПОВЫШЕНИЕ**\n\n**👤 Игровой никнейм:** ${nickname}\n**🎖️ Желаемое повышение:** ${rank}\n**📅 Дата последнего повышения:** ${lastPromotionFormatted}\n\n**📊 ДОСТИЖЕНИЯ И АКТИВНОСТИ:**${actionsText}\n\n**🏆 ИТОГО БАЛЛОВ:** ${totalPoints}`;
-        }
-
-        function formatExamReport() {
-            const fullName = document.getElementById('examFullName').value.trim() || 'Не указан';
-            const examType = document.getElementById('examType').value || 'Не выбран';
-            const discordTag = document.getElementById('examDiscord').value.trim() || 'Не указан';
-            const examTime = document.getElementById('examTime').value.trim() || 'Не указано';
-            return `**📝 ЗАПИСЬ НА ЭКЗАМЕН**\n\n**👤 Имя и фамилия:** ${fullName}\n**📚 Тип экзамена:** ${examType}\n**💬 Discord @тег:** ${discordTag}\n**⏰ Удобное время:** ${examTime}`;
-        }
-
-        function setDefaultWeeklyDates() {
-            const today = new Date();
-            const monday = new Date(today);
-            monday.setDate(today.getDate() - (today.getDay() === 0 ? 6 : today.getDay() - 1));
-            const sunday = new Date(monday);
-            sunday.setDate(monday.getDate() + 6);
-            document.getElementById('weeklyDateStart').value = monday.toISOString().split('T')[0];
-            document.getElementById('weeklyDateEnd').value = sunday.toISOString().split('T')[0];
-            updateWeeklyPeriodInfo();
-        }
-
-        function showAlert(containerId, message, type) {
-            const container = document.getElementById(containerId);
-            const alert = document.createElement('div');
-            alert.className = `alert ${type}`;
-            alert.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${message}`;
-            container.appendChild(alert);
-            setTimeout(() => alert.remove(), 5000);
-        }
-
-        async function sendToDiscord(webhookUrl, content, username = 'Aetheris HR') {
-            const response = await fetch(webhookUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, content })
-            });
-            if (!response.ok) throw new Error(`Ошибка HTTP ${response.status}`);
-            return true;
-        }
-
-        function showHome() {
-            document.getElementById('homePage').style.display = 'flex';
-            document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
-        }
-
-        function showFormPage(pageId) {
-            document.getElementById('homePage').style.display = 'none';
-            document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
-            document.getElementById(pageId).style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        document.getElementById('weeklyAddActionBtn').addEventListener('click', () => { weeklyActions.push({ type: '', basePoints: 0, count: 1, proofs: '' }); renderWeeklyActions(); });
-        document.getElementById('promotionAddActionBtn').addEventListener('click', () => { promotionActions.push({ type: '', basePoints: 0, count: 1, proofs: '' }); renderPromotionActions(); });
-
-        document.getElementById('weeklySubmitBtn').addEventListener('click', async () => {
-            if (!document.getElementById('weeklyNickname').value.trim()) { showAlert('weeklyAlert', 'Введите игровой никнейм', 'error'); return; }
-            const btn = document.getElementById('weeklySubmitBtn');
-            btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
-            try {
-                await sendToDiscord(WEBHOOKS.weekly, formatWeeklyReport(), 'Еженедельный отчёт');
-                showAlert('weeklyAlert', '✅ Отчёт отправлен в Discord!', 'success');
-                document.getElementById('weeklyNickname').value = '';
-                document.getElementById('weeklyRank').value = '';
-                weeklyActions = [];
-                renderWeeklyActions();
-                setDefaultWeeklyDates();
-            } catch (err) { showAlert('weeklyAlert', `❌ Ошибка: ${err.message}`, 'error'); }
-            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> ОТПРАВИТЬ ОТЧЁТ'; }
-        });
-
-        document.getElementById('promotionSubmitBtn').addEventListener('click', async () => {
-            if (!document.getElementById('promotionNickname').value.trim()) { showAlert('promotionAlert', 'Введите игровой никнейм', 'error'); return; }
-            const btn = document.getElementById('promotionSubmitBtn');
-            btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
-            try {
-                await sendToDiscord(WEBHOOKS.promotion, formatPromotionReport(), 'Запрос на повышение');
-                showAlert('promotionAlert', '✅ Запрос на повышение отправлен!', 'success');
-                document.getElementById('promotionNickname').value = '';
-                document.getElementById('promotionRank').value = '';
-                document.getElementById('lastPromotionDate').value = '';
-                promotionActions = [];
-                renderPromotionActions();
-            } catch (err) { showAlert('promotionAlert', `❌ Ошибка: ${err.message}`, 'error'); }
-            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> ОТПРАВИТЬ ЗАПРОС'; }
-        });
-
-        document.getElementById('examSubmitBtn').addEventListener('click', async () => {
-            if (!document.getElementById('examFullName').value.trim()) { showAlert('examAlert', 'Введите имя и фамилию', 'error'); return; }
-            const btn = document.getElementById('examSubmitBtn');
-            btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
-            try {
-                await sendToDiscord(WEBHOOKS.exam, formatExamReport(), 'Запись на экзамен');
-                showAlert('examAlert', '✅ Заявка на экзамен отправлена!', 'success');
-                document.getElementById('examFullName').value = '';
-                document.getElementById('examType').value = '';
-                document.getElementById('examDiscord').value = '';
-                document.getElementById('examTime').value = '';
-            } catch (err) { showAlert('examAlert', `❌ Ошибка: ${err.message}`, 'error'); }
-            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> ЗАПИСАТЬСЯ НА ЭКЗАМЕН'; }
-        });
-
-        document.querySelectorAll('.action-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const page = card.dataset.page;
-                if (page === 'weekly') showFormPage('weeklyPage');
-                else if (page === 'promotion') showFormPage('promotionPage');
-                else if (page === 'exam') showFormPage('examPage');
-            });
-        });
-
-        document.getElementById('themeSwitch').addEventListener('click', () => {
-            document.body.classList.toggle('light');
-            const isLight = document.body.classList.contains('light');
-            localStorage.setItem('theme', isLight ? 'light' : 'dark');
-            const icon = document.querySelector('#themeSwitch i');
-            const text = document.querySelector('#themeSwitch span');
-            if (isLight) { icon.className = 'fas fa-moon'; text.innerText = 'Тёмная тема'; }
-            else { icon.className = 'fas fa-sun'; text.innerText = 'Светлая тема'; }
-        });
-
-        document.getElementById('weeklyDateStart').addEventListener('change', updateWeeklyPeriodInfo);
-        document.getElementById('weeklyDateEnd').addEventListener('change', updateWeeklyPeriodInfo);
-        document.getElementById('lastPromotionDate').addEventListener('change', updatePromotionDateInfo);
-
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.body.classList.add('light');
-            document.querySelector('#themeSwitch i').className = 'fas fa-moon';
-            document.querySelector('#themeSwitch span').innerText = 'Тёмная тема';
-        }
-
-        showHome();
-        setDefaultWeeklyDates();
-        renderWeeklyActions();
-        renderPromotionActions();
-        updatePromotionDateInfo();
-    </script>
+    // Автозаполнение дат (по желанию можно оставить пустыми)
+    // Установим сегодняшнюю дату для удобства (необязательно)
+    const today = new Date().toISOString().split('T')[0];
+    if (!document.getElementById('weeklyStartDate').value) {
+      document.getElementById('weeklyStartDate').value = today;
+    }
+    if (!document.getElementById('weeklyEndDate').value) {
+      const nextWeek = new Date(Date.now() + 7*24*60*60*1000).toISOString().split('T')[0];
+      document.getElementById('weeklyEndDate').value = nextWeek;
+    }
+  })();
+</script>
 </body>
 </html>
