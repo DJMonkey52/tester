@@ -333,7 +333,6 @@
             margin-bottom: 20px;
         }
 
-        /* Плашка действия с анимациями */
         .action-item {
             background: var(--card-hover);
             border-radius: 18px;
@@ -341,8 +340,6 @@
             margin-bottom: 14px;
             border: 1px solid var(--border-light);
             transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            opacity: 1;
-            transform: scale(1);
             animation: actionAppear 0.4s ease;
         }
 
@@ -444,7 +441,6 @@
             color: var(--text-primary);
         }
 
-        /* Блок доказательств */
         .proofs-section {
             grid-column: span 2;
             margin-top: 8px;
@@ -469,6 +465,9 @@
             background: rgba(0,0,0,0.2);
             border-radius: 10px;
             padding: 6px 10px;
+        }
+
+        .proof-item.new-proof {
             animation: proofAppear 0.3s ease;
         }
 
@@ -571,7 +570,6 @@
             font-size: 0.8rem;
             font-weight: 700;
             color: white;
-            transition: all 0.2s;
         }
 
         .count-badge {
@@ -611,12 +609,6 @@
             background: rgba(15, 18, 35, 0.4);
             border-radius: 18px;
             margin-bottom: 14px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         .submit-btn {
@@ -965,7 +957,56 @@
             }
         }
 
-        // Рендер с анимациями
+        // Функция для добавления доказательства без полного перерендера
+        function addProofToAction(actionsArray, actionIdx, renderFunc, type) {
+            if (!actionsArray[actionIdx].proofs) actionsArray[actionIdx].proofs = [''];
+            actionsArray[actionIdx].proofs.push('');
+            
+            // Находим контейнер доказательств и добавляем новый элемент с анимацией
+            const actionElements = document.querySelectorAll(`#${type}ActionsList .action-item`);
+            const proofsContainer = actionElements[actionIdx]?.querySelector('.proofs-list');
+            if (proofsContainer) {
+                const newProofHtml = `
+                    <div class="proof-item new-proof">
+                        <i class="fas fa-link" style="color: var(--accent); font-size: 0.75rem;"></i>
+                        <input type="text" class="proof-input" data-type="${type}" data-action="${actionIdx}" data-proof="${actionsArray[actionIdx].proofs.length - 1}" value="" placeholder="https://пример.com/скриншот">
+                        <button class="remove-proof" data-type="${type}" data-action="${actionIdx}" data-proof="${actionsArray[actionIdx].proofs.length - 1}"><i class="fas fa-times"></i></button>
+                    </div>
+                `;
+                proofsContainer.insertAdjacentHTML('beforeend', newProofHtml);
+                
+                // Добавляем обработчики на новый элемент
+                const newProof = proofsContainer.lastElementChild;
+                const newInput = newProof.querySelector('.proof-input');
+                const newRemoveBtn = newProof.querySelector('.remove-proof');
+                
+                newInput.addEventListener('change', (e) => {
+                    const aIdx = parseInt(newInput.dataset.action);
+                    const pIdx = parseInt(newInput.dataset.proof);
+                    if (!isNaN(aIdx) && actionsArray[aIdx] && actionsArray[aIdx].proofs && actionsArray[aIdx].proofs[pIdx] !== undefined) {
+                        actionsArray[aIdx].proofs[pIdx] = newInput.value;
+                    }
+                });
+                
+                newRemoveBtn.addEventListener('click', async (e) => {
+                    const aIdx = parseInt(newRemoveBtn.dataset.action);
+                    const pIdx = parseInt(newRemoveBtn.dataset.proof);
+                    if (!isNaN(aIdx) && actionsArray[aIdx] && actionsArray[aIdx].proofs && actionsArray[aIdx].proofs.length > 1) {
+                        const proofElement = newRemoveBtn.closest('.proof-item');
+                        proofElement.classList.add('removing');
+                        await new Promise(resolve => setTimeout(resolve, 250));
+                        actionsArray[aIdx].proofs.splice(pIdx, 1);
+                        renderFunc();
+                    }
+                });
+                
+                // Удаляем класс анимации через полсекунды
+                setTimeout(() => newProof.classList.remove('new-proof'), 500);
+            } else {
+                renderFunc();
+            }
+        }
+
         async function removeActionWithAnimation(actionsArray, idx, renderFunc, type) {
             const actionElements = document.querySelectorAll(`#${type}ActionsList .action-item`);
             const element = actionElements[idx];
@@ -1055,6 +1096,7 @@
             document.querySelectorAll('#weeklyActionsList .action-type').forEach(select => {
                 const idx = parseInt(select.dataset.idx);
                 if (!isNaN(idx) && weeklyActions[idx]) {
+                    select.removeEventListener('change', () => {});
                     select.addEventListener('change', (e) => {
                         const selectedOption = select.options[select.selectedIndex];
                         weeklyActions[idx].type = select.value;
@@ -1068,6 +1110,7 @@
             document.querySelectorAll('#weeklyActionsList .action-count').forEach(input => {
                 const idx = parseInt(input.dataset.idx);
                 if (!isNaN(idx) && weeklyActions[idx]) {
+                    input.removeEventListener('input', () => {});
                     input.addEventListener('input', (e) => {
                         weeklyActions[idx].count = parseInt(input.value) || 1;
                         const actionDiv = input.closest('.action-item');
@@ -1078,8 +1121,9 @@
                     });
                 }
             });
-            // Удаление действия с анимацией
+            // Удаление действия
             document.querySelectorAll('#weeklyActionsList .remove-action').forEach(btn => {
+                btn.removeEventListener('click', () => {});
                 btn.addEventListener('click', async (e) => {
                     const idx = parseInt(btn.dataset.idx);
                     if (!isNaN(idx)) {
@@ -1087,19 +1131,19 @@
                     }
                 });
             });
-            // Добавление доказательства
+            // Добавление доказательства - используем оптимизированную функцию
             document.querySelectorAll('#weeklyActionsList .add-proof-btn').forEach(btn => {
+                btn.removeEventListener('click', () => {});
                 btn.addEventListener('click', (e) => {
                     const actionIdx = parseInt(btn.dataset.action);
                     if (!isNaN(actionIdx) && weeklyActions[actionIdx]) {
-                        if (!weeklyActions[actionIdx].proofs) weeklyActions[actionIdx].proofs = [''];
-                        weeklyActions[actionIdx].proofs.push('');
-                        renderWeeklyActions();
+                        addProofToAction(weeklyActions, actionIdx, renderWeeklyActions, 'weekly');
                     }
                 });
             });
-            // Удаление доказательства с анимацией
+            // Удаление доказательства
             document.querySelectorAll('#weeklyActionsList .remove-proof').forEach(btn => {
+                btn.removeEventListener('click', () => {});
                 btn.addEventListener('click', async (e) => {
                     const actionIdx = parseInt(btn.dataset.action);
                     const proofIdx = parseInt(btn.dataset.proof);
@@ -1108,8 +1152,9 @@
                     }
                 });
             });
-            // Изменение доказательства
+            // Изменение доказательства - пересоздаём обработчики
             document.querySelectorAll('#weeklyActionsList .proof-input').forEach(input => {
+                input.removeEventListener('change', () => {});
                 input.addEventListener('change', (e) => {
                     const actionIdx = parseInt(input.dataset.action);
                     const proofIdx = parseInt(input.dataset.proof);
@@ -1199,9 +1244,7 @@
                 btn.addEventListener('click', (e) => {
                     const actionIdx = parseInt(btn.dataset.action);
                     if (!isNaN(actionIdx) && promotionActions[actionIdx]) {
-                        if (!promotionActions[actionIdx].proofs) promotionActions[actionIdx].proofs = [''];
-                        promotionActions[actionIdx].proofs.push('');
-                        renderPromotionActions();
+                        addProofToAction(promotionActions, actionIdx, renderPromotionActions, 'promotion');
                     }
                 });
             });
