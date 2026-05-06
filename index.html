@@ -291,10 +291,9 @@
 
         .input-group label {
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             color: var(--accent-glow);
             margin-bottom: 6px;
         }
@@ -667,19 +666,20 @@
             </div>
         </div>
 
+        <!-- ЕЖЕНЕДЕЛЬНЫЙ ОТЧЁТ -->
         <div id="weeklyPage" class="form-page">
             <div class="back-btn" onclick="showHome()">
                 <i class="fas fa-arrow-left"></i> На главную
             </div>
             <div class="glass-card">
                 <div class="card-header">
-                    <h2><i class="fas fa-calendar-week"></i> Еженедельный отчёт</h2>
+                    <h2><i class="fas fa-calendar-week"></i> 📊 Еженедельный отчёт</h2>
                 </div>
                 <div class="card-body">
                     <div id="weeklyAlert"></div>
-                    <div class="input-group"><label>ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="weeklyNickname" placeholder="Введите никнейм"></div>
+                    <div class="input-group"><label>🎮 ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="weeklyNickname" placeholder="Введите никнейм"></div>
                     <div class="input-group">
-                        <label>РАНГ СОТРУДНИКА</label>
+                        <label>🏅 РАНГ СОТРУДНИКА</label>
                         <select id="weeklyRank">
                             <option value="">-- Выберите ранг --</option>
                             <option value="Специалист (3)">Специалист (3)</option>
@@ -695,39 +695,40 @@
                         </select>
                     </div>
                     <div class="period-row">
-                        <div class="input-group"><label>ДАТА НАЧАЛА</label><input type="date" id="weeklyDateStart"></div>
-                        <div class="input-group"><label>ДАТА ОКОНЧАНИЯ</label><input type="date" id="weeklyDateEnd"></div>
+                        <div class="input-group"><label>📅 ДАТА НАЧАЛА</label><input type="date" id="weeklyDateStart"></div>
+                        <div class="input-group"><label>📅 ДАТА ОКОНЧАНИЯ</label><input type="date" id="weeklyDateEnd"></div>
                     </div>
                     <div class="period-info" id="weeklyPeriodInfo"></div>
 
                     <div style="margin-top: 24px;">
                         <label style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
-                            <i class="fas fa-clipboard-list"></i> ДЕЙСТВИЯ С ДОКАЗАТЕЛЬСТВАМИ
+                            <i class="fas fa-clipboard-list"></i> 📋 ДЕЙСТВИЯ С ДОКАЗАТЕЛЬСТВАМИ
                         </label>
                         <div id="weeklyActionsContainer">
                             <div id="weeklyEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий с доказательствами</div>
                             <div id="weeklyActionsList"></div>
                         </div>
-                        <button class="add-btn" id="weeklyAddActionBtn"><i class="fas fa-plus-circle"></i> ДОБАВИТЬ</button>
+                        <button class="add-btn" id="weeklyAddActionBtn"><i class="fas fa-plus-circle"></i> + ДОБАВИТЬ ДЕЙСТВИЕ</button>
                     </div>
-                    <button class="submit-btn" id="weeklySubmitBtn"><i class="fab fa-discord"></i> ОТПРАВИТЬ ОТЧЁТ</button>
+                    <button class="submit-btn" id="weeklySubmitBtn"><i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ОТЧЁТ</button>
                 </div>
             </div>
         </div>
 
+        <!-- ОТЧЁТ НА ПОВЫШЕНИЕ -->
         <div id="promotionPage" class="form-page">
             <div class="back-btn" onclick="showHome()">
                 <i class="fas fa-arrow-left"></i> На главную
             </div>
             <div class="glass-card">
                 <div class="card-header">
-                    <h2><i class="fas fa-arrow-up"></i> Отчёт на повышение</h2>
+                    <h2><i class="fas fa-arrow-up"></i> ⬆️ Отчёт на повышение</h2>
                 </div>
                 <div class="card-body">
                     <div id="promotionAlert"></div>
-                    <div class="input-group"><label>ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="promotionNickname" placeholder="Введите никнейм"></div>
+                    <div class="input-group"><label>🎮 ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="promotionNickname" placeholder="Введите никнейм"></div>
                     <div class="input-group">
-                        <label>ЖЕЛАЕМЫЙ РАНГ (ТЕКУЩИЙ → НОВЫЙ)</label>
+                        <label>📈 ЖЕЛАЕМЫЙ РАНГ (ТЕКУЩИЙ → НОВЫЙ)</label>
                         <select id="promotionRank">
                             <option value="">-- Выберите повышение --</option>
                             <option value="3 → 4">3 → 4</option>
@@ -741,37 +742,38 @@
                             <option value="11 → 12">11 → 12</option>
                         </select>
                     </div>
-                    <div class="input-group"><label>ДАТА ПОСЛЕДНЕГО ПОВЫШЕНИЯ</label><input type="date" id="lastPromotionDate"></div>
+                    <div class="input-group"><label>📅 ДАТА ПОСЛЕДНЕГО ПОВЫШЕНИЯ</label><input type="date" id="lastPromotionDate"></div>
                     <div class="period-info" id="promotionDateInfo"></div>
 
                     <div style="margin-top: 24px;">
                         <label style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
-                            <i class="fas fa-clipboard-list"></i> ДЕЙСТВИЯ С ДОКАЗАТЕЛЬСТВАМИ
+                            <i class="fas fa-clipboard-list"></i> 📋 ДОСТИЖЕНИЯ С ДОКАЗАТЕЛЬСТВАМИ
                         </label>
                         <div id="promotionActionsContainer">
                             <div id="promotionEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий с доказательствами</div>
                             <div id="promotionActionsList"></div>
                         </div>
-                        <button class="add-btn" id="promotionAddActionBtn"><i class="fas fa-plus-circle"></i> ДОБАВИТЬ</button>
+                        <button class="add-btn" id="promotionAddActionBtn"><i class="fas fa-plus-circle"></i> + ДОБАВИТЬ ДЕЙСТВИЕ</button>
                     </div>
-                    <button class="submit-btn" id="promotionSubmitBtn"><i class="fab fa-discord"></i> ОТПРАВИТЬ ЗАПРОС</button>
+                    <button class="submit-btn" id="promotionSubmitBtn"><i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ЗАПРОС</button>
                 </div>
             </div>
         </div>
 
+        <!-- ЗАПИСЬ НА ЭКЗАМЕН -->
         <div id="examPage" class="form-page">
             <div class="back-btn" onclick="showHome()">
                 <i class="fas fa-arrow-left"></i> На главную
             </div>
             <div class="glass-card">
                 <div class="card-header">
-                    <h2><i class="fas fa-pen-clip"></i> Запись на экзамен</h2>
+                    <h2><i class="fas fa-pen-clip"></i> 📝 Запись на экзамен</h2>
                 </div>
                 <div class="card-body">
                     <div id="examAlert"></div>
-                    <div class="input-group"><label>ИМЯ И ФАМИЛИЯ</label><input type="text" id="examFullName" placeholder="Иванов Иван"></div>
+                    <div class="input-group"><label>👤 ИМЯ И ФАМИЛИЯ</label><input type="text" id="examFullName" placeholder="Иванов Иван"></div>
                     <div class="input-group">
-                        <label>ТИП ЭКЗАМЕНА</label>
+                        <label>🎓 ТИП ЭКЗАМЕНА</label>
                         <select id="examType">
                             <option value="">-- Выберите экзамен --</option>
                             <option value="Acd.Delta">🎓 Acd.Delta</option>
@@ -784,22 +786,19 @@
                             <option value="9 → 10">📈 9 → 10</option>
                         </select>
                     </div>
-                    <div class="input-group"><label>DISCORD @ТЕГ</label><input type="text" id="examDiscord" placeholder="@username"></div>
-                    <div class="input-group"><label>УДОБНОЕ ВРЕМЯ</label><input type="text" id="examTime" placeholder="Например: понедельник 18:00 МСК"></div>
-                    <button class="submit-btn" id="examSubmitBtn"><i class="fab fa-discord"></i> ЗАПИСАТЬСЯ НА ЭКЗАМЕН</button>
+                    <div class="input-group"><label>💬 DISCORD @ТЕГ</label><input type="text" id="examDiscord" placeholder="@username"></div>
+                    <div class="input-group"><label>⏰ УДОБНОЕ ВРЕМЯ</label><input type="text" id="examTime" placeholder="Например: понедельник 18:00 МСК"></div>
+                    <button class="submit-btn" id="examSubmitBtn"><i class="fab fa-discord"></i> 📨 ЗАПИСАТЬСЯ НА ЭКЗАМЕН</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ============================================
-        // 🔒 ФИКСИРОВАННЫЕ ВЕБХУКИ (ЗАМЕНИТЕ НА ВАШИ)
-        // ============================================
         const WEBHOOKS = {
-            weekly: 'https://discord.com/api/webhooks/1342990389576523817/d0I7_Habqsq3QCEW8U04wxHSPnyAAfKDvNv4_0pYLhDcpLcn5Gq-bIrnNqLfUF4O6ODM',
-            promotion: 'https://discord.com/api/webhooks/1342990438990155868/bVemc6xSgF1ZvdzrbfN10wLb-KdMAHhGHteKXGkLRX7Eo-h7eOQFeq6_5fiApo1_8boK',
-            exam: 'https://discord.com/api/webhooks/1342990453327466578/7MSg--hsc8ug6CKFZ9_FHmK6iLsiXUc0P9rMYw6R_7K4aCAdDPxJtLQACq58v7KL5MfC'
+            weekly: 'https://discord.com/api/webhooks/1501309143691297043/BeXtbLJ7CY0cM83HIQjDInoS7vR2rQwPwt2QJ0yUXoWJiNVBOlLI-XMZfBEXiADxcVyl',
+            promotion: 'https://discord.com/api/webhooks/1501309143691297043/BeXtbLJ7CY0cM83HIQjDInoS7vR2rQwPwt2QJ0yUXoWJiNVBOlLI-XMZfBEXiADxcVyl',
+            exam: 'https://discord.com/api/webhooks/1501309143691297043/BeXtbLJ7CY0cM83HIQjDInoS7vR2rQwPwt2QJ0yUXoWJiNVBOlLI-XMZfBEXiADxcVyl'
         };
 
         const ACTIVITY_TYPES = [
@@ -882,17 +881,14 @@
         }
 
         function renderProofsList(action, actionIdx, type) {
-            const proofs = action.proofs || [];
-            if (proofs.length === 0) {
-                return `<div class="proofs-list" style="padding: 8px 0;"><span style="color: var(--text-muted); font-size: 0.75rem;">Нет доказательств</span></div>`;
-            }
+            const proofs = action.proofs || [''];
             return `
                 <div class="proofs-list">
                     ${proofs.map((proof, pIdx) => `
-                        <div class="proof-item" data-action="${actionIdx}" data-proof="${pIdx}">
+                        <div class="proof-item">
                             <i class="fas fa-link" style="color: var(--accent); font-size: 0.75rem;"></i>
                             <input type="text" class="proof-input" data-type="${type}" data-action="${actionIdx}" data-proof="${pIdx}" value="${escapeHtml(proof)}" placeholder="https://пример.com/скриншот">
-                            <button class="remove-proof" data-type="${type}" data-action="${actionIdx}" data-proof="${pIdx}"><i class="fas fa-times"></i></button>
+                            ${proofs.length > 1 ? `<button class="remove-proof" data-type="${type}" data-action="${actionIdx}" data-proof="${pIdx}"><i class="fas fa-times"></i></button>` : ''}
                         </div>
                     `).join('')}
                 </div>
@@ -929,9 +925,7 @@
                         </div>
                         <div class="proofs-section">
                             <label><i class="fas fa-images"></i> ДОКАЗАТЕЛЬСТВА</label>
-                            <div class="proofs-container" data-action-idx="${idx}">
-                                ${renderProofsList(action, idx, 'weekly')}
-                            </div>
+                            ${renderProofsList(action, idx, 'weekly')}
                         </div>
                     </div>
                     <div class="points-row">
@@ -944,94 +938,74 @@
         }
 
         function attachWeeklyEvents() {
-            // Тип действия
             document.querySelectorAll('#weeklyActionsList .action-type').forEach(select => {
                 const idx = parseInt(select.dataset.idx);
                 if (!isNaN(idx) && weeklyActions[idx]) {
-                    select.removeEventListener('change', weeklyTypeChangeHandler);
-                    const handler = (e) => {
+                    select.removeEventListener('change', () => {});
+                    select.addEventListener('change', (e) => {
                         const selectedOption = select.options[select.selectedIndex];
                         weeklyActions[idx].type = select.value;
                         weeklyActions[idx].basePoints = parseInt(selectedOption.dataset.points) || 0;
-                        const actionDiv = select.closest('.action-item');
-                        const pointsSpan = actionDiv.querySelector('.points-badge');
+                        const pointsSpan = select.closest('.action-item').querySelector('.points-badge');
                         if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(weeklyActions[idx])}`;
-                    };
-                    select.addEventListener('change', handler);
-                    select.weeklyChangeHandler = handler;
+                    });
                 }
             });
-            // Количество
             document.querySelectorAll('#weeklyActionsList .action-count').forEach(input => {
                 const idx = parseInt(input.dataset.idx);
                 if (!isNaN(idx) && weeklyActions[idx]) {
-                    input.removeEventListener('input', weeklyCountHandler);
-                    const handler = (e) => {
+                    input.removeEventListener('input', () => {});
+                    input.addEventListener('input', (e) => {
                         weeklyActions[idx].count = parseInt(input.value) || 1;
                         const actionDiv = input.closest('.action-item');
                         const countSpan = actionDiv.querySelector('.count-badge');
                         const pointsSpan = actionDiv.querySelector('.points-badge');
                         if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${weeklyActions[idx].count}`;
                         if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(weeklyActions[idx])}`;
-                    };
-                    input.addEventListener('input', handler);
-                    input.weeklyCountHandler = handler;
+                    });
                 }
             });
-            // Удаление действия
             document.querySelectorAll('#weeklyActionsList .remove-action').forEach(btn => {
-                btn.removeEventListener('click', weeklyRemoveHandler);
-                const handler = (e) => {
+                btn.removeEventListener('click', () => {});
+                btn.addEventListener('click', (e) => {
                     const idx = parseInt(btn.dataset.idx);
                     if (!isNaN(idx)) {
                         weeklyActions.splice(idx, 1);
                         renderWeeklyActions();
                     }
-                };
-                btn.addEventListener('click', handler);
-                btn.weeklyRemoveHandler = handler;
+                });
             });
-            // Добавление доказательства
             document.querySelectorAll('#weeklyActionsList .add-proof-btn').forEach(btn => {
-                btn.removeEventListener('click', weeklyAddProofHandler);
-                const handler = (e) => {
+                btn.removeEventListener('click', () => {});
+                btn.addEventListener('click', (e) => {
                     const actionIdx = parseInt(btn.dataset.action);
                     if (!isNaN(actionIdx) && weeklyActions[actionIdx]) {
-                        if (!weeklyActions[actionIdx].proofs) weeklyActions[actionIdx].proofs = [];
+                        if (!weeklyActions[actionIdx].proofs) weeklyActions[actionIdx].proofs = [''];
                         weeklyActions[actionIdx].proofs.push('');
                         renderWeeklyActions();
                     }
-                };
-                btn.addEventListener('click', handler);
-                btn.weeklyAddProofHandler = handler;
+                });
             });
-            // Удаление доказательства
             document.querySelectorAll('#weeklyActionsList .remove-proof').forEach(btn => {
-                btn.removeEventListener('click', weeklyRemoveProofHandler);
-                const handler = (e) => {
+                btn.removeEventListener('click', () => {});
+                btn.addEventListener('click', (e) => {
                     const actionIdx = parseInt(btn.dataset.action);
                     const proofIdx = parseInt(btn.dataset.proof);
-                    if (!isNaN(actionIdx) && weeklyActions[actionIdx] && weeklyActions[actionIdx].proofs) {
+                    if (!isNaN(actionIdx) && weeklyActions[actionIdx] && weeklyActions[actionIdx].proofs && weeklyActions[actionIdx].proofs.length > 1) {
                         weeklyActions[actionIdx].proofs.splice(proofIdx, 1);
-                        if (weeklyActions[actionIdx].proofs.length === 0) weeklyActions[actionIdx].proofs = [];
                         renderWeeklyActions();
                     }
-                };
-                btn.addEventListener('click', handler);
-                btn.weeklyRemoveProofHandler = handler;
+                });
             });
-            // Изменение доказательства
             document.querySelectorAll('#weeklyActionsList .proof-input').forEach(input => {
-                input.removeEventListener('change', weeklyProofChangeHandler);
-                const handler = (e) => {
+                input.removeEventListener('change', () => {});
+                input.addEventListener('change', (e) => {
                     const actionIdx = parseInt(input.dataset.action);
                     const proofIdx = parseInt(input.dataset.proof);
                     if (!isNaN(actionIdx) && weeklyActions[actionIdx] && weeklyActions[actionIdx].proofs && weeklyActions[actionIdx].proofs[proofIdx] !== undefined) {
                         weeklyActions[actionIdx].proofs[proofIdx] = input.value;
                     }
-                };
-                input.addEventListener('change', handler);
-                input.weeklyProofChangeHandler = handler;
+                });
             });
         }
 
@@ -1064,9 +1038,7 @@
                         </div>
                         <div class="proofs-section">
                             <label><i class="fas fa-images"></i> ДОКАЗАТЕЛЬСТВА</label>
-                            <div class="proofs-container" data-action-idx="${idx}">
-                                ${renderProofsList(action, idx, 'promotion')}
-                            </div>
+                            ${renderProofsList(action, idx, 'promotion')}
                         </div>
                     </div>
                     <div class="points-row">
@@ -1082,96 +1054,70 @@
             document.querySelectorAll('#promotionActionsList .action-type').forEach(select => {
                 const idx = parseInt(select.dataset.idx);
                 if (!isNaN(idx) && promotionActions[idx]) {
-                    select.removeEventListener('change', promotionTypeHandler);
-                    const handler = (e) => {
+                    select.addEventListener('change', (e) => {
                         const selectedOption = select.options[select.selectedIndex];
                         promotionActions[idx].type = select.value;
                         promotionActions[idx].basePoints = parseInt(selectedOption.dataset.points) || 0;
-                        const actionDiv = select.closest('.action-item');
-                        const pointsSpan = actionDiv.querySelector('.points-badge');
+                        const pointsSpan = select.closest('.action-item').querySelector('.points-badge');
                         if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(promotionActions[idx])}`;
-                    };
-                    select.addEventListener('change', handler);
-                    select.promotionTypeHandler = handler;
+                    });
                 }
             });
             document.querySelectorAll('#promotionActionsList .action-count').forEach(input => {
                 const idx = parseInt(input.dataset.idx);
                 if (!isNaN(idx) && promotionActions[idx]) {
-                    input.removeEventListener('input', promotionCountHandler);
-                    const handler = (e) => {
+                    input.addEventListener('input', (e) => {
                         promotionActions[idx].count = parseInt(input.value) || 1;
                         const actionDiv = input.closest('.action-item');
                         const countSpan = actionDiv.querySelector('.count-badge');
                         const pointsSpan = actionDiv.querySelector('.points-badge');
                         if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${promotionActions[idx].count}`;
                         if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(promotionActions[idx])}`;
-                    };
-                    input.addEventListener('input', handler);
-                    input.promotionCountHandler = handler;
+                    });
                 }
             });
             document.querySelectorAll('#promotionActionsList .remove-action').forEach(btn => {
-                btn.removeEventListener('click', promotionRemoveHandler);
-                const handler = (e) => {
+                btn.addEventListener('click', (e) => {
                     const idx = parseInt(btn.dataset.idx);
                     if (!isNaN(idx)) {
                         promotionActions.splice(idx, 1);
                         renderPromotionActions();
                     }
-                };
-                btn.addEventListener('click', handler);
-                btn.promotionRemoveHandler = handler;
+                });
             });
             document.querySelectorAll('#promotionActionsList .add-proof-btn').forEach(btn => {
-                btn.removeEventListener('click', promotionAddProofHandler);
-                const handler = (e) => {
+                btn.addEventListener('click', (e) => {
                     const actionIdx = parseInt(btn.dataset.action);
                     if (!isNaN(actionIdx) && promotionActions[actionIdx]) {
-                        if (!promotionActions[actionIdx].proofs) promotionActions[actionIdx].proofs = [];
+                        if (!promotionActions[actionIdx].proofs) promotionActions[actionIdx].proofs = [''];
                         promotionActions[actionIdx].proofs.push('');
                         renderPromotionActions();
                     }
-                };
-                btn.addEventListener('click', handler);
-                btn.promotionAddProofHandler = handler;
+                });
             });
             document.querySelectorAll('#promotionActionsList .remove-proof').forEach(btn => {
-                btn.removeEventListener('click', promotionRemoveProofHandler);
-                const handler = (e) => {
+                btn.addEventListener('click', (e) => {
                     const actionIdx = parseInt(btn.dataset.action);
                     const proofIdx = parseInt(btn.dataset.proof);
-                    if (!isNaN(actionIdx) && promotionActions[actionIdx] && promotionActions[actionIdx].proofs) {
+                    if (!isNaN(actionIdx) && promotionActions[actionIdx] && promotionActions[actionIdx].proofs && promotionActions[actionIdx].proofs.length > 1) {
                         promotionActions[actionIdx].proofs.splice(proofIdx, 1);
-                        if (promotionActions[actionIdx].proofs.length === 0) promotionActions[actionIdx].proofs = [];
                         renderPromotionActions();
                     }
-                };
-                btn.addEventListener('click', handler);
-                btn.promotionRemoveProofHandler = handler;
+                });
             });
             document.querySelectorAll('#promotionActionsList .proof-input').forEach(input => {
-                input.removeEventListener('change', promotionProofChangeHandler);
-                const handler = (e) => {
+                input.addEventListener('change', (e) => {
                     const actionIdx = parseInt(input.dataset.action);
                     const proofIdx = parseInt(input.dataset.proof);
                     if (!isNaN(actionIdx) && promotionActions[actionIdx] && promotionActions[actionIdx].proofs && promotionActions[actionIdx].proofs[proofIdx] !== undefined) {
                         promotionActions[actionIdx].proofs[proofIdx] = input.value;
                     }
-                };
-                input.addEventListener('change', handler);
-                input.promotionProofChangeHandler = handler;
+                });
             });
         }
 
         async function sendToDiscordWithEmbed(webhookUrl, title, fields, color = 0x5865F2) {
-            const embed = {
-                title: title,
-                color: color,
-                fields: fields,
-                footer: { text: "Aetheris HR System" },
-                timestamp: new Date().toISOString()
-            };
+            const embed = { title: title, color: color, fields: fields, footer: { text: "Aetheris HR System" }, timestamp: new Date().toISOString() };
             const response = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1192,19 +1138,17 @@
             weeklyActions.forEach((action, idx) => {
                 const points = calculatePoints(action);
                 totalPoints += points;
-                let proofsText = (action.proofs && action.proofs.length) ? action.proofs.map(p => `• ${p}`).join('\n') : 'Нет доказательств';
+                let proofsText = (action.proofs && action.proofs.length) ? action.proofs.filter(p => p).map(p => `• ${p}`).join('\n') : 'Нет доказательств';
                 actionsText += `**${idx + 1}. ${action.type || 'Не выбран'}** | Кол-во: ${action.count || 1} | Баллы: ${points}\n📎 Доказательства:\n${proofsText}\n\n`;
             });
             if (weeklyActions.length === 0) actionsText = 'Нет действий с доказательствами';
-            return {
-                fields: [
-                    { name: "👤 Игровой никнейм", value: nickname, inline: true },
-                    { name: "🎖️ Ранг", value: rank, inline: true },
-                    { name: "📅 Период", value: period, inline: true },
-                    { name: "📊 Действия", value: actionsText.substring(0, 1024) },
-                    { name: "🏆 Итого баллов", value: `${totalPoints}`, inline: true }
-                ]
-            };
+            return { fields: [
+                { name: "🎮 Игровой никнейм", value: nickname, inline: true },
+                { name: "🏅 Ранг", value: rank, inline: true },
+                { name: "📅 Период", value: period, inline: true },
+                { name: "📊 Действия", value: actionsText.substring(0, 1024) },
+                { name: "🏆 Итого баллов", value: `${totalPoints}`, inline: true }
+            ] };
         }
 
         function formatPromotionEmbed() {
@@ -1217,19 +1161,17 @@
             promotionActions.forEach((action, idx) => {
                 const points = calculatePoints(action);
                 totalPoints += points;
-                let proofsText = (action.proofs && action.proofs.length) ? action.proofs.map(p => `• ${p}`).join('\n') : 'Нет доказательств';
+                let proofsText = (action.proofs && action.proofs.length) ? action.proofs.filter(p => p).map(p => `• ${p}`).join('\n') : 'Нет доказательств';
                 actionsText += `**${idx + 1}. ${action.type || 'Не выбран'}** | Кол-во: ${action.count || 1} | Баллы: ${points}\n📎 Доказательства:\n${proofsText}\n\n`;
             });
             if (promotionActions.length === 0) actionsText = 'Нет действий с доказательствами';
-            return {
-                fields: [
-                    { name: "👤 Игровой никнейм", value: nickname, inline: true },
-                    { name: "🎖️ Желаемое повышение", value: rank, inline: true },
-                    { name: "📅 Дата последнего повышения", value: lastPromotionFormatted, inline: true },
-                    { name: "📊 Достижения", value: actionsText.substring(0, 1024) },
-                    { name: "🏆 Итого баллов", value: `${totalPoints}`, inline: true }
-                ]
-            };
+            return { fields: [
+                { name: "🎮 Игровой никнейм", value: nickname, inline: true },
+                { name: "📈 Желаемое повышение", value: rank, inline: true },
+                { name: "📅 Дата последнего повышения", value: lastPromotionFormatted, inline: true },
+                { name: "📊 Достижения", value: actionsText.substring(0, 1024) },
+                { name: "🏆 Итого баллов", value: `${totalPoints}`, inline: true }
+            ] };
         }
 
         function formatExamEmbed() {
@@ -1237,14 +1179,12 @@
             const examType = document.getElementById('examType').value || 'Не выбран';
             const discordTag = document.getElementById('examDiscord').value.trim() || 'Не указан';
             const examTime = document.getElementById('examTime').value.trim() || 'Не указано';
-            return {
-                fields: [
-                    { name: "👤 Имя и фамилия", value: fullName, inline: true },
-                    { name: "📚 Тип экзамена", value: examType, inline: true },
-                    { name: "💬 Discord @тег", value: discordTag, inline: true },
-                    { name: "⏰ Удобное время", value: examTime }
-                ]
-            };
+            return { fields: [
+                { name: "👤 Имя и фамилия", value: fullName, inline: true },
+                { name: "🎓 Тип экзамена", value: examType, inline: true },
+                { name: "💬 Discord @тег", value: discordTag, inline: true },
+                { name: "⏰ Удобное время", value: examTime }
+            ] };
         }
 
         function showAlert(containerId, message, type) {
@@ -1280,11 +1220,11 @@
         }
 
         document.getElementById('weeklyAddActionBtn').addEventListener('click', () => {
-            weeklyActions.push({ type: '', basePoints: 0, count: 1, proofs: [] });
+            weeklyActions.push({ type: '', basePoints: 0, count: 1, proofs: [''] });
             renderWeeklyActions();
         });
         document.getElementById('promotionAddActionBtn').addEventListener('click', () => {
-            promotionActions.push({ type: '', basePoints: 0, count: 1, proofs: [] });
+            promotionActions.push({ type: '', basePoints: 0, count: 1, proofs: [''] });
             renderPromotionActions();
         });
 
@@ -1302,7 +1242,7 @@
                 renderWeeklyActions();
                 setDefaultWeeklyDates();
             } catch (err) { showAlert('weeklyAlert', `❌ Ошибка: ${err.message}`, 'error'); }
-            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> ОТПРАВИТЬ ОТЧЁТ'; }
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ОТЧЁТ'; }
         });
 
         document.getElementById('promotionSubmitBtn').addEventListener('click', async () => {
@@ -1319,7 +1259,7 @@
                 promotionActions = [];
                 renderPromotionActions();
             } catch (err) { showAlert('promotionAlert', `❌ Ошибка: ${err.message}`, 'error'); }
-            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> ОТПРАВИТЬ ЗАПРОС'; }
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ЗАПРОС'; }
         });
 
         document.getElementById('examSubmitBtn').addEventListener('click', async () => {
@@ -1335,7 +1275,7 @@
                 document.getElementById('examDiscord').value = '';
                 document.getElementById('examTime').value = '';
             } catch (err) { showAlert('examAlert', `❌ Ошибка: ${err.message}`, 'error'); }
-            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> ЗАПИСАТЬСЯ НА ЭКЗАМЕН'; }
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> 📨 ЗАПИСАТЬСЯ НА ЭКЗАМЕН'; }
         });
 
         document.querySelectorAll('.action-card').forEach(card => {
