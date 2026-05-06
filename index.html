@@ -333,6 +333,7 @@
             margin-bottom: 20px;
         }
 
+        /* Плашка действия - НЕ ТРОГАЕМ, только доказательства внутри */
         .action-item {
             background: var(--card-hover);
             border-radius: 18px;
@@ -410,13 +411,21 @@
             color: var(--text-primary);
         }
 
+        /* БЛОК ДОКАЗАТЕЛЬСТВ - ТОЛЬКО ЗДЕСЬ МОЖНО ДОБАВЛЯТЬ/УДАЛЯТЬ */
         .proofs-section {
             grid-column: span 2;
             margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-light);
         }
 
-        .proofs-list {
-            margin-top: 8px;
+        .proofs-section label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--accent-glow);
+            margin-bottom: 8px;
+            display: block;
         }
 
         .proof-item {
@@ -437,6 +446,10 @@
             flex: 1;
             padding: 8px 10px;
             font-size: 0.8rem;
+            background: var(--input-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            color: var(--text-primary);
         }
 
         .proof-item input::placeholder {
@@ -444,18 +457,18 @@
         }
 
         .remove-proof {
-            background: none;
+            background: rgba(239, 68, 68, 0.15);
             border: none;
             color: #f87171;
             cursor: pointer;
-            font-size: 0.9rem;
-            padding: 4px 8px;
-            border-radius: 6px;
+            font-size: 0.8rem;
+            padding: 6px 10px;
+            border-radius: 8px;
             transition: all 0.2s;
         }
 
         .remove-proof:hover {
-            background: rgba(239, 68, 68, 0.2);
+            background: rgba(239, 68, 68, 0.3);
         }
 
         .add-proof-btn {
@@ -702,10 +715,10 @@
 
                     <div style="margin-top: 24px;">
                         <label style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
-                            <i class="fas fa-clipboard-list"></i> 📋 ДЕЙСТВИЯ С ДОКАЗАТЕЛЬСТВАМИ
+                            <i class="fas fa-clipboard-list"></i> 📋 ДЕЙСТВИЯ
                         </label>
                         <div id="weeklyActionsContainer">
-                            <div id="weeklyEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий с доказательствами</div>
+                            <div id="weeklyEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий</div>
                             <div id="weeklyActionsList"></div>
                         </div>
                         <button class="add-btn" id="weeklyAddActionBtn"><i class="fas fa-plus-circle"></i> + ДОБАВИТЬ ДЕЙСТВИЕ</button>
@@ -728,7 +741,7 @@
                     <div id="promotionAlert"></div>
                     <div class="input-group"><label>🎮 ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="promotionNickname" placeholder="Введите никнейм"></div>
                     <div class="input-group">
-                        <label>📈 ЖЕЛАЕМЫЙ РАНГ (ТЕКУЩИЙ → НОВЫЙ)</label>
+                        <label>📈 ЖЕЛАЕМЫЙ РАНГ</label>
                         <select id="promotionRank">
                             <option value="">-- Выберите повышение --</option>
                             <option value="3 → 4">3 → 4</option>
@@ -747,10 +760,10 @@
 
                     <div style="margin-top: 24px;">
                         <label style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
-                            <i class="fas fa-clipboard-list"></i> 📋 ДОСТИЖЕНИЯ С ДОКАЗАТЕЛЬСТВАМИ
+                            <i class="fas fa-clipboard-list"></i> 📋 ДОСТИЖЕНИЯ
                         </label>
                         <div id="promotionActionsContainer">
-                            <div id="promotionEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий с доказательствами</div>
+                            <div id="promotionEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий</div>
                             <div id="promotionActionsList"></div>
                         </div>
                         <button class="add-btn" id="promotionAddActionBtn"><i class="fas fa-plus-circle"></i> + ДОБАВИТЬ ДЕЙСТВИЕ</button>
@@ -880,8 +893,12 @@
             }
         }
 
-        function renderProofsList(action, actionIdx, type) {
-            const proofs = action.proofs || [''];
+        // Рендер списка доказательств для одного действия
+        function renderProofsList(proofs, actionIdx, type, actionArray) {
+            if (!proofs || proofs.length === 0) {
+                proofs = [''];
+                actionArray[actionIdx].proofs = proofs;
+            }
             return `
                 <div class="proofs-list">
                     ${proofs.map((proof, pIdx) => `
@@ -906,7 +923,7 @@
             }
             emptyDiv.style.display = 'none';
             container.innerHTML = weeklyActions.map((action, idx) => `
-                <div class="action-item" data-action-idx="${idx}">
+                <div class="action-item">
                     <div class="action-header">
                         <div class="action-title"><i class="fas fa-tag"></i> ДЕЙСТВИЕ #${idx + 1}</div>
                         <button class="remove-action" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button>
@@ -925,7 +942,7 @@
                         </div>
                         <div class="proofs-section">
                             <label><i class="fas fa-images"></i> ДОКАЗАТЕЛЬСТВА</label>
-                            ${renderProofsList(action, idx, 'weekly')}
+                            ${renderProofsList(action.proofs || [''], idx, 'weekly', weeklyActions)}
                         </div>
                     </div>
                     <div class="points-row">
@@ -938,10 +955,10 @@
         }
 
         function attachWeeklyEvents() {
+            // Тип действия
             document.querySelectorAll('#weeklyActionsList .action-type').forEach(select => {
                 const idx = parseInt(select.dataset.idx);
                 if (!isNaN(idx) && weeklyActions[idx]) {
-                    select.removeEventListener('change', () => {});
                     select.addEventListener('change', (e) => {
                         const selectedOption = select.options[select.selectedIndex];
                         weeklyActions[idx].type = select.value;
@@ -951,10 +968,10 @@
                     });
                 }
             });
+            // Количество
             document.querySelectorAll('#weeklyActionsList .action-count').forEach(input => {
                 const idx = parseInt(input.dataset.idx);
                 if (!isNaN(idx) && weeklyActions[idx]) {
-                    input.removeEventListener('input', () => {});
                     input.addEventListener('input', (e) => {
                         weeklyActions[idx].count = parseInt(input.value) || 1;
                         const actionDiv = input.closest('.action-item');
@@ -965,8 +982,8 @@
                     });
                 }
             });
+            // Удаление действия
             document.querySelectorAll('#weeklyActionsList .remove-action').forEach(btn => {
-                btn.removeEventListener('click', () => {});
                 btn.addEventListener('click', (e) => {
                     const idx = parseInt(btn.dataset.idx);
                     if (!isNaN(idx)) {
@@ -975,8 +992,8 @@
                     }
                 });
             });
+            // Добавление доказательства
             document.querySelectorAll('#weeklyActionsList .add-proof-btn').forEach(btn => {
-                btn.removeEventListener('click', () => {});
                 btn.addEventListener('click', (e) => {
                     const actionIdx = parseInt(btn.dataset.action);
                     if (!isNaN(actionIdx) && weeklyActions[actionIdx]) {
@@ -986,8 +1003,8 @@
                     }
                 });
             });
+            // Удаление доказательства
             document.querySelectorAll('#weeklyActionsList .remove-proof').forEach(btn => {
-                btn.removeEventListener('click', () => {});
                 btn.addEventListener('click', (e) => {
                     const actionIdx = parseInt(btn.dataset.action);
                     const proofIdx = parseInt(btn.dataset.proof);
@@ -997,8 +1014,8 @@
                     }
                 });
             });
+            // Изменение доказательства
             document.querySelectorAll('#weeklyActionsList .proof-input').forEach(input => {
-                input.removeEventListener('change', () => {});
                 input.addEventListener('change', (e) => {
                     const actionIdx = parseInt(input.dataset.action);
                     const proofIdx = parseInt(input.dataset.proof);
@@ -1019,7 +1036,7 @@
             }
             emptyDiv.style.display = 'none';
             container.innerHTML = promotionActions.map((action, idx) => `
-                <div class="action-item" data-action-idx="${idx}">
+                <div class="action-item">
                     <div class="action-header">
                         <div class="action-title"><i class="fas fa-tag"></i> ДЕЙСТВИЕ #${idx + 1}</div>
                         <button class="remove-action" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button>
@@ -1038,7 +1055,7 @@
                         </div>
                         <div class="proofs-section">
                             <label><i class="fas fa-images"></i> ДОКАЗАТЕЛЬСТВА</label>
-                            ${renderProofsList(action, idx, 'promotion')}
+                            ${renderProofsList(action.proofs || [''], idx, 'promotion', promotionActions)}
                         </div>
                     </div>
                     <div class="points-row">
@@ -1141,7 +1158,7 @@
                 let proofsText = (action.proofs && action.proofs.length) ? action.proofs.filter(p => p).map(p => `• ${p}`).join('\n') : 'Нет доказательств';
                 actionsText += `**${idx + 1}. ${action.type || 'Не выбран'}** | Кол-во: ${action.count || 1} | Баллы: ${points}\n📎 Доказательства:\n${proofsText}\n\n`;
             });
-            if (weeklyActions.length === 0) actionsText = 'Нет действий с доказательствами';
+            if (weeklyActions.length === 0) actionsText = 'Нет действий';
             return { fields: [
                 { name: "🎮 Игровой никнейм", value: nickname, inline: true },
                 { name: "🏅 Ранг", value: rank, inline: true },
@@ -1164,7 +1181,7 @@
                 let proofsText = (action.proofs && action.proofs.length) ? action.proofs.filter(p => p).map(p => `• ${p}`).join('\n') : 'Нет доказательств';
                 actionsText += `**${idx + 1}. ${action.type || 'Не выбран'}** | Кол-во: ${action.count || 1} | Баллы: ${points}\n📎 Доказательства:\n${proofsText}\n\n`;
             });
-            if (promotionActions.length === 0) actionsText = 'Нет действий с доказательствами';
+            if (promotionActions.length === 0) actionsText = 'Нет действий';
             return { fields: [
                 { name: "🎮 Игровой никнейм", value: nickname, inline: true },
                 { name: "📈 Желаемое повышение", value: rank, inline: true },
