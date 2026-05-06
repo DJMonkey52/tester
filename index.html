@@ -356,12 +356,13 @@
 
         .action-item.removing {
             animation: actionRemove 0.3s ease forwards;
+            pointer-events: none;
         }
 
         @keyframes actionRemove {
             from {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1) translateX(0);
             }
             to {
                 opacity: 0;
@@ -369,6 +370,7 @@
                 margin-bottom: 0;
                 padding: 0;
                 height: 0;
+                min-height: 0;
             }
         }
 
@@ -484,6 +486,7 @@
 
         .proof-item.removing {
             animation: proofRemove 0.25s ease forwards;
+            pointer-events: none;
         }
 
         @keyframes proofRemove {
@@ -611,6 +614,34 @@
             margin-bottom: 14px;
         }
 
+        /* Блок с общим количеством баллов */
+        .total-points-bar {
+            background: rgba(99, 102, 241, 0.15);
+            border-radius: 16px;
+            padding: 14px 20px;
+            margin: 20px 0 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .total-points-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--accent-glow);
+        }
+
+        .total-points-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
         .submit-btn {
             width: 100%;
             background: linear-gradient(105deg, var(--accent), var(--accent-dark));
@@ -626,7 +657,6 @@
             justify-content: center;
             gap: 10px;
             transition: all 0.3s;
-            margin-top: 16px;
         }
 
         .submit-btn:hover {
@@ -701,6 +731,9 @@
             }
             .card-body {
                 padding: 20px;
+            }
+            .total-points-value {
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -787,12 +820,19 @@
                         </div>
                         <button class="add-btn" id="weeklyAddActionBtn"><i class="fas fa-plus-circle"></i> + ДОБАВИТЬ ДЕЙСТВИЕ</button>
                     </div>
+
+                    <!-- Общее количество баллов -->
+                    <div class="total-points-bar" id="weeklyTotalPointsBar">
+                        <span class="total-points-label"><i class="fas fa-star"></i> ОБЩЕЕ КОЛИЧЕСТВО БАЛЛОВ</span>
+                        <span class="total-points-value" id="weeklyTotalPoints">0</span>
+                    </div>
+
                     <button class="submit-btn" id="weeklySubmitBtn"><i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ОТЧЁТ</button>
                 </div>
             </div>
         </div>
 
-        <!-- ОТЧЁТ НА ПОВЫШЕНИЕ -->
+        <!-- ОТЧЁТ НА ПОВЫШЕНИЕ (ранги как в еженедельном) -->
         <div id="promotionPage" class="form-page">
             <div class="back-btn" onclick="showHome()">
                 <i class="fas fa-arrow-left"></i> На главную
@@ -805,18 +845,35 @@
                     <div id="promotionAlert"></div>
                     <div class="input-group"><label>🎮 ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="promotionNickname" placeholder="Введите никнейм"></div>
                     <div class="input-group">
-                        <label>📈 ЖЕЛАЕМЫЙ РАНГ</label>
-                        <select id="promotionRank">
-                            <option value="">-- Выберите повышение --</option>
-                            <option value="3 → 4">3 → 4</option>
-                            <option value="4 → 5">4 → 5</option>
-                            <option value="5 → 6">5 → 6</option>
-                            <option value="6 → 7">6 → 7</option>
-                            <option value="7 → 8">7 → 8</option>
-                            <option value="8 → 9">8 → 9</option>
-                            <option value="9 → 10">9 → 10</option>
-                            <option value="10 → 11">10 → 11</option>
-                            <option value="11 → 12">11 → 12</option>
+                        <label>🏅 ТЕКУЩИЙ РАНГ</label>
+                        <select id="promotionCurrentRank">
+                            <option value="">-- Выберите текущий ранг --</option>
+                            <option value="Специалист (3)">Специалист (3)</option>
+                            <option value="Капрал (4)">Капрал (4)</option>
+                            <option value="Сержант (5)">Сержант (5)</option>
+                            <option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
+                            <option value="Уорент-офицер (7)">Уорент-офицер (7)</option>
+                            <option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
+                            <option value="Лейтенант (9)">Лейтенант (9)</option>
+                            <option value="Капитан (10)">Капитан (10)</option>
+                            <option value="Майор (11)">Майор (11)</option>
+                            <option value="Подполковник (12)">Подполковник (12)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>🎯 ЖЕЛАЕМЫЙ РАНГ</label>
+                        <select id="promotionDesiredRank">
+                            <option value="">-- Выберите желаемый ранг --</option>
+                            <option value="Специалист (3)">Специалист (3)</option>
+                            <option value="Капрал (4)">Капрал (4)</option>
+                            <option value="Сержант (5)">Сержант (5)</option>
+                            <option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
+                            <option value="Уорент-офицер (7)">Уорент-офицер (7)</option>
+                            <option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
+                            <option value="Лейтенант (9)">Лейтенант (9)</option>
+                            <option value="Капитан (10)">Капитан (10)</option>
+                            <option value="Майор (11)">Майор (11)</option>
+                            <option value="Подполковник (12)">Подполковник (12)</option>
                         </select>
                     </div>
                     <div class="input-group"><label>📅 ДАТА ПОСЛЕДНЕГО ПОВЫШЕНИЯ</label><input type="date" id="lastPromotionDate"></div>
@@ -832,6 +889,13 @@
                         </div>
                         <button class="add-btn" id="promotionAddActionBtn"><i class="fas fa-plus-circle"></i> + ДОБАВИТЬ ДЕЙСТВИЕ</button>
                     </div>
+
+                    <!-- Общее количество баллов -->
+                    <div class="total-points-bar" id="promotionTotalPointsBar">
+                        <span class="total-points-label"><i class="fas fa-star"></i> ОБЩЕЕ КОЛИЧЕСТВО БАЛЛОВ</span>
+                        <span class="total-points-value" id="promotionTotalPoints">0</span>
+                    </div>
+
                     <button class="submit-btn" id="promotionSubmitBtn"><i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ЗАПРОС</button>
                 </div>
             </div>
@@ -854,13 +918,15 @@
                         <select id="examType">
                             <option value="">-- Выберите экзамен --</option>
                             <option value="Acd.Delta">🎓 Acd.Delta</option>
-                            <option value="3 → 4">📈 3 → 4</option>
-                            <option value="4 → 5">📈 4 → 5</option>
-                            <option value="5 → 6">📈 5 → 6</option>
-                            <option value="6 → 7">📈 6 → 7</option>
-                            <option value="7 → 8">📈 7 → 8</option>
-                            <option value="8 → 9">📈 8 → 9</option>
-                            <option value="9 → 10">📈 9 → 10</option>
+                            <option value="Специалист (3) → Капрал (4)">📈 Специалист (3) → Капрал (4)</option>
+                            <option value="Капрал (4) → Сержант (5)">📈 Капрал (4) → Сержант (5)</option>
+                            <option value="Сержант (5) → Штаб-сержант (6)">📈 Сержант (5) → Штаб-сержант (6)</option>
+                            <option value="Штаб-сержант (6) → Уорент-офицер (7)">📈 Штаб-сержант (6) → Уорент-офицер (7)</option>
+                            <option value="Уорент-офицер (7) → Старший Уорент-офицер (8)">📈 Уорент-офицер (7) → Старший Уорент-офицер (8)</option>
+                            <option value="Старший Уорент-офицер (8) → Лейтенант (9)">📈 Старший Уорент-офицер (8) → Лейтенант (9)</option>
+                            <option value="Лейтенант (9) → Капитан (10)">📈 Лейтенант (9) → Капитан (10)</option>
+                            <option value="Капитан (10) → Майор (11)">📈 Капитан (10) → Майор (11)</option>
+                            <option value="Майор (11) → Подполковник (12)">📈 Майор (11) → Подполковник (12)</option>
                         </select>
                     </div>
                     <div class="input-group"><label>💬 DISCORD @ТЕГ</label><input type="text" id="examDiscord" placeholder="@username"></div>
@@ -928,6 +994,22 @@
             return points * count;
         }
 
+        function calculateTotalPoints(actions) {
+            return actions.reduce((total, action) => total + calculatePoints(action), 0);
+        }
+
+        function updateWeeklyTotalPoints() {
+            const total = calculateTotalPoints(weeklyActions);
+            const totalSpan = document.getElementById('weeklyTotalPoints');
+            if (totalSpan) totalSpan.textContent = total;
+        }
+
+        function updatePromotionTotalPoints() {
+            const total = calculateTotalPoints(promotionActions);
+            const totalSpan = document.getElementById('promotionTotalPoints');
+            if (totalSpan) totalSpan.textContent = total;
+        }
+
         function updateWeeklyPeriodInfo() {
             const start = document.getElementById('weeklyDateStart').value;
             const end = document.getElementById('weeklyDateEnd').value;
@@ -957,12 +1039,37 @@
             }
         }
 
-        // Функция для добавления доказательства без полного перерендера
-        function addProofToAction(actionsArray, actionIdx, renderFunc, type) {
+        async function removeActionWithAnimation(actionsArray, idx, renderFunc, updateTotalFunc, type) {
+            const actionElements = document.querySelectorAll(`#${type}ActionsList .action-item`);
+            const element = actionElements[idx];
+            if (element) {
+                element.classList.add('removing');
+                await new Promise(resolve => setTimeout(resolve, 300));
+            }
+            actionsArray.splice(idx, 1);
+            renderFunc();
+            updateTotalFunc();
+        }
+
+        async function removeProofWithAnimation(actionsArray, actionIdx, proofIdx, renderFunc, updateTotalFunc, type) {
+            const actionElements = document.querySelectorAll(`#${type}ActionsList .action-item`);
+            const proofItems = actionElements[actionIdx]?.querySelectorAll('.proof-item');
+            if (proofItems && proofItems[proofIdx]) {
+                proofItems[proofIdx].classList.add('removing');
+                await new Promise(resolve => setTimeout(resolve, 250));
+            }
+            if (actionsArray[actionIdx] && actionsArray[actionIdx].proofs && actionsArray[actionIdx].proofs.length > 1) {
+                actionsArray[actionIdx].proofs.splice(proofIdx, 1);
+                renderFunc();
+                updateTotalFunc();
+            }
+        }
+
+        function addProofToAction(actionsArray, actionIdx, renderFunc, updateTotalFunc, type) {
             if (!actionsArray[actionIdx].proofs) actionsArray[actionIdx].proofs = [''];
             actionsArray[actionIdx].proofs.push('');
+            updateTotalFunc();
             
-            // Находим контейнер доказательств и добавляем новый элемент с анимацией
             const actionElements = document.querySelectorAll(`#${type}ActionsList .action-item`);
             const proofsContainer = actionElements[actionIdx]?.querySelector('.proofs-list');
             if (proofsContainer) {
@@ -975,7 +1082,6 @@
                 `;
                 proofsContainer.insertAdjacentHTML('beforeend', newProofHtml);
                 
-                // Добавляем обработчики на новый элемент
                 const newProof = proofsContainer.lastElementChild;
                 const newInput = newProof.querySelector('.proof-input');
                 const newRemoveBtn = newProof.querySelector('.remove-proof');
@@ -997,41 +1103,17 @@
                         await new Promise(resolve => setTimeout(resolve, 250));
                         actionsArray[aIdx].proofs.splice(pIdx, 1);
                         renderFunc();
+                        updateTotalFunc();
                     }
                 });
                 
-                // Удаляем класс анимации через полсекунды
                 setTimeout(() => newProof.classList.remove('new-proof'), 500);
             } else {
                 renderFunc();
             }
         }
 
-        async function removeActionWithAnimation(actionsArray, idx, renderFunc, type) {
-            const actionElements = document.querySelectorAll(`#${type}ActionsList .action-item`);
-            const element = actionElements[idx];
-            if (element) {
-                element.classList.add('removing');
-                await new Promise(resolve => setTimeout(resolve, 300));
-            }
-            actionsArray.splice(idx, 1);
-            renderFunc();
-        }
-
-        async function removeProofWithAnimation(actionsArray, actionIdx, proofIdx, renderFunc, type) {
-            const actionElements = document.querySelectorAll(`#${type}ActionsList .action-item`);
-            const proofItems = actionElements[actionIdx]?.querySelectorAll('.proof-item');
-            if (proofItems && proofItems[proofIdx]) {
-                proofItems[proofIdx].classList.add('removing');
-                await new Promise(resolve => setTimeout(resolve, 250));
-            }
-            if (actionsArray[actionIdx] && actionsArray[actionIdx].proofs && actionsArray[actionIdx].proofs.length > 1) {
-                actionsArray[actionIdx].proofs.splice(proofIdx, 1);
-                renderFunc();
-            }
-        }
-
-        function renderProofsList(proofs, actionIdx, type, actionsArray, renderFunc) {
+        function renderProofsList(proofs, actionIdx, type, actionsArray, renderFunc, updateTotalFunc) {
             if (!proofs || proofs.length === 0) {
                 proofs = [''];
                 actionsArray[actionIdx].proofs = proofs;
@@ -1056,6 +1138,7 @@
             if (weeklyActions.length === 0) {
                 emptyDiv.style.display = 'block';
                 container.innerHTML = '';
+                updateWeeklyTotalPoints();
                 return;
             }
             emptyDiv.style.display = 'none';
@@ -1079,7 +1162,7 @@
                         </div>
                         <div class="proofs-section">
                             <label><i class="fas fa-images"></i> ДОКАЗАТЕЛЬСТВА</label>
-                            ${renderProofsList(action.proofs || [''], idx, 'weekly', weeklyActions, renderWeeklyActions)}
+                            ${renderProofsList(action.proofs || [''], idx, 'weekly', weeklyActions, renderWeeklyActions, updateWeeklyTotalPoints)}
                         </div>
                     </div>
                     <div class="points-row">
@@ -1089,10 +1172,10 @@
                 </div>
             `).join('');
             attachWeeklyEvents();
+            updateWeeklyTotalPoints();
         }
 
         function attachWeeklyEvents() {
-            // Тип действия
             document.querySelectorAll('#weeklyActionsList .action-type').forEach(select => {
                 const idx = parseInt(select.dataset.idx);
                 if (!isNaN(idx) && weeklyActions[idx]) {
@@ -1103,10 +1186,10 @@
                         weeklyActions[idx].basePoints = parseInt(selectedOption.dataset.points) || 0;
                         const pointsSpan = select.closest('.action-item').querySelector('.points-badge');
                         if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(weeklyActions[idx])}`;
+                        updateWeeklyTotalPoints();
                     });
                 }
             });
-            // Количество
             document.querySelectorAll('#weeklyActionsList .action-count').forEach(input => {
                 const idx = parseInt(input.dataset.idx);
                 if (!isNaN(idx) && weeklyActions[idx]) {
@@ -1118,41 +1201,38 @@
                         const pointsSpan = actionDiv.querySelector('.points-badge');
                         if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${weeklyActions[idx].count}`;
                         if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(weeklyActions[idx])}`;
+                        updateWeeklyTotalPoints();
                     });
                 }
             });
-            // Удаление действия
             document.querySelectorAll('#weeklyActionsList .remove-action').forEach(btn => {
                 btn.removeEventListener('click', () => {});
                 btn.addEventListener('click', async (e) => {
                     const idx = parseInt(btn.dataset.idx);
                     if (!isNaN(idx)) {
-                        await removeActionWithAnimation(weeklyActions, idx, renderWeeklyActions, 'weekly');
+                        await removeActionWithAnimation(weeklyActions, idx, renderWeeklyActions, updateWeeklyTotalPoints, 'weekly');
                     }
                 });
             });
-            // Добавление доказательства - используем оптимизированную функцию
             document.querySelectorAll('#weeklyActionsList .add-proof-btn').forEach(btn => {
                 btn.removeEventListener('click', () => {});
                 btn.addEventListener('click', (e) => {
                     const actionIdx = parseInt(btn.dataset.action);
                     if (!isNaN(actionIdx) && weeklyActions[actionIdx]) {
-                        addProofToAction(weeklyActions, actionIdx, renderWeeklyActions, 'weekly');
+                        addProofToAction(weeklyActions, actionIdx, renderWeeklyActions, updateWeeklyTotalPoints, 'weekly');
                     }
                 });
             });
-            // Удаление доказательства
             document.querySelectorAll('#weeklyActionsList .remove-proof').forEach(btn => {
                 btn.removeEventListener('click', () => {});
                 btn.addEventListener('click', async (e) => {
                     const actionIdx = parseInt(btn.dataset.action);
                     const proofIdx = parseInt(btn.dataset.proof);
                     if (!isNaN(actionIdx) && weeklyActions[actionIdx] && weeklyActions[actionIdx].proofs && weeklyActions[actionIdx].proofs.length > 1) {
-                        await removeProofWithAnimation(weeklyActions, actionIdx, proofIdx, renderWeeklyActions, 'weekly');
+                        await removeProofWithAnimation(weeklyActions, actionIdx, proofIdx, renderWeeklyActions, updateWeeklyTotalPoints, 'weekly');
                     }
                 });
             });
-            // Изменение доказательства - пересоздаём обработчики
             document.querySelectorAll('#weeklyActionsList .proof-input').forEach(input => {
                 input.removeEventListener('change', () => {});
                 input.addEventListener('change', (e) => {
@@ -1171,6 +1251,7 @@
             if (promotionActions.length === 0) {
                 emptyDiv.style.display = 'block';
                 container.innerHTML = '';
+                updatePromotionTotalPoints();
                 return;
             }
             emptyDiv.style.display = 'none';
@@ -1194,7 +1275,7 @@
                         </div>
                         <div class="proofs-section">
                             <label><i class="fas fa-images"></i> ДОКАЗАТЕЛЬСТВА</label>
-                            ${renderProofsList(action.proofs || [''], idx, 'promotion', promotionActions, renderPromotionActions)}
+                            ${renderProofsList(action.proofs || [''], idx, 'promotion', promotionActions, renderPromotionActions, updatePromotionTotalPoints)}
                         </div>
                     </div>
                     <div class="points-row">
@@ -1204,6 +1285,7 @@
                 </div>
             `).join('');
             attachPromotionEvents();
+            updatePromotionTotalPoints();
         }
 
         function attachPromotionEvents() {
@@ -1216,6 +1298,7 @@
                         promotionActions[idx].basePoints = parseInt(selectedOption.dataset.points) || 0;
                         const pointsSpan = select.closest('.action-item').querySelector('.points-badge');
                         if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(promotionActions[idx])}`;
+                        updatePromotionTotalPoints();
                     });
                 }
             });
@@ -1229,6 +1312,7 @@
                         const pointsSpan = actionDiv.querySelector('.points-badge');
                         if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${promotionActions[idx].count}`;
                         if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(promotionActions[idx])}`;
+                        updatePromotionTotalPoints();
                     });
                 }
             });
@@ -1236,7 +1320,7 @@
                 btn.addEventListener('click', async (e) => {
                     const idx = parseInt(btn.dataset.idx);
                     if (!isNaN(idx)) {
-                        await removeActionWithAnimation(promotionActions, idx, renderPromotionActions, 'promotion');
+                        await removeActionWithAnimation(promotionActions, idx, renderPromotionActions, updatePromotionTotalPoints, 'promotion');
                     }
                 });
             });
@@ -1244,7 +1328,7 @@
                 btn.addEventListener('click', (e) => {
                     const actionIdx = parseInt(btn.dataset.action);
                     if (!isNaN(actionIdx) && promotionActions[actionIdx]) {
-                        addProofToAction(promotionActions, actionIdx, renderPromotionActions, 'promotion');
+                        addProofToAction(promotionActions, actionIdx, renderPromotionActions, updatePromotionTotalPoints, 'promotion');
                     }
                 });
             });
@@ -1253,7 +1337,7 @@
                     const actionIdx = parseInt(btn.dataset.action);
                     const proofIdx = parseInt(btn.dataset.proof);
                     if (!isNaN(actionIdx) && promotionActions[actionIdx] && promotionActions[actionIdx].proofs && promotionActions[actionIdx].proofs.length > 1) {
-                        await removeProofWithAnimation(promotionActions, actionIdx, proofIdx, renderPromotionActions, 'promotion');
+                        await removeProofWithAnimation(promotionActions, actionIdx, proofIdx, renderPromotionActions, updatePromotionTotalPoints, 'promotion');
                     }
                 });
             });
@@ -1305,7 +1389,8 @@
 
         function formatPromotionEmbed() {
             const nickname = document.getElementById('promotionNickname').value.trim() || 'Не указан';
-            const rank = document.getElementById('promotionRank').value || 'Не выбран';
+            const currentRank = document.getElementById('promotionCurrentRank').value || 'Не выбран';
+            const desiredRank = document.getElementById('promotionDesiredRank').value || 'Не выбран';
             const lastPromotion = document.getElementById('lastPromotionDate').value;
             const lastPromotionFormatted = lastPromotion ? formatDate(lastPromotion) : 'Не указана';
             let actionsText = '';
@@ -1319,7 +1404,8 @@
             if (promotionActions.length === 0) actionsText = 'Нет действий';
             return { fields: [
                 { name: "🎮 Игровой никнейм", value: nickname, inline: true },
-                { name: "📈 Желаемое повышение", value: rank, inline: true },
+                { name: "🏅 Текущий ранг", value: currentRank, inline: true },
+                { name: "🎯 Желаемый ранг", value: desiredRank, inline: true },
                 { name: "📅 Дата последнего повышения", value: lastPromotionFormatted, inline: true },
                 { name: "📊 Достижения", value: actionsText.substring(0, 1024) },
                 { name: "🏆 Итого баллов", value: `${totalPoints}`, inline: true }
@@ -1399,6 +1485,8 @@
 
         document.getElementById('promotionSubmitBtn').addEventListener('click', async () => {
             if (!document.getElementById('promotionNickname').value.trim()) { showAlert('promotionAlert', 'Введите игровой никнейм', 'error'); return; }
+            if (!document.getElementById('promotionCurrentRank').value) { showAlert('promotionAlert', 'Выберите текущий ранг', 'error'); return; }
+            if (!document.getElementById('promotionDesiredRank').value) { showAlert('promotionAlert', 'Выберите желаемый ранг', 'error'); return; }
             const btn = document.getElementById('promotionSubmitBtn');
             btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
             try {
@@ -1406,10 +1494,12 @@
                 await sendToDiscordWithEmbed(WEBHOOKS.promotion, "⬆️ Запрос на повышение", fields, 0x9B59B6);
                 showAlert('promotionAlert', '✅ Запрос на повышение отправлен!', 'success');
                 document.getElementById('promotionNickname').value = '';
-                document.getElementById('promotionRank').value = '';
+                document.getElementById('promotionCurrentRank').value = '';
+                document.getElementById('promotionDesiredRank').value = '';
                 document.getElementById('lastPromotionDate').value = '';
                 promotionActions = [];
                 renderPromotionActions();
+                updatePromotionDateInfo();
             } catch (err) { showAlert('promotionAlert', `❌ Ошибка: ${err.message}`, 'error'); }
             finally { btn.disabled = false; btn.innerHTML = '<i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ЗАПРОС'; }
         });
