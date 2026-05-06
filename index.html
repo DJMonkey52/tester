@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Aetheris HR | Центр отчётов</title>
+    <title>ARMY Delta | Центр отчётов</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,45 +15,45 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            background: linear-gradient(135deg, #0a2e0a 0%, #1a3f1a 100%);
             min-height: 100vh;
             transition: background 0.3s ease;
         }
 
         body.light {
-            background: linear-gradient(135deg, #e0e7ff 0%, #f0f4ff 100%);
+            background: linear-gradient(135deg, #e0f5e0 0%, #d0ead0 100%);
         }
 
         :root {
-            --glass-bg: rgba(18, 22, 45, 0.95);
-            --glass-border: rgba(88, 101, 242, 0.3);
+            --glass-bg: rgba(20, 45, 20, 0.95);
+            --glass-border: rgba(76, 175, 80, 0.3);
             --text-primary: #F0F3FA;
             --text-secondary: #A0A8C3;
             --text-muted: #6C728E;
-            --accent: #6366F1;
-            --accent-glow: #818cf8;
-            --accent-dark: #4f46e5;
+            --accent: #4CAF50;
+            --accent-glow: #66BB6A;
+            --accent-dark: #388E3C;
             --success: #10b981;
             --danger: #ef4444;
             --border-light: rgba(255, 255, 255, 0.08);
             --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.3);
             --shadow-md: 0 20px 35px -10px rgba(0, 0, 0, 0.4);
-            --input-bg: rgba(15, 18, 35, 0.9);
-            --card-hover: rgba(99, 102, 241, 0.1);
+            --input-bg: rgba(15, 35, 15, 0.9);
+            --card-hover: rgba(76, 175, 80, 0.1);
         }
 
         body.light {
-            --glass-bg: rgba(255, 255, 255, 0.95);
-            --glass-border: rgba(99, 102, 241, 0.25);
+            --glass-bg: rgba(245, 255, 245, 0.95);
+            --glass-border: rgba(76, 175, 80, 0.25);
             --text-primary: #1f2937;
             --text-secondary: #4b5563;
             --text-muted: #9ca3af;
-            --accent: #5865F2;
-            --accent-glow: #6366f1;
-            --accent-dark: #4f46e5;
+            --accent: #4CAF50;
+            --accent-glow: #66BB6A;
+            --accent-dark: #388E3C;
             --border-light: rgba(0, 0, 0, 0.08);
             --input-bg: rgba(255, 255, 255, 0.95);
-            --card-hover: rgba(99, 102, 241, 0.05);
+            --card-hover: rgba(76, 175, 80, 0.05);
         }
 
         .container {
@@ -100,14 +100,14 @@
         .logo h1 {
             font-size: 2rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #FFFFFF, #A5B4FC);
+            background: linear-gradient(135deg, #FFFFFF, #A5D6A7);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
         body.light .logo h1 {
-            background: linear-gradient(135deg, #1e1b4b, #4f46e5);
+            background: linear-gradient(135deg, #1e3b1e, #2e7d32);
             -webkit-background-clip: text;
             background-clip: text;
         }
@@ -181,7 +181,7 @@
         .card-icon {
             width: 75px;
             height: 75px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(79, 70, 229, 0.1));
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(56, 142, 60, 0.1));
             border-radius: 26px;
             display: flex;
             align-items: center;
@@ -263,7 +263,7 @@
         }
 
         .card-header {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(79, 70, 229, 0.05));
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(56, 142, 60, 0.05));
             padding: 20px 28px;
             border-bottom: 1px solid var(--border-light);
         }
@@ -313,7 +313,7 @@
         .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
         }
 
         .period-row {
@@ -324,7 +324,7 @@
         }
 
         .period-info {
-            background: rgba(99, 102, 241, 0.08);
+            background: rgba(76, 175, 80, 0.08);
             border-radius: 12px;
             padding: 10px 14px;
             text-align: center;
@@ -333,7 +333,6 @@
             margin-bottom: 20px;
         }
 
-        /* Анимации */
         .action-item {
             background: var(--card-hover);
             border-radius: 18px;
@@ -548,7 +547,7 @@
         }
 
         .add-proof-btn {
-            background: rgba(99, 102, 241, 0.15);
+            background: rgba(76, 175, 80, 0.15);
             border: 1px dashed var(--accent);
             border-radius: 10px;
             padding: 6px 12px;
@@ -563,7 +562,7 @@
         }
 
         .add-proof-btn:hover {
-            background: rgba(99, 102, 241, 0.25);
+            background: rgba(76, 175, 80, 0.25);
             transform: translateY(-1px);
         }
 
@@ -586,7 +585,7 @@
         }
 
         .count-badge {
-            background: rgba(99, 102, 241, 0.15);
+            background: rgba(76, 175, 80, 0.15);
             padding: 5px 14px;
             border-radius: 30px;
             font-size: 0.8rem;
@@ -595,7 +594,7 @@
 
         .add-btn {
             width: 100%;
-            background: rgba(99, 102, 241, 0.12);
+            background: rgba(76, 175, 80, 0.12);
             border: 1px dashed var(--accent);
             border-radius: 16px;
             padding: 14px;
@@ -611,7 +610,7 @@
         }
 
         .add-btn:hover {
-            background: rgba(99, 102, 241, 0.25);
+            background: rgba(76, 175, 80, 0.25);
             transform: translateY(-2px);
         }
 
@@ -619,13 +618,13 @@
             text-align: center;
             padding: 30px;
             color: var(--text-muted);
-            background: rgba(15, 18, 35, 0.4);
+            background: rgba(15, 35, 15, 0.4);
             border-radius: 18px;
             margin-bottom: 14px;
         }
 
         .total-points-bar {
-            background: rgba(99, 102, 241, 0.15);
+            background: rgba(76, 175, 80, 0.15);
             border-radius: 16px;
             padding: 14px 20px;
             margin: 20px 0 16px;
@@ -671,7 +670,7 @@
         .submit-btn:hover {
             transform: translateY(-3px);
             filter: brightness(1.05);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
         }
 
         .submit-btn:disabled {
@@ -756,8 +755,8 @@
     <div class="container">
         <div class="header">
             <div class="logo">
-                <div class="logo-icon"><i class="fas fa-scroll"></i></div>
-                <h1>Aetheris HR</h1>
+                <div class="logo-icon"><i class="fas fa-shield-haltered"></i></div>
+                <h1>ARMY Delta</h1>
             </div>
             <p class="subtitle">Система подачи отчётов с балльной системой</p>
         </div>
@@ -1046,11 +1045,10 @@
             }
         }
 
-        // Создание HTML нового действия
         function createActionHTML(action, idx, type) {
             const proofs = action.proofs || [''];
             return `
-                <div class="action-item new-action" data-original-idx="${idx}">
+                <div class="action-item" data-original-idx="${idx}">
                     <div class="action-header">
                         <div class="action-title"><i class="fas fa-tag"></i> ДЕЙСТВИЕ #${idx + 1}</div>
                         <button class="remove-action" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button>
@@ -1089,126 +1087,40 @@
             `;
         }
 
-        // Обновление индексов в DOM без перерендера
-        function updateActionIndices(container, actionsArray, type) {
-            const actions = container.querySelectorAll('.action-item');
-            actions.forEach((action, newIdx) => {
-                // Обновляем атрибуты
-                action.setAttribute('data-original-idx', newIdx);
-                
-                // Обновляем заголовок
-                const titleSpan = action.querySelector('.action-title');
-                if (titleSpan) titleSpan.innerHTML = `<i class="fas fa-tag"></i> ДЕЙСТВИЕ #${newIdx + 1}`;
-                
-                // Обновляем кнопку удаления
-                const removeBtn = action.querySelector('.remove-action');
-                if (removeBtn) removeBtn.setAttribute('data-idx', newIdx);
-                
-                // Обновляем select типа
-                const typeSelect = action.querySelector('.action-type');
-                if (typeSelect) typeSelect.setAttribute('data-idx', newIdx);
-                
-                // Обновляем input количества
-                const countInput = action.querySelector('.action-count');
-                if (countInput) countInput.setAttribute('data-idx', newIdx);
-                
-                // Обновляем все доказательства
-                const proofInputs = action.querySelectorAll('.proof-input');
-                proofInputs.forEach(input => {
-                    input.setAttribute('data-action', newIdx);
-                });
-                
-                const addProofBtns = action.querySelectorAll('.add-proof-btn');
-                addProofBtns.forEach(btn => {
-                    btn.setAttribute('data-action', newIdx);
-                });
-                
-                const removeProofBtns = action.querySelectorAll('.remove-proof');
-                removeProofBtns.forEach(btn => {
-                    btn.setAttribute('data-action', newIdx);
-                });
-            });
-        }
-
-        // Добавление действия
-        function addWeeklyAction() {
-            const newAction = { type: '', basePoints: 0, count: 1, proofs: [''] };
-            const newIdx = weeklyActions.length;
-            weeklyActions.push(newAction);
-            
-            const container = document.getElementById('weeklyActionsList');
-            const emptyDiv = document.getElementById('weeklyEmptyActions');
-            
-            if (emptyDiv.style.display !== 'none') {
-                emptyDiv.style.display = 'none';
-                container.innerHTML = '';
-            }
-            
-            const newActionHTML = createActionHTML(newAction, newIdx, 'weekly');
-            container.insertAdjacentHTML('beforeend', newActionHTML);
-            
-            const newElement = container.lastElementChild;
-            attachActionEventsToElement(newElement, newIdx, weeklyActions, renderWeeklyActionsFull, updateWeeklyTotalPoints, 'weekly');
-            updateWeeklyTotalPoints();
-            
-            setTimeout(() => {
-                if (newElement) newElement.classList.remove('new-action');
-            }, 350);
-        }
-
-        function addPromotionAction() {
-            const newAction = { type: '', basePoints: 0, count: 1, proofs: [''] };
-            const newIdx = promotionActions.length;
-            promotionActions.push(newAction);
-            
-            const container = document.getElementById('promotionActionsList');
-            const emptyDiv = document.getElementById('promotionEmptyActions');
-            
-            if (emptyDiv.style.display !== 'none') {
-                emptyDiv.style.display = 'none';
-                container.innerHTML = '';
-            }
-            
-            const newActionHTML = createActionHTML(newAction, newIdx, 'promotion');
-            container.insertAdjacentHTML('beforeend', newActionHTML);
-            
-            const newElement = container.lastElementChild;
-            attachActionEventsToElement(newElement, newIdx, promotionActions, renderPromotionActionsFull, updatePromotionTotalPoints, 'promotion');
-            updatePromotionTotalPoints();
-            
-            setTimeout(() => {
-                if (newElement) newElement.classList.remove('new-action');
-            }, 350);
-        }
-
-        // Привязка событий к элементу действия
         function attachActionEventsToElement(element, idx, actionsArray, renderFull, updateTotal, type) {
-            // Удаление действия с анимацией
+            // Удаление действия
             const removeBtn = element.querySelector('.remove-action');
             if (removeBtn) {
-                removeBtn.addEventListener('click', async (e) => {
+                removeBtn.replaceWith(removeBtn.cloneNode(true));
+                const newRemoveBtn = element.querySelector('.remove-action');
+                newRemoveBtn.addEventListener('click', async (e) => {
                     e.stopPropagation();
                     element.classList.add('removing');
                     await new Promise(resolve => setTimeout(resolve, 300));
-                    
-                    // Удаляем из массива
                     actionsArray.splice(idx, 1);
-                    
-                    // Удаляем элемент из DOM
                     element.remove();
-                    
-                    // Обновляем индексы и заголовки оставшихся элементов
                     const container = element.parentElement;
                     if (container) {
-                        updateActionIndices(container, actionsArray, type);
+                        const remainingActions = container.querySelectorAll('.action-item');
+                        remainingActions.forEach((action, newIdx) => {
+                            const titleSpan = action.querySelector('.action-title');
+                            if (titleSpan) titleSpan.innerHTML = `<i class="fas fa-tag"></i> ДЕЙСТВИЕ #${newIdx + 1}`;
+                            const removeActBtn = action.querySelector('.remove-action');
+                            if (removeActBtn) removeActBtn.setAttribute('data-idx', newIdx);
+                            const typeSelect = action.querySelector('.action-type');
+                            if (typeSelect) typeSelect.setAttribute('data-idx', newIdx);
+                            const countInput = action.querySelector('.action-count');
+                            if (countInput) countInput.setAttribute('data-idx', newIdx);
+                            const proofInputs = action.querySelectorAll('.proof-input');
+                            proofInputs.forEach(input => input.setAttribute('data-action', newIdx));
+                            const addProofBtns = action.querySelectorAll('.add-proof-btn');
+                            addProofBtns.forEach(btn => btn.setAttribute('data-action', newIdx));
+                            const removeProofBtns = action.querySelectorAll('.remove-proof');
+                            removeProofBtns.forEach(btn => btn.setAttribute('data-action', newIdx));
+                        });
                     }
-                    
-                    // Показываем пустое состояние если нужно
                     const emptyDiv = document.getElementById(type === 'weekly' ? 'weeklyEmptyActions' : 'promotionEmptyActions');
-                    if (actionsArray.length === 0 && emptyDiv) {
-                        emptyDiv.style.display = 'block';
-                    }
-                    
+                    if (actionsArray.length === 0 && emptyDiv) emptyDiv.style.display = 'block';
                     updateTotal();
                 });
             }
@@ -1242,11 +1154,12 @@
             // Добавление доказательства
             const addProofBtn = element.querySelector('.add-proof-btn');
             if (addProofBtn) {
-                addProofBtn.addEventListener('click', (e) => {
+                addProofBtn.replaceWith(addProofBtn.cloneNode(true));
+                const newAddProofBtn = element.querySelector('.add-proof-btn');
+                newAddProofBtn.addEventListener('click', (e) => {
                     if (!actionsArray[idx].proofs) actionsArray[idx].proofs = [''];
                     const newProofIdx = actionsArray[idx].proofs.length;
                     actionsArray[idx].proofs.push('');
-                    
                     const proofsList = element.querySelector('.proofs-list');
                     const newProofHTML = `
                         <div class="proof-item new-proof">
@@ -1256,10 +1169,8 @@
                         </div>
                     `;
                     proofsList.insertAdjacentHTML('beforeend', newProofHTML);
-                    
                     const newProof = proofsList.lastElementChild;
                     attachProofEventsToElement(newProof, idx, newProofIdx, actionsArray, renderFull, updateTotal, type);
-                    
                     setTimeout(() => newProof.classList.remove('new-proof'), 300);
                     updateTotal();
                 });
@@ -1277,9 +1188,7 @@
             if (proofInput) {
                 proofInput.setAttribute('data-action', actionIdx);
                 proofInput.setAttribute('data-proof', proofIdx);
-                if (actionsArray[actionIdx]?.proofs?.[proofIdx] !== undefined) {
-                    proofInput.value = actionsArray[actionIdx].proofs[proofIdx];
-                }
+                proofInput.value = actionsArray[actionIdx]?.proofs?.[proofIdx] || '';
                 proofInput.addEventListener('change', (e) => {
                     if (actionsArray[actionIdx] && actionsArray[actionIdx].proofs) {
                         actionsArray[actionIdx].proofs[proofIdx] = proofInput.value;
@@ -1289,9 +1198,9 @@
             
             const removeProofBtn = proofItem.querySelector('.remove-proof');
             if (removeProofBtn) {
-                removeProofBtn.setAttribute('data-action', actionIdx);
-                removeProofBtn.setAttribute('data-proof', proofIdx);
-                removeProofBtn.addEventListener('click', async (e) => {
+                removeProofBtn.replaceWith(removeProofBtn.cloneNode(true));
+                const newRemoveProofBtn = proofItem.querySelector('.remove-proof');
+                newRemoveProofBtn.addEventListener('click', async (e) => {
                     e.stopPropagation();
                     if (actionsArray[actionIdx] && actionsArray[actionIdx].proofs && actionsArray[actionIdx].proofs.length > 1) {
                         proofItem.classList.add('removing');
@@ -1301,6 +1210,58 @@
                     }
                 });
             }
+        }
+
+        function addWeeklyAction() {
+            const newAction = { type: '', basePoints: 0, count: 1, proofs: [''] };
+            const newIdx = weeklyActions.length;
+            weeklyActions.push(newAction);
+            
+            const container = document.getElementById('weeklyActionsList');
+            const emptyDiv = document.getElementById('weeklyEmptyActions');
+            
+            if (emptyDiv.style.display !== 'none') {
+                emptyDiv.style.display = 'none';
+                container.innerHTML = '';
+            }
+            
+            const newActionHTML = createActionHTML(newAction, newIdx, 'weekly');
+            container.insertAdjacentHTML('beforeend', newActionHTML);
+            
+            const newElement = container.lastElementChild;
+            newElement.classList.add('new-action');
+            attachActionEventsToElement(newElement, newIdx, weeklyActions, renderWeeklyActionsFull, updateWeeklyTotalPoints, 'weekly');
+            updateWeeklyTotalPoints();
+            
+            setTimeout(() => {
+                if (newElement) newElement.classList.remove('new-action');
+            }, 350);
+        }
+
+        function addPromotionAction() {
+            const newAction = { type: '', basePoints: 0, count: 1, proofs: [''] };
+            const newIdx = promotionActions.length;
+            promotionActions.push(newAction);
+            
+            const container = document.getElementById('promotionActionsList');
+            const emptyDiv = document.getElementById('promotionEmptyActions');
+            
+            if (emptyDiv.style.display !== 'none') {
+                emptyDiv.style.display = 'none';
+                container.innerHTML = '';
+            }
+            
+            const newActionHTML = createActionHTML(newAction, newIdx, 'promotion');
+            container.insertAdjacentHTML('beforeend', newActionHTML);
+            
+            const newElement = container.lastElementChild;
+            newElement.classList.add('new-action');
+            attachActionEventsToElement(newElement, newIdx, promotionActions, renderPromotionActionsFull, updatePromotionTotalPoints, 'promotion');
+            updatePromotionTotalPoints();
+            
+            setTimeout(() => {
+                if (newElement) newElement.classList.remove('new-action');
+            }, 350);
         }
 
         function renderWeeklyActionsFull() {
@@ -1341,8 +1302,8 @@
             updatePromotionTotalPoints();
         }
 
-        async function sendToDiscordWithEmbed(webhookUrl, title, fields, color = 0x5865F2) {
-            const embed = { title: title, color: color, fields: fields, footer: { text: "Aetheris HR System" }, timestamp: new Date().toISOString() };
+        async function sendToDiscordWithEmbed(webhookUrl, title, fields, color = 0x4CAF50) {
+            const embed = { title: title, color: color, fields: fields, footer: { text: "ARMY Delta System" }, timestamp: new Date().toISOString() };
             const response = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1455,7 +1416,7 @@
             btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
             try {
                 const { fields } = formatWeeklyEmbed();
-                await sendToDiscordWithEmbed(WEBHOOKS.weekly, "📊 Еженедельный отчёт", fields, 0x5865F2);
+                await sendToDiscordWithEmbed(WEBHOOKS.weekly, "📊 Еженедельный отчёт", fields, 0x4CAF50);
                 showAlert('weeklyAlert', '✅ Отчёт отправлен в Discord!', 'success');
                 document.getElementById('weeklyNickname').value = '';
                 document.getElementById('weeklyRank').value = '';
@@ -1474,7 +1435,7 @@
             btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
             try {
                 const { fields } = formatPromotionEmbed();
-                await sendToDiscordWithEmbed(WEBHOOKS.promotion, "⬆️ Запрос на повышение", fields, 0x9B59B6);
+                await sendToDiscordWithEmbed(WEBHOOKS.promotion, "⬆️ Запрос на повышение", fields, 0x4CAF50);
                 showAlert('promotionAlert', '✅ Запрос на повышение отправлен!', 'success');
                 document.getElementById('promotionNickname').value = '';
                 document.getElementById('promotionCurrentRank').value = '';
@@ -1493,7 +1454,7 @@
             btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
             try {
                 const { fields } = formatExamEmbed();
-                await sendToDiscordWithEmbed(WEBHOOKS.exam, "📝 Запись на экзамен", fields, 0xE67E22);
+                await sendToDiscordWithEmbed(WEBHOOKS.exam, "📝 Запись на экзамен", fields, 0x4CAF50);
                 showAlert('examAlert', '✅ Заявка на экзамен отправлена!', 'success');
                 document.getElementById('examFullName').value = '';
                 document.getElementById('examType').value = '';
