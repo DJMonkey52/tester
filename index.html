@@ -142,7 +142,6 @@
             transform: scale(1.02);
         }
 
-        /* 3 кнопки */
         .home-page {
             display: flex;
             flex-direction: column;
@@ -223,7 +222,6 @@
             transform: translateX(6px);
         }
 
-        /* Страницы форм */
         .form-page {
             display: none;
             animation: fadeInUp 0.4s ease;
@@ -336,7 +334,6 @@
             margin-bottom: 20px;
         }
 
-        /* Карточки действий с несколькими доказательствами */
         .action-item {
             background: var(--card-hover);
             border-radius: 18px;
@@ -443,6 +440,10 @@
             font-size: 0.8rem;
         }
 
+        .proof-item input::placeholder {
+            color: var(--text-muted);
+        }
+
         .remove-proof {
             background: none;
             border: none;
@@ -450,6 +451,12 @@
             cursor: pointer;
             font-size: 0.9rem;
             padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .remove-proof:hover {
+            background: rgba(239, 68, 68, 0.2);
         }
 
         .add-proof-btn {
@@ -637,7 +644,6 @@
             <p class="subtitle">Система подачи отчётов с балльной системой</p>
         </div>
 
-        <!-- ГЛАВНАЯ СТРАНИЦА с 3 кнопками -->
         <div id="homePage" class="home-page">
             <div class="cards-grid">
                 <div class="action-card" data-page="weekly">
@@ -661,7 +667,6 @@
             </div>
         </div>
 
-        <!-- СТРАНИЦА 1: Еженедельный отчёт -->
         <div id="weeklyPage" class="form-page">
             <div class="back-btn" onclick="showHome()">
                 <i class="fas fa-arrow-left"></i> На главную
@@ -710,7 +715,6 @@
             </div>
         </div>
 
-        <!-- СТРАНИЦА 2: Отчёт на повышение -->
         <div id="promotionPage" class="form-page">
             <div class="back-btn" onclick="showHome()">
                 <i class="fas fa-arrow-left"></i> На главную
@@ -755,7 +759,6 @@
             </div>
         </div>
 
-        <!-- СТРАНИЦА 3: Запись на экзамен -->
         <div id="examPage" class="form-page">
             <div class="back-btn" onclick="showHome()">
                 <i class="fas fa-arrow-left"></i> На главную
@@ -791,7 +794,7 @@
 
     <script>
         // ============================================
-        // 🔒 ФИКСИРОВАННЫЕ ВЕБХУКИ
+        // 🔒 ФИКСИРОВАННЫЕ ВЕБХУКИ (ЗАМЕНИТЕ НА ВАШИ)
         // ============================================
         const WEBHOOKS = {
             weekly: 'https://discord.com/api/webhooks/1342990389576523817/d0I7_Habqsq3QCEW8U04wxHSPnyAAfKDvNv4_0pYLhDcpLcn5Gq-bIrnNqLfUF4O6ODM',
@@ -849,272 +852,6 @@
             return points * count;
         }
 
-        // Функции для работы с доказательствами
-        function renderProofs(proofs, actionIdx, prefix, updateCallback) {
-            if (!proofs || proofs.length === 0) {
-                return `<div class="proofs-list"><div class="empty-state" style="padding: 10px; font-size: 0.75rem;">Нет доказательств</div></div>`;
-            }
-            return `
-                <div class="proofs-list">
-                    ${proofs.map((proof, pIdx) => `
-                        <div class="proof-item">
-                            <i class="fas fa-link" style="color: var(--accent); font-size: 0.8rem;"></i>
-                            <input type="text" class="proof-input" data-action="${actionIdx}" data-proof="${pIdx}" value="${escapeHtml(proof)}" placeholder="Ссылка на доказательство">
-                            <button class="remove-proof" data-action="${actionIdx}" data-proof="${pIdx}"><i class="fas fa-times"></i></button>
-                        </div>
-                    `).join('')}
-                </div>
-                <button class="add-proof-btn" data-action="${actionIdx}"><i class="fas fa-plus"></i> Добавить доказательство</button>
-            `;
-        }
-
-        function renderWeeklyActions() {
-            const container = document.getElementById('weeklyActionsList');
-            const emptyDiv = document.getElementById('weeklyEmptyActions');
-            if (weeklyActions.length === 0) {
-                emptyDiv.style.display = 'block';
-                container.innerHTML = '';
-                return;
-            }
-            emptyDiv.style.display = 'none';
-            container.innerHTML = weeklyActions.map((action, idx) => `
-                <div class="action-item" data-idx="${idx}">
-                    <div class="action-header">
-                        <div class="action-title"><i class="fas fa-tag"></i> ДЕЙСТВИЕ #${idx + 1}</div>
-                        <button class="remove-action" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button>
-                    </div>
-                    <div class="action-fields">
-                        <div class="action-field">
-                            <label>ТИП</label>
-                            <select class="action-type" data-idx="${idx}">
-                                <option value="">-- Выберите --</option>
-                                ${ACTIVITY_TYPES.map(t => `<option value="${escapeHtml(t.name)}" data-points="${t.basePoints}" ${action.type === t.name ? 'selected' : ''}>${escapeHtml(t.name)}</option>`).join('')}
-                            </select>
-                        </div>
-                        <div class="action-field">
-                            <label>КОЛ-ВО</label>
-                            <input type="number" class="action-count" data-idx="${idx}" value="${action.count || 1}" min="1" step="1">
-                        </div>
-                        <div class="proofs-section">
-                            <label><i class="fas fa-images"></i> ДОКАЗАТЕЛЬСТВА</label>
-                            <div id="proofs-container-${idx}">
-                                ${renderProofs(action.proofs || [], idx, 'weekly', () => {})}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="points-row">
-                        <span class="count-badge"><i class="fas fa-hashtag"></i> КОЛ-ВО: ${action.count || 1}</span>
-                        <span class="points-badge"><i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(action)}</span>
-                    </div>
-                </div>
-            `).join('');
-            
-            attachWeeklyActionEvents();
-        }
-
-        function attachWeeklyActionEvents() {
-            // Тип
-            document.querySelectorAll('#weeklyActionsList .action-type').forEach(select => {
-                const idx = parseInt(select.dataset.idx);
-                if (!isNaN(idx) && weeklyActions[idx]) {
-                    select.addEventListener('change', (e) => {
-                        const selectedOption = select.options[select.selectedIndex];
-                        weeklyActions[idx].type = select.value;
-                        weeklyActions[idx].basePoints = parseInt(selectedOption.dataset.points) || 0;
-                        const actionDiv = select.closest('.action-item');
-                        const pointsSpan = actionDiv.querySelector('.points-badge');
-                        if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(weeklyActions[idx])}`;
-                    });
-                }
-            });
-            // Количество
-            document.querySelectorAll('#weeklyActionsList .action-count').forEach(input => {
-                const idx = parseInt(input.dataset.idx);
-                if (!isNaN(idx) && weeklyActions[idx]) {
-                    input.addEventListener('input', (e) => {
-                        weeklyActions[idx].count = parseInt(input.value) || 1;
-                        const actionDiv = input.closest('.action-item');
-                        const countSpan = actionDiv.querySelector('.count-badge');
-                        const pointsSpan = actionDiv.querySelector('.points-badge');
-                        if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${weeklyActions[idx].count}`;
-                        if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(weeklyActions[idx])}`;
-                    });
-                }
-            });
-            // Удаление действия
-            document.querySelectorAll('#weeklyActionsList .remove-action').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const idx = parseInt(btn.dataset.idx);
-                    if (!isNaN(idx)) {
-                        weeklyActions.splice(idx, 1);
-                        renderWeeklyActions();
-                    }
-                });
-            });
-            // Доказательства - добавление
-            document.querySelectorAll('#weeklyActionsList .add-proof-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const idx = parseInt(btn.dataset.action);
-                    if (!isNaN(idx) && weeklyActions[idx]) {
-                        if (!weeklyActions[idx].proofs) weeklyActions[idx].proofs = [];
-                        weeklyActions[idx].proofs.push('');
-                        renderWeeklyActions();
-                    }
-                });
-            });
-            // Доказательства - удаление
-            document.querySelectorAll('#weeklyActionsList .remove-proof').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const actionIdx = parseInt(btn.dataset.action);
-                    const proofIdx = parseInt(btn.dataset.proof);
-                    if (!isNaN(actionIdx) && weeklyActions[actionIdx] && weeklyActions[actionIdx].proofs) {
-                        weeklyActions[actionIdx].proofs.splice(proofIdx, 1);
-                        if (weeklyActions[actionIdx].proofs.length === 0) weeklyActions[actionIdx].proofs = [];
-                        renderWeeklyActions();
-                    }
-                });
-            });
-            // Доказательства - изменение
-            document.querySelectorAll('#weeklyActionsList .proof-input').forEach(input => {
-                input.addEventListener('change', (e) => {
-                    const actionIdx = parseInt(input.dataset.action);
-                    const proofIdx = parseInt(input.dataset.proof);
-                    if (!isNaN(actionIdx) && weeklyActions[actionIdx] && weeklyActions[actionIdx].proofs && weeklyActions[actionIdx].proofs[proofIdx] !== undefined) {
-                        weeklyActions[actionIdx].proofs[proofIdx] = input.value;
-                    }
-                });
-            });
-        }
-
-        function renderPromotionActions() {
-            const container = document.getElementById('promotionActionsList');
-            const emptyDiv = document.getElementById('promotionEmptyActions');
-            if (promotionActions.length === 0) {
-                emptyDiv.style.display = 'block';
-                container.innerHTML = '';
-                return;
-            }
-            emptyDiv.style.display = 'none';
-            container.innerHTML = promotionActions.map((action, idx) => `
-                <div class="action-item" data-idx="${idx}">
-                    <div class="action-header">
-                        <div class="action-title"><i class="fas fa-tag"></i> ДЕЙСТВИЕ #${idx + 1}</div>
-                        <button class="remove-action" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button>
-                    </div>
-                    <div class="action-fields">
-                        <div class="action-field">
-                            <label>ТИП</label>
-                            <select class="action-type" data-idx="${idx}">
-                                <option value="">-- Выберите --</option>
-                                ${ACTIVITY_TYPES.map(t => `<option value="${escapeHtml(t.name)}" data-points="${t.basePoints}" ${action.type === t.name ? 'selected' : ''}>${escapeHtml(t.name)}</option>`).join('')}
-                            </select>
-                        </div>
-                        <div class="action-field">
-                            <label>КОЛ-ВО</label>
-                            <input type="number" class="action-count" data-idx="${idx}" value="${action.count || 1}" min="1" step="1">
-                        </div>
-                        <div class="proofs-section">
-                            <label><i class="fas fa-images"></i> ДОКАЗАТЕЛЬСТВА</label>
-                            <div id="promotion-proofs-container-${idx}">
-                                ${renderProofs(action.proofs || [], idx, 'promotion', () => {})}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="points-row">
-                        <span class="count-badge"><i class="fas fa-hashtag"></i> КОЛ-ВО: ${action.count || 1}</span>
-                        <span class="points-badge"><i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(action)}</span>
-                    </div>
-                </div>
-            `).join('');
-            attachPromotionActionEvents();
-        }
-
-        function attachPromotionActionEvents() {
-            document.querySelectorAll('#promotionActionsList .action-type').forEach(select => {
-                const idx = parseInt(select.dataset.idx);
-                if (!isNaN(idx) && promotionActions[idx]) {
-                    select.addEventListener('change', (e) => {
-                        const selectedOption = select.options[select.selectedIndex];
-                        promotionActions[idx].type = select.value;
-                        promotionActions[idx].basePoints = parseInt(selectedOption.dataset.points) || 0;
-                        const actionDiv = select.closest('.action-item');
-                        const pointsSpan = actionDiv.querySelector('.points-badge');
-                        if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(promotionActions[idx])}`;
-                    });
-                }
-            });
-            document.querySelectorAll('#promotionActionsList .action-count').forEach(input => {
-                const idx = parseInt(input.dataset.idx);
-                if (!isNaN(idx) && promotionActions[idx]) {
-                    input.addEventListener('input', (e) => {
-                        promotionActions[idx].count = parseInt(input.value) || 1;
-                        const actionDiv = input.closest('.action-item');
-                        const countSpan = actionDiv.querySelector('.count-badge');
-                        const pointsSpan = actionDiv.querySelector('.points-badge');
-                        if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${promotionActions[idx].count}`;
-                        if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(promotionActions[idx])}`;
-                    });
-                }
-            });
-            document.querySelectorAll('#promotionActionsList .remove-action').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const idx = parseInt(btn.dataset.idx);
-                    if (!isNaN(idx)) {
-                        promotionActions.splice(idx, 1);
-                        renderPromotionActions();
-                    }
-                });
-            });
-            document.querySelectorAll('#promotionActionsList .add-proof-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const idx = parseInt(btn.dataset.action);
-                    if (!isNaN(idx) && promotionActions[idx]) {
-                        if (!promotionActions[idx].proofs) promotionActions[idx].proofs = [];
-                        promotionActions[idx].proofs.push('');
-                        renderPromotionActions();
-                    }
-                });
-            });
-            document.querySelectorAll('#promotionActionsList .remove-proof').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const actionIdx = parseInt(btn.dataset.action);
-                    const proofIdx = parseInt(btn.dataset.proof);
-                    if (!isNaN(actionIdx) && promotionActions[actionIdx] && promotionActions[actionIdx].proofs) {
-                        promotionActions[actionIdx].proofs.splice(proofIdx, 1);
-                        if (promotionActions[actionIdx].proofs.length === 0) promotionActions[actionIdx].proofs = [];
-                        renderPromotionActions();
-                    }
-                });
-            });
-            document.querySelectorAll('#promotionActionsList .proof-input').forEach(input => {
-                input.addEventListener('change', (e) => {
-                    const actionIdx = parseInt(input.dataset.action);
-                    const proofIdx = parseInt(input.dataset.proof);
-                    if (!isNaN(actionIdx) && promotionActions[actionIdx] && promotionActions[actionIdx].proofs && promotionActions[actionIdx].proofs[proofIdx] !== undefined) {
-                        promotionActions[actionIdx].proofs[proofIdx] = input.value;
-                    }
-                });
-            });
-        }
-
-        // Отправка в Discord с красивым эмбедом
-        async function sendToDiscordWithEmbed(webhookUrl, title, fields, color = 0x5865F2) {
-            const embed = {
-                title: title,
-                color: color,
-                fields: fields,
-                footer: { text: "Aetheris HR System", icon_url: "https://cdn.discordapp.com/attachments/..." },
-                timestamp: new Date().toISOString()
-            };
-            const response = await fetch(webhookUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ embeds: [embed] })
-            });
-            if (!response.ok) throw new Error(`Ошибка HTTP ${response.status}`);
-            return true;
-        }
-
         function updateWeeklyPeriodInfo() {
             const start = document.getElementById('weeklyDateStart').value;
             const end = document.getElementById('weeklyDateEnd').value;
@@ -1144,6 +881,306 @@
             }
         }
 
+        function renderProofsList(action, actionIdx, type) {
+            const proofs = action.proofs || [];
+            if (proofs.length === 0) {
+                return `<div class="proofs-list" style="padding: 8px 0;"><span style="color: var(--text-muted); font-size: 0.75rem;">Нет доказательств</span></div>`;
+            }
+            return `
+                <div class="proofs-list">
+                    ${proofs.map((proof, pIdx) => `
+                        <div class="proof-item" data-action="${actionIdx}" data-proof="${pIdx}">
+                            <i class="fas fa-link" style="color: var(--accent); font-size: 0.75rem;"></i>
+                            <input type="text" class="proof-input" data-type="${type}" data-action="${actionIdx}" data-proof="${pIdx}" value="${escapeHtml(proof)}" placeholder="https://пример.com/скриншот">
+                            <button class="remove-proof" data-type="${type}" data-action="${actionIdx}" data-proof="${pIdx}"><i class="fas fa-times"></i></button>
+                        </div>
+                    `).join('')}
+                </div>
+                <button class="add-proof-btn" data-type="${type}" data-action="${actionIdx}"><i class="fas fa-plus"></i> Добавить доказательство</button>
+            `;
+        }
+
+        function renderWeeklyActions() {
+            const container = document.getElementById('weeklyActionsList');
+            const emptyDiv = document.getElementById('weeklyEmptyActions');
+            if (weeklyActions.length === 0) {
+                emptyDiv.style.display = 'block';
+                container.innerHTML = '';
+                return;
+            }
+            emptyDiv.style.display = 'none';
+            container.innerHTML = weeklyActions.map((action, idx) => `
+                <div class="action-item" data-action-idx="${idx}">
+                    <div class="action-header">
+                        <div class="action-title"><i class="fas fa-tag"></i> ДЕЙСТВИЕ #${idx + 1}</div>
+                        <button class="remove-action" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button>
+                    </div>
+                    <div class="action-fields">
+                        <div class="action-field">
+                            <label>ТИП</label>
+                            <select class="action-type" data-idx="${idx}">
+                                <option value="">-- Выберите --</option>
+                                ${ACTIVITY_TYPES.map(t => `<option value="${escapeHtml(t.name)}" data-points="${t.basePoints}" ${action.type === t.name ? 'selected' : ''}>${escapeHtml(t.name)}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="action-field">
+                            <label>КОЛ-ВО</label>
+                            <input type="number" class="action-count" data-idx="${idx}" value="${action.count || 1}" min="1" step="1">
+                        </div>
+                        <div class="proofs-section">
+                            <label><i class="fas fa-images"></i> ДОКАЗАТЕЛЬСТВА</label>
+                            <div class="proofs-container" data-action-idx="${idx}">
+                                ${renderProofsList(action, idx, 'weekly')}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="points-row">
+                        <span class="count-badge"><i class="fas fa-hashtag"></i> КОЛ-ВО: ${action.count || 1}</span>
+                        <span class="points-badge"><i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(action)}</span>
+                    </div>
+                </div>
+            `).join('');
+            attachWeeklyEvents();
+        }
+
+        function attachWeeklyEvents() {
+            // Тип действия
+            document.querySelectorAll('#weeklyActionsList .action-type').forEach(select => {
+                const idx = parseInt(select.dataset.idx);
+                if (!isNaN(idx) && weeklyActions[idx]) {
+                    select.removeEventListener('change', weeklyTypeChangeHandler);
+                    const handler = (e) => {
+                        const selectedOption = select.options[select.selectedIndex];
+                        weeklyActions[idx].type = select.value;
+                        weeklyActions[idx].basePoints = parseInt(selectedOption.dataset.points) || 0;
+                        const actionDiv = select.closest('.action-item');
+                        const pointsSpan = actionDiv.querySelector('.points-badge');
+                        if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(weeklyActions[idx])}`;
+                    };
+                    select.addEventListener('change', handler);
+                    select.weeklyChangeHandler = handler;
+                }
+            });
+            // Количество
+            document.querySelectorAll('#weeklyActionsList .action-count').forEach(input => {
+                const idx = parseInt(input.dataset.idx);
+                if (!isNaN(idx) && weeklyActions[idx]) {
+                    input.removeEventListener('input', weeklyCountHandler);
+                    const handler = (e) => {
+                        weeklyActions[idx].count = parseInt(input.value) || 1;
+                        const actionDiv = input.closest('.action-item');
+                        const countSpan = actionDiv.querySelector('.count-badge');
+                        const pointsSpan = actionDiv.querySelector('.points-badge');
+                        if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${weeklyActions[idx].count}`;
+                        if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(weeklyActions[idx])}`;
+                    };
+                    input.addEventListener('input', handler);
+                    input.weeklyCountHandler = handler;
+                }
+            });
+            // Удаление действия
+            document.querySelectorAll('#weeklyActionsList .remove-action').forEach(btn => {
+                btn.removeEventListener('click', weeklyRemoveHandler);
+                const handler = (e) => {
+                    const idx = parseInt(btn.dataset.idx);
+                    if (!isNaN(idx)) {
+                        weeklyActions.splice(idx, 1);
+                        renderWeeklyActions();
+                    }
+                };
+                btn.addEventListener('click', handler);
+                btn.weeklyRemoveHandler = handler;
+            });
+            // Добавление доказательства
+            document.querySelectorAll('#weeklyActionsList .add-proof-btn').forEach(btn => {
+                btn.removeEventListener('click', weeklyAddProofHandler);
+                const handler = (e) => {
+                    const actionIdx = parseInt(btn.dataset.action);
+                    if (!isNaN(actionIdx) && weeklyActions[actionIdx]) {
+                        if (!weeklyActions[actionIdx].proofs) weeklyActions[actionIdx].proofs = [];
+                        weeklyActions[actionIdx].proofs.push('');
+                        renderWeeklyActions();
+                    }
+                };
+                btn.addEventListener('click', handler);
+                btn.weeklyAddProofHandler = handler;
+            });
+            // Удаление доказательства
+            document.querySelectorAll('#weeklyActionsList .remove-proof').forEach(btn => {
+                btn.removeEventListener('click', weeklyRemoveProofHandler);
+                const handler = (e) => {
+                    const actionIdx = parseInt(btn.dataset.action);
+                    const proofIdx = parseInt(btn.dataset.proof);
+                    if (!isNaN(actionIdx) && weeklyActions[actionIdx] && weeklyActions[actionIdx].proofs) {
+                        weeklyActions[actionIdx].proofs.splice(proofIdx, 1);
+                        if (weeklyActions[actionIdx].proofs.length === 0) weeklyActions[actionIdx].proofs = [];
+                        renderWeeklyActions();
+                    }
+                };
+                btn.addEventListener('click', handler);
+                btn.weeklyRemoveProofHandler = handler;
+            });
+            // Изменение доказательства
+            document.querySelectorAll('#weeklyActionsList .proof-input').forEach(input => {
+                input.removeEventListener('change', weeklyProofChangeHandler);
+                const handler = (e) => {
+                    const actionIdx = parseInt(input.dataset.action);
+                    const proofIdx = parseInt(input.dataset.proof);
+                    if (!isNaN(actionIdx) && weeklyActions[actionIdx] && weeklyActions[actionIdx].proofs && weeklyActions[actionIdx].proofs[proofIdx] !== undefined) {
+                        weeklyActions[actionIdx].proofs[proofIdx] = input.value;
+                    }
+                };
+                input.addEventListener('change', handler);
+                input.weeklyProofChangeHandler = handler;
+            });
+        }
+
+        function renderPromotionActions() {
+            const container = document.getElementById('promotionActionsList');
+            const emptyDiv = document.getElementById('promotionEmptyActions');
+            if (promotionActions.length === 0) {
+                emptyDiv.style.display = 'block';
+                container.innerHTML = '';
+                return;
+            }
+            emptyDiv.style.display = 'none';
+            container.innerHTML = promotionActions.map((action, idx) => `
+                <div class="action-item" data-action-idx="${idx}">
+                    <div class="action-header">
+                        <div class="action-title"><i class="fas fa-tag"></i> ДЕЙСТВИЕ #${idx + 1}</div>
+                        <button class="remove-action" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button>
+                    </div>
+                    <div class="action-fields">
+                        <div class="action-field">
+                            <label>ТИП</label>
+                            <select class="action-type" data-idx="${idx}">
+                                <option value="">-- Выберите --</option>
+                                ${ACTIVITY_TYPES.map(t => `<option value="${escapeHtml(t.name)}" data-points="${t.basePoints}" ${action.type === t.name ? 'selected' : ''}>${escapeHtml(t.name)}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="action-field">
+                            <label>КОЛ-ВО</label>
+                            <input type="number" class="action-count" data-idx="${idx}" value="${action.count || 1}" min="1" step="1">
+                        </div>
+                        <div class="proofs-section">
+                            <label><i class="fas fa-images"></i> ДОКАЗАТЕЛЬСТВА</label>
+                            <div class="proofs-container" data-action-idx="${idx}">
+                                ${renderProofsList(action, idx, 'promotion')}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="points-row">
+                        <span class="count-badge"><i class="fas fa-hashtag"></i> КОЛ-ВО: ${action.count || 1}</span>
+                        <span class="points-badge"><i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(action)}</span>
+                    </div>
+                </div>
+            `).join('');
+            attachPromotionEvents();
+        }
+
+        function attachPromotionEvents() {
+            document.querySelectorAll('#promotionActionsList .action-type').forEach(select => {
+                const idx = parseInt(select.dataset.idx);
+                if (!isNaN(idx) && promotionActions[idx]) {
+                    select.removeEventListener('change', promotionTypeHandler);
+                    const handler = (e) => {
+                        const selectedOption = select.options[select.selectedIndex];
+                        promotionActions[idx].type = select.value;
+                        promotionActions[idx].basePoints = parseInt(selectedOption.dataset.points) || 0;
+                        const actionDiv = select.closest('.action-item');
+                        const pointsSpan = actionDiv.querySelector('.points-badge');
+                        if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(promotionActions[idx])}`;
+                    };
+                    select.addEventListener('change', handler);
+                    select.promotionTypeHandler = handler;
+                }
+            });
+            document.querySelectorAll('#promotionActionsList .action-count').forEach(input => {
+                const idx = parseInt(input.dataset.idx);
+                if (!isNaN(idx) && promotionActions[idx]) {
+                    input.removeEventListener('input', promotionCountHandler);
+                    const handler = (e) => {
+                        promotionActions[idx].count = parseInt(input.value) || 1;
+                        const actionDiv = input.closest('.action-item');
+                        const countSpan = actionDiv.querySelector('.count-badge');
+                        const pointsSpan = actionDiv.querySelector('.points-badge');
+                        if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${promotionActions[idx].count}`;
+                        if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(promotionActions[idx])}`;
+                    };
+                    input.addEventListener('input', handler);
+                    input.promotionCountHandler = handler;
+                }
+            });
+            document.querySelectorAll('#promotionActionsList .remove-action').forEach(btn => {
+                btn.removeEventListener('click', promotionRemoveHandler);
+                const handler = (e) => {
+                    const idx = parseInt(btn.dataset.idx);
+                    if (!isNaN(idx)) {
+                        promotionActions.splice(idx, 1);
+                        renderPromotionActions();
+                    }
+                };
+                btn.addEventListener('click', handler);
+                btn.promotionRemoveHandler = handler;
+            });
+            document.querySelectorAll('#promotionActionsList .add-proof-btn').forEach(btn => {
+                btn.removeEventListener('click', promotionAddProofHandler);
+                const handler = (e) => {
+                    const actionIdx = parseInt(btn.dataset.action);
+                    if (!isNaN(actionIdx) && promotionActions[actionIdx]) {
+                        if (!promotionActions[actionIdx].proofs) promotionActions[actionIdx].proofs = [];
+                        promotionActions[actionIdx].proofs.push('');
+                        renderPromotionActions();
+                    }
+                };
+                btn.addEventListener('click', handler);
+                btn.promotionAddProofHandler = handler;
+            });
+            document.querySelectorAll('#promotionActionsList .remove-proof').forEach(btn => {
+                btn.removeEventListener('click', promotionRemoveProofHandler);
+                const handler = (e) => {
+                    const actionIdx = parseInt(btn.dataset.action);
+                    const proofIdx = parseInt(btn.dataset.proof);
+                    if (!isNaN(actionIdx) && promotionActions[actionIdx] && promotionActions[actionIdx].proofs) {
+                        promotionActions[actionIdx].proofs.splice(proofIdx, 1);
+                        if (promotionActions[actionIdx].proofs.length === 0) promotionActions[actionIdx].proofs = [];
+                        renderPromotionActions();
+                    }
+                };
+                btn.addEventListener('click', handler);
+                btn.promotionRemoveProofHandler = handler;
+            });
+            document.querySelectorAll('#promotionActionsList .proof-input').forEach(input => {
+                input.removeEventListener('change', promotionProofChangeHandler);
+                const handler = (e) => {
+                    const actionIdx = parseInt(input.dataset.action);
+                    const proofIdx = parseInt(input.dataset.proof);
+                    if (!isNaN(actionIdx) && promotionActions[actionIdx] && promotionActions[actionIdx].proofs && promotionActions[actionIdx].proofs[proofIdx] !== undefined) {
+                        promotionActions[actionIdx].proofs[proofIdx] = input.value;
+                    }
+                };
+                input.addEventListener('change', handler);
+                input.promotionProofChangeHandler = handler;
+            });
+        }
+
+        async function sendToDiscordWithEmbed(webhookUrl, title, fields, color = 0x5865F2) {
+            const embed = {
+                title: title,
+                color: color,
+                fields: fields,
+                footer: { text: "Aetheris HR System" },
+                timestamp: new Date().toISOString()
+            };
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ embeds: [embed] })
+            });
+            if (!response.ok) throw new Error(`Ошибка HTTP ${response.status}`);
+            return true;
+        }
+
         function formatWeeklyEmbed() {
             const nickname = document.getElementById('weeklyNickname').value.trim() || 'Не указан';
             const rank = document.getElementById('weeklyRank').value || 'Не выбран';
@@ -1155,11 +1192,10 @@
             weeklyActions.forEach((action, idx) => {
                 const points = calculatePoints(action);
                 totalPoints += points;
-                let proofsText = action.proofs && action.proofs.length ? action.proofs.map(p => `• ${p}`).join('\n') : 'Нет доказательств';
-                actionsText += `\n**${idx + 1}. ${action.type || 'Не выбран'}** | Кол-во: ${action.count || 1} | Баллы: ${points}\n📎 Доказательства:\n${proofsText}\n`;
+                let proofsText = (action.proofs && action.proofs.length) ? action.proofs.map(p => `• ${p}`).join('\n') : 'Нет доказательств';
+                actionsText += `**${idx + 1}. ${action.type || 'Не выбран'}** | Кол-во: ${action.count || 1} | Баллы: ${points}\n📎 Доказательства:\n${proofsText}\n\n`;
             });
             if (weeklyActions.length === 0) actionsText = 'Нет действий с доказательствами';
-            
             return {
                 fields: [
                     { name: "👤 Игровой никнейм", value: nickname, inline: true },
@@ -1181,11 +1217,10 @@
             promotionActions.forEach((action, idx) => {
                 const points = calculatePoints(action);
                 totalPoints += points;
-                let proofsText = action.proofs && action.proofs.length ? action.proofs.map(p => `• ${p}`).join('\n') : 'Нет доказательств';
-                actionsText += `\n**${idx + 1}. ${action.type || 'Не выбран'}** | Кол-во: ${action.count || 1} | Баллы: ${points}\n📎 Доказательства:\n${proofsText}\n`;
+                let proofsText = (action.proofs && action.proofs.length) ? action.proofs.map(p => `• ${p}`).join('\n') : 'Нет доказательств';
+                actionsText += `**${idx + 1}. ${action.type || 'Не выбран'}** | Кол-во: ${action.count || 1} | Баллы: ${points}\n📎 Доказательства:\n${proofsText}\n\n`;
             });
             if (promotionActions.length === 0) actionsText = 'Нет действий с доказательствами';
-            
             return {
                 fields: [
                     { name: "👤 Игровой никнейм", value: nickname, inline: true },
@@ -1244,7 +1279,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Обработчики
         document.getElementById('weeklyAddActionBtn').addEventListener('click', () => {
             weeklyActions.push({ type: '', basePoints: 0, count: 1, proofs: [] });
             renderWeeklyActions();
