@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ARMY Delta | Система отчетов</title>
+    <title>ARMY Delta | Центр отчётов</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -678,6 +678,23 @@
             transform: none;
         }
 
+        /* Подпись внизу */
+        .footer-signature {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-signature i {
+            color: var(--accent);
+            margin: 0 4px;
+        }
+
         .alert {
             padding: 12px 16px;
             border-radius: 14px;
@@ -758,7 +775,7 @@
                 <div class="logo-icon"><i class="fas fa-gun"></i></div>
                 <h1>ARMY Delta</h1>
             </div>
-            <p class="subtitle">Система подачи отчётов delta</p>
+            <p class="subtitle">Система подачи отчётов с балльной системой</p>
         </div>
 
         <div id="homePage" class="home-page">
@@ -766,19 +783,19 @@
                 <div class="action-card" data-page="weekly">
                     <div class="card-icon"><i class="fas fa-calendar-week"></i></div>
                     <h3>📊 Еженедельный отчёт</h3>
-                    <p>Отчёт о работе за неделю</p>
+                    <p>Отчёт о работе с баллами и доказательствами</p>
                     <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="action-card" data-page="promotion">
                     <div class="card-icon"><i class="fas fa-arrow-up"></i></div>
                     <h3>⬆️ Отчёт на повышение</h3>
-                    <p>Заявка на повышение должности</p>
+                    <p>Заявка на повышение с достижениями</p>
                     <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="action-card" data-page="exam">
                     <div class="card-icon"><i class="fas fa-pen-clip"></i></div>
                     <h3>📝 Запись на экзамен</h3>
-                    <p>Запись на экзамен для повышение</p>
+                    <p>Запись на квалификационный экзамен</p>
                     <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
             </div>
@@ -835,6 +852,10 @@
                     </div>
 
                     <button class="submit-btn" id="weeklySubmitBtn"><i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ОТЧЁТ</button>
+                    
+                    <div class="footer-signature">
+                        <i class="fas fa-code"></i> By Alexandr DeHaus <i class="fas fa-heart"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -903,6 +924,10 @@
                     </div>
 
                     <button class="submit-btn" id="promotionSubmitBtn"><i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ЗАПРОС</button>
+                    
+                    <div class="footer-signature">
+                        <i class="fas fa-code"></i> By Alexandr DeHaus <i class="fas fa-heart"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -938,6 +963,10 @@
                     <div class="input-group"><label>💬 DISCORD @ТЕГ</label><input type="text" id="examDiscord" placeholder="@username"></div>
                     <div class="input-group"><label>⏰ УДОБНОЕ ВРЕМЯ</label><input type="text" id="examTime" placeholder="Например: понедельник 18:00 МСК"></div>
                     <button class="submit-btn" id="examSubmitBtn"><i class="fab fa-discord"></i> 📨 ЗАПИСАТЬСЯ НА ЭКЗАМЕН</button>
+                    
+                    <div class="footer-signature">
+                        <i class="fas fa-code"></i> By Alexandr DeHaus <i class="fas fa-heart"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -945,10 +974,13 @@
 
     <script>
         const WEBHOOKS = {
-            weekly: 'https://discord.com/api/webhooks/1501309143691297043/BeXtbLJ7CY0cM83HIQjDInoS7vR2rQwPwt2QJ0yUXoWJiNVBOlLI-XMZfBEXiADxcVyl',
-            promotion: 'https://discord.com/api/webhooks/1501309143691297043/BeXtbLJ7CY0cM83HIQjDInoS7vR2rQwPwt2QJ0yUXoWJiNVBOlLI-XMZfBEXiADxcVyl',
-            exam: 'https://discord.com/api/webhooks/1501309143691297043/BeXtbLJ7CY0cM83HIQjDInoS7vR2rQwPwt2QJ0yUXoWJiNVBOlLI-XMZfBEXiADxcVyl'
+            weekly: 'https://discord.com/api/webhooks/1342990389576523817/d0I7_Habqsq3QCEW8U04wxHSPnyAAfKDvNv4_0pYLhDcpLcn5Gq-bIrnNqLfUF4O6ODM',
+            promotion: 'https://discord.com/api/webhooks/1342990438990155868/bVemc6xSgF1ZvdzrbfN10wLb-KdMAHhGHteKXGkLRX7Eo-h7eOQFeq6_5fiApo1_8boK',
+            exam: 'https://discord.com/api/webhooks/1342990453327466578/7MSg--hsc8ug6CKFZ9_FHmK6iLsiXUc0P9rMYw6R_7K4aCAdDPxJtLQACq58v7KL5MfC'
         };
+
+        // Роли для тега в Discord
+        const ROLES_TO_TAG = '<@&793440125798973441> <@&792082143408160768> <@&792079598795358248>';
 
         const ACTIVITY_TYPES = [
             { name: "Участие в ГМП", basePoints: 10 },
@@ -969,7 +1001,8 @@
             { name: "Патруль вне ФЗ (1 час)", basePoints: 8 },
             { name: "Участие в Вечернем построении", basePoints: 4 },
             { name: "Участие в ЧР", basePoints: 10 },
-            { name: "Передача задержанного сотрудникам CID", basePoints: 10 }
+            { name: "Передача задержанного сотрудникам CID", basePoints: 10 },
+            { name: "Доп. работа", basePoints: 5 }
         ];
 
         let weeklyActions = [];
@@ -1303,11 +1336,20 @@
         }
 
         async function sendToDiscordWithEmbed(webhookUrl, title, fields, color = 0x4CAF50) {
-            const embed = { title: title, color: color, fields: fields, footer: { text: "ARMY Delta System" }, timestamp: new Date().toISOString() };
+            const contentWithRoles = `${ROLES_TO_TAG}\n━━━━━━━━━━━━━━━━━━━━`;
+            
+            const embed = { 
+                title: title, 
+                color: color, 
+                fields: fields, 
+                footer: { text: "ARMY Delta System" }, 
+                timestamp: new Date().toISOString() 
+            };
+            
             const response = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ embeds: [embed] })
+                body: JSON.stringify({ content: contentWithRoles, embeds: [embed] })
             });
             if (!response.ok) throw new Error(`Ошибка HTTP ${response.status}`);
             return true;
