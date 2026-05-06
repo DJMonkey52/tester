@@ -333,18 +333,19 @@
             margin-bottom: 20px;
         }
 
-        /* Анимация только для нового элемента */
+        /* Анимации */
         .action-item {
             background: var(--card-hover);
             border-radius: 18px;
             padding: 16px;
             margin-bottom: 14px;
             border: 1px solid var(--border-light);
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: all 0.2s ease;
+            overflow: hidden;
         }
 
         .action-item.new-action {
-            animation: actionAppear 0.35s ease;
+            animation: actionAppear 0.35s ease forwards;
         }
 
         @keyframes actionAppear {
@@ -359,23 +360,26 @@
         }
 
         .action-item.removing {
-            animation: actionRemove 0.3s ease forwards;
+            animation: actionRemove 0.3s ease forwards !important;
             pointer-events: none;
         }
 
         @keyframes actionRemove {
-            from {
+            0% {
                 opacity: 1;
                 transform: scale(1) translateX(0);
                 max-height: 300px;
+                margin-bottom: 14px;
+                padding: 16px;
             }
-            to {
+            100% {
                 opacity: 0;
-                transform: scale(0.95) translateX(-20px);
+                transform: scale(0.95) translateX(-30px);
                 max-height: 0;
                 margin-bottom: 0;
                 padding-top: 0;
                 padding-bottom: 0;
+                border: none;
             }
         }
 
@@ -1042,10 +1046,11 @@
             }
         }
 
-        // Функция для создания HTML нового действия
+        // Создание HTML нового действия
         function createActionHTML(action, idx, type) {
+            const proofs = action.proofs || [''];
             return `
-                <div class="action-item new-action" data-action-idx="${idx}">
+                <div class="action-item new-action" data-original-idx="${idx}">
                     <div class="action-header">
                         <div class="action-title"><i class="fas fa-tag"></i> ДЕЙСТВИЕ #${idx + 1}</div>
                         <button class="remove-action" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button>
@@ -1065,10 +1070,13 @@
                         <div class="proofs-section">
                             <label><i class="fas fa-images"></i> ДОКАЗАТЕЛЬСТВА</label>
                             <div class="proofs-list">
-                                <div class="proof-item">
-                                    <i class="fas fa-link" style="color: var(--accent); font-size: 0.75rem;"></i>
-                                    <input type="text" class="proof-input" data-type="${type}" data-action="${idx}" data-proof="0" value="" placeholder="https://пример.com/скриншот">
-                                </div>
+                                ${proofs.map((proof, pIdx) => `
+                                    <div class="proof-item">
+                                        <i class="fas fa-link" style="color: var(--accent); font-size: 0.75rem;"></i>
+                                        <input type="text" class="proof-input" data-type="${type}" data-action="${idx}" data-proof="${pIdx}" value="${escapeHtml(proof)}" placeholder="https://пример.com/скриншот">
+                                        ${proofs.length > 1 ? `<button class="remove-proof" data-type="${type}" data-action="${idx}" data-proof="${pIdx}"><i class="fas fa-times"></i></button>` : ''}
+                                    </div>
+                                `).join('')}
                             </div>
                             <button class="add-proof-btn" data-type="${type}" data-action="${idx}"><i class="fas fa-plus"></i> Добавить доказательство</button>
                         </div>
@@ -1081,38 +1089,48 @@
             `;
         }
 
-        // Функция для обновления индексов в селектах и инпутах
-        function updateActionIndices(container, type) {
+        // Обновление индексов в DOM без перерендера
+        function updateActionIndices(container, actionsArray, type) {
             const actions = container.querySelectorAll('.action-item');
             actions.forEach((action, newIdx) => {
-                action.setAttribute('data-action-idx', newIdx);
-                const removeBtn = action.querySelector('.remove-action');
-                if (removeBtn) removeBtn.setAttribute('data-idx', newIdx);
-                const typeSelect = action.querySelector('.action-type');
-                if (typeSelect) typeSelect.setAttribute('data-idx', newIdx);
-                const countInput = action.querySelector('.action-count');
-                if (countInput) countInput.setAttribute('data-idx', newIdx);
-                const proofsContainer = action.querySelector('.proofs-section');
-                if (proofsContainer) {
-                    const proofInputs = proofsContainer.querySelectorAll('.proof-input');
-                    proofInputs.forEach(input => {
-                        input.setAttribute('data-action', newIdx);
-                    });
-                    const addProofBtns = proofsContainer.querySelectorAll('.add-proof-btn');
-                    addProofBtns.forEach(btn => {
-                        btn.setAttribute('data-action', newIdx);
-                    });
-                    const removeProofBtns = proofsContainer.querySelectorAll('.remove-proof');
-                    removeProofBtns.forEach(btn => {
-                        btn.setAttribute('data-action', newIdx);
-                    });
-                }
+                // Обновляем атрибуты
+                action.setAttribute('data-original-idx', newIdx);
+                
+                // Обновляем заголовок
                 const titleSpan = action.querySelector('.action-title');
                 if (titleSpan) titleSpan.innerHTML = `<i class="fas fa-tag"></i> ДЕЙСТВИЕ #${newIdx + 1}`;
+                
+                // Обновляем кнопку удаления
+                const removeBtn = action.querySelector('.remove-action');
+                if (removeBtn) removeBtn.setAttribute('data-idx', newIdx);
+                
+                // Обновляем select типа
+                const typeSelect = action.querySelector('.action-type');
+                if (typeSelect) typeSelect.setAttribute('data-idx', newIdx);
+                
+                // Обновляем input количества
+                const countInput = action.querySelector('.action-count');
+                if (countInput) countInput.setAttribute('data-idx', newIdx);
+                
+                // Обновляем все доказательства
+                const proofInputs = action.querySelectorAll('.proof-input');
+                proofInputs.forEach(input => {
+                    input.setAttribute('data-action', newIdx);
+                });
+                
+                const addProofBtns = action.querySelectorAll('.add-proof-btn');
+                addProofBtns.forEach(btn => {
+                    btn.setAttribute('data-action', newIdx);
+                });
+                
+                const removeProofBtns = action.querySelectorAll('.remove-proof');
+                removeProofBtns.forEach(btn => {
+                    btn.setAttribute('data-action', newIdx);
+                });
             });
         }
 
-        // Добавление действия без перерендера
+        // Добавление действия
         function addWeeklyAction() {
             const newAction = { type: '', basePoints: 0, count: 1, proofs: [''] };
             const newIdx = weeklyActions.length;
@@ -1129,12 +1147,12 @@
             const newActionHTML = createActionHTML(newAction, newIdx, 'weekly');
             container.insertAdjacentHTML('beforeend', newActionHTML);
             
-            attachActionEvents(container.lastElementChild, newIdx, weeklyActions, renderWeeklyActionsFull, updateWeeklyTotalPoints, 'weekly');
+            const newElement = container.lastElementChild;
+            attachActionEventsToElement(newElement, newIdx, weeklyActions, renderWeeklyActionsFull, updateWeeklyTotalPoints, 'weekly');
             updateWeeklyTotalPoints();
             
             setTimeout(() => {
-                const newElem = container.lastElementChild;
-                if (newElem) newElem.classList.remove('new-action');
+                if (newElement) newElement.classList.remove('new-action');
             }, 350);
         }
 
@@ -1154,62 +1172,82 @@
             const newActionHTML = createActionHTML(newAction, newIdx, 'promotion');
             container.insertAdjacentHTML('beforeend', newActionHTML);
             
-            attachActionEvents(container.lastElementChild, newIdx, promotionActions, renderPromotionActionsFull, updatePromotionTotalPoints, 'promotion');
+            const newElement = container.lastElementChild;
+            attachActionEventsToElement(newElement, newIdx, promotionActions, renderPromotionActionsFull, updatePromotionTotalPoints, 'promotion');
             updatePromotionTotalPoints();
             
             setTimeout(() => {
-                const newElem = container.lastElementChild;
-                if (newElem) newElem.classList.remove('new-action');
+                if (newElement) newElement.classList.remove('new-action');
             }, 350);
         }
 
-        function attachActionEvents(actionElement, idx, actionsArray, renderFull, updateTotal, type) {
+        // Привязка событий к элементу действия
+        function attachActionEventsToElement(element, idx, actionsArray, renderFull, updateTotal, type) {
+            // Удаление действия с анимацией
+            const removeBtn = element.querySelector('.remove-action');
+            if (removeBtn) {
+                removeBtn.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    element.classList.add('removing');
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                    
+                    // Удаляем из массива
+                    actionsArray.splice(idx, 1);
+                    
+                    // Удаляем элемент из DOM
+                    element.remove();
+                    
+                    // Обновляем индексы и заголовки оставшихся элементов
+                    const container = element.parentElement;
+                    if (container) {
+                        updateActionIndices(container, actionsArray, type);
+                    }
+                    
+                    // Показываем пустое состояние если нужно
+                    const emptyDiv = document.getElementById(type === 'weekly' ? 'weeklyEmptyActions' : 'promotionEmptyActions');
+                    if (actionsArray.length === 0 && emptyDiv) {
+                        emptyDiv.style.display = 'block';
+                    }
+                    
+                    updateTotal();
+                });
+            }
+            
             // Тип действия
-            const typeSelect = actionElement.querySelector('.action-type');
+            const typeSelect = element.querySelector('.action-type');
             if (typeSelect) {
                 typeSelect.addEventListener('change', (e) => {
                     const selectedOption = typeSelect.options[typeSelect.selectedIndex];
                     actionsArray[idx].type = typeSelect.value;
                     actionsArray[idx].basePoints = parseInt(selectedOption.dataset.points) || 0;
-                    const pointsSpan = actionElement.querySelector('.points-badge');
+                    const pointsSpan = element.querySelector('.points-badge');
                     if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(actionsArray[idx])}`;
                     updateTotal();
                 });
             }
             
             // Количество
-            const countInput = actionElement.querySelector('.action-count');
+            const countInput = element.querySelector('.action-count');
             if (countInput) {
                 countInput.addEventListener('input', (e) => {
                     actionsArray[idx].count = parseInt(countInput.value) || 1;
-                    const countSpan = actionElement.querySelector('.count-badge');
-                    const pointsSpan = actionElement.querySelector('.points-badge');
+                    const countSpan = element.querySelector('.count-badge');
+                    const pointsSpan = element.querySelector('.points-badge');
                     if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${actionsArray[idx].count}`;
                     if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(actionsArray[idx])}`;
                     updateTotal();
                 });
             }
             
-            // Удаление действия
-            const removeBtn = actionElement.querySelector('.remove-action');
-            if (removeBtn) {
-                removeBtn.addEventListener('click', async (e) => {
-                    actionElement.classList.add('removing');
-                    await new Promise(resolve => setTimeout(resolve, 300));
-                    actionsArray.splice(idx, 1);
-                    renderFull();
-                });
-            }
-            
             // Добавление доказательства
-            const addProofBtn = actionElement.querySelector('.add-proof-btn');
+            const addProofBtn = element.querySelector('.add-proof-btn');
             if (addProofBtn) {
                 addProofBtn.addEventListener('click', (e) => {
                     if (!actionsArray[idx].proofs) actionsArray[idx].proofs = [''];
                     const newProofIdx = actionsArray[idx].proofs.length;
                     actionsArray[idx].proofs.push('');
                     
-                    const proofsList = actionElement.querySelector('.proofs-list');
+                    const proofsList = element.querySelector('.proofs-list');
                     const newProofHTML = `
                         <div class="proof-item new-proof">
                             <i class="fas fa-link" style="color: var(--accent); font-size: 0.75rem;"></i>
@@ -1220,26 +1258,28 @@
                     proofsList.insertAdjacentHTML('beforeend', newProofHTML);
                     
                     const newProof = proofsList.lastElementChild;
-                    attachProofEvents(newProof, idx, newProofIdx, actionsArray, renderFull, updateTotal, type);
+                    attachProofEventsToElement(newProof, idx, newProofIdx, actionsArray, renderFull, updateTotal, type);
                     
                     setTimeout(() => newProof.classList.remove('new-proof'), 300);
                     updateTotal();
                 });
             }
             
-            // Уже существующие доказательства
-            const proofItems = actionElement.querySelectorAll('.proof-item');
+            // Существующие доказательства
+            const proofItems = element.querySelectorAll('.proof-item');
             proofItems.forEach((proofItem, pIdx) => {
-                attachProofEvents(proofItem, idx, pIdx, actionsArray, renderFull, updateTotal, type);
+                attachProofEventsToElement(proofItem, idx, pIdx, actionsArray, renderFull, updateTotal, type);
             });
         }
 
-        function attachProofEvents(proofItem, actionIdx, proofIdx, actionsArray, renderFull, updateTotal, type) {
+        function attachProofEventsToElement(proofItem, actionIdx, proofIdx, actionsArray, renderFull, updateTotal, type) {
             const proofInput = proofItem.querySelector('.proof-input');
             if (proofInput) {
                 proofInput.setAttribute('data-action', actionIdx);
                 proofInput.setAttribute('data-proof', proofIdx);
-                proofInput.value = actionsArray[actionIdx]?.proofs?.[proofIdx] || '';
+                if (actionsArray[actionIdx]?.proofs?.[proofIdx] !== undefined) {
+                    proofInput.value = actionsArray[actionIdx].proofs[proofIdx];
+                }
                 proofInput.addEventListener('change', (e) => {
                     if (actionsArray[actionIdx] && actionsArray[actionIdx].proofs) {
                         actionsArray[actionIdx].proofs[proofIdx] = proofInput.value;
@@ -1252,6 +1292,7 @@
                 removeProofBtn.setAttribute('data-action', actionIdx);
                 removeProofBtn.setAttribute('data-proof', proofIdx);
                 removeProofBtn.addEventListener('click', async (e) => {
+                    e.stopPropagation();
                     if (actionsArray[actionIdx] && actionsArray[actionIdx].proofs && actionsArray[actionIdx].proofs.length > 1) {
                         proofItem.classList.add('removing');
                         await new Promise(resolve => setTimeout(resolve, 250));
@@ -1276,7 +1317,7 @@
             
             const actionElements = container.querySelectorAll('.action-item');
             actionElements.forEach((el, idx) => {
-                attachActionEvents(el, idx, weeklyActions, renderWeeklyActionsFull, updateWeeklyTotalPoints, 'weekly');
+                attachActionEventsToElement(el, idx, weeklyActions, renderWeeklyActionsFull, updateWeeklyTotalPoints, 'weekly');
             });
             updateWeeklyTotalPoints();
         }
@@ -1295,7 +1336,7 @@
             
             const actionElements = container.querySelectorAll('.action-item');
             actionElements.forEach((el, idx) => {
-                attachActionEvents(el, idx, promotionActions, renderPromotionActionsFull, updatePromotionTotalPoints, 'promotion');
+                attachActionEventsToElement(el, idx, promotionActions, renderPromotionActionsFull, updatePromotionTotalPoints, 'promotion');
             });
             updatePromotionTotalPoints();
         }
