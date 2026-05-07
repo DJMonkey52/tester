@@ -13,6 +13,23 @@
             box-sizing: border-box;
         }
 
+        /* Базовые переменные (зелёная тема по умолчанию) */
+        :root {
+            --glass-bg: rgba(10, 25, 10, 0.95);
+            --glass-border: rgba(76, 175, 80, 0.35);
+            --text-primary: #F0F3FA;
+            --text-secondary: #B0C4B0;
+            --text-muted: #8A9A8A;
+            --accent: #4CAF50;
+            --accent-glow: #66BB6A;
+            --accent-dark: #2E7D32;
+            --border-light: rgba(255, 255, 255, 0.06);
+            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
+            --input-bg: rgba(5, 20, 5, 0.9);
+            --card-hover: rgba(76, 175, 80, 0.12);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #051505 0%, #0a2a0a 50%, #0d2e0d 100%);
@@ -20,25 +37,81 @@
             transition: all 0.3s ease;
         }
 
-        /* Чёрно-серая тема (Delta) */
-        body.delta-theme {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1e1e1e 100%);
-        }
-        body.delta-theme {
-            --glass-bg: rgba(20, 20, 25, 0.95);
-            --glass-border: rgba(100, 100, 110, 0.35);
-            --text-primary: #F0F0F0;
-            --text-secondary: #B0B0B0;
-            --text-muted: #808080;
-            --accent: #888888;
-            --accent-glow: #aaaaaa;
-            --accent-dark: #666666;
-            --border-light: rgba(255, 255, 255, 0.08);
-            --input-bg: rgba(30, 30, 35, 0.9);
-            --card-hover: rgba(120, 120, 130, 0.15);
+        body.light {
+            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
         }
 
-        /* Тигровый камуфляж (USAF) */
+        /* ========== ТЕМЫ ДЛЯ ОТДЕЛОВ ========== */
+
+        /* Academy - светло-зелёный */
+        body.academy-theme {
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 50%, #66bb6a 100%);
+        }
+        body.academy-theme {
+            --glass-bg: rgba(46, 125, 50, 0.9);
+            --glass-border: rgba(102, 187, 106, 0.4);
+            --text-primary: #FFFFFF;
+            --text-secondary: #E8F5E9;
+            --text-muted: #C8E6C9;
+            --accent: #A5D6A7;
+            --accent-glow: #C8E6C9;
+            --accent-dark: #81C784;
+            --input-bg: rgba(27, 94, 32, 0.85);
+            --card-hover: rgba(165, 214, 167, 0.15);
+        }
+
+        /* Military Academy - тёмно-зелёный */
+        body.military-theme {
+            background: linear-gradient(135deg, #0a2e0a 0%, #1a5a1a 50%, #0d3d0d 100%);
+        }
+        body.military-theme {
+            --glass-bg: rgba(10, 45, 10, 0.95);
+            --glass-border: rgba(60, 120, 60, 0.4);
+            --text-primary: #E8F5E9;
+            --text-secondary: #A5B4A5;
+            --text-muted: #7A8A7A;
+            --accent: #5A8A5A;
+            --accent-glow: #6A9A6A;
+            --accent-dark: #3A6A3A;
+            --input-bg: rgba(5, 30, 5, 0.9);
+            --card-hover: rgba(90, 138, 90, 0.15);
+        }
+
+        /* Division - песчаный */
+        body.division-theme {
+            background: linear-gradient(135deg, #d4a55a 0%, #c49a3a 50%, #b8892a 100%);
+        }
+        body.division-theme {
+            --glass-bg: rgba(160, 120, 40, 0.9);
+            --glass-border: rgba(220, 180, 80, 0.4);
+            --text-primary: #FFF8E7;
+            --text-secondary: #F5E6C8;
+            --text-muted: #E0CDA8;
+            --accent: #FFD700;
+            --accent-glow: #FFE44D;
+            --accent-dark: #DAA520;
+            --input-bg: rgba(120, 80, 30, 0.85);
+            --card-hover: rgba(255, 215, 0, 0.15);
+        }
+
+        /* MPB - синий */
+        body.mpb-theme {
+            background: linear-gradient(135deg, #1a2a6c 0%, #1e3a8a 50%, #2563eb 100%);
+        }
+        body.mpb-theme {
+            --glass-bg: rgba(25, 45, 100, 0.9);
+            --glass-border: rgba(59, 130, 246, 0.4);
+            --text-primary: #FFFFFF;
+            --text-secondary: #BFDBFE;
+            --text-muted: #93C5FD;
+            --accent: #60A5FA;
+            --accent-glow: #93C5FD;
+            --accent-dark: #3B82F6;
+            --input-bg: rgba(15, 35, 80, 0.85);
+            --card-hover: rgba(96, 165, 250, 0.15);
+        }
+
+        /* USAF - тигровый камуфляж */
         body.usaf-theme {
             background: repeating-linear-gradient(45deg, 
                 #5a4a2a 0px, #5a4a2a 20px,
@@ -56,42 +129,34 @@
             --accent: #C9A03D;
             --accent-glow: #DDB552;
             --accent-dark: #A07828;
-            --border-light: rgba(200, 170, 80, 0.2);
             --input-bg: rgba(40, 30, 20, 0.9);
             --card-hover: rgba(200, 170, 80, 0.12);
         }
 
-        :root {
-            --glass-bg: rgba(10, 25, 10, 0.95);
-            --glass-border: rgba(76, 175, 80, 0.35);
-            --text-primary: #F0F3FA;
-            --text-secondary: #B0C4B0;
-            --text-muted: #8A9A8A;
-            --accent: #4CAF50;
-            --accent-glow: #66BB6A;
-            --accent-dark: #2E7D32;
-            --success: #10b981;
-            --danger: #ef4444;
-            --border-light: rgba(255, 255, 255, 0.06);
-            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.4);
-            --shadow-md: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
-            --input-bg: rgba(5, 20, 5, 0.9);
-            --card-hover: rgba(76, 175, 80, 0.12);
+        /* Delta - чёрно-серый */
+        body.delta-theme {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1e1e1e 100%);
+        }
+        body.delta-theme {
+            --glass-bg: rgba(20, 20, 25, 0.95);
+            --glass-border: rgba(100, 100, 110, 0.35);
+            --text-primary: #F0F0F0;
+            --text-secondary: #B0B0B0;
+            --text-muted: #808080;
+            --accent: #888888;
+            --accent-glow: #aaaaaa;
+            --accent-dark: #666666;
+            --input-bg: rgba(30, 30, 35, 0.9);
+            --card-hover: rgba(120, 120, 130, 0.15);
         }
 
-        body.light {
-            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
-        }
-        body.light.delta-theme {
-            background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%);
-        }
-        body.light.usaf-theme {
-            background: repeating-linear-gradient(45deg, 
-                #d4c4a0 0px, #d4c4a0 20px,
-                #e0d0a8 20px, #e0d0a8 40px,
-                #c8b888 40px, #c8b888 60px,
-                #d8c898 60px, #d8c898 80px);
-        }
+        /* Светлая тема для каждого отдела */
+        body.light.academy-theme { background: linear-gradient(135deg, #81c784 0%, #a5d6a7 100%); }
+        body.light.military-theme { background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%); }
+        body.light.division-theme { background: linear-gradient(135deg, #f0d080 0%, #e0bf60 100%); }
+        body.light.mpb-theme { background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%); }
+        body.light.usaf-theme { background: repeating-linear-gradient(45deg, #d4c4a0 0px, #d4c4a0 20px, #e0d0a8 20px, #e0d0a8 40px, #c8b888 40px, #c8b888 60px, #d8c898 60px, #d8c898 80px); }
+        body.light.delta-theme { background: linear-gradient(135deg, #a0a0a0 0%, #c0c0c0 100%); }
 
         .container {
             max-width: 1200px;
@@ -143,18 +208,6 @@
             color: transparent;
         }
 
-        body.delta-theme .logo h1 {
-            background: linear-gradient(135deg, #FFFFFF, #AAAAAA);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
-        body.usaf-theme .logo h1 {
-            background: linear-gradient(135deg, #F5E6C8, #DDB552);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-
         .subtitle {
             color: var(--text-secondary);
             font-size: 0.9rem;
@@ -185,6 +238,7 @@
             transform: scale(1.02);
         }
 
+        /* Главное меню */
         .main-menu-page {
             display: flex;
             flex-direction: column;
@@ -235,14 +289,6 @@
             transition: all 0.3s;
         }
 
-        body.delta-theme .main-card-icon {
-            background: linear-gradient(135deg, rgba(150, 150, 150, 0.25), rgba(100, 100, 100, 0.15));
-        }
-
-        body.usaf-theme .main-card-icon {
-            background: linear-gradient(135deg, rgba(200, 170, 80, 0.25), rgba(160, 130, 60, 0.15));
-        }
-
         .main-card:hover .main-card-icon {
             transform: scale(1.05);
         }
@@ -273,7 +319,8 @@
             transform: translateX(6px);
         }
 
-        .delta-page, .usaf-page {
+        /* Экран с 3 отчётами для выбранного отдела */
+        .reports-page {
             display: none;
             animation: fadeInUp 0.4s ease;
         }
@@ -319,14 +366,6 @@
             transition: all 0.3s;
         }
 
-        body.delta-theme .card-icon {
-            background: linear-gradient(135deg, rgba(150, 150, 150, 0.25), rgba(100, 100, 100, 0.15));
-        }
-
-        body.usaf-theme .card-icon {
-            background: linear-gradient(135deg, rgba(200, 170, 80, 0.25), rgba(160, 130, 60, 0.15));
-        }
-
         .action-card:hover .card-icon {
             transform: scale(1.05);
         }
@@ -357,6 +396,7 @@
             transform: translateX(6px);
         }
 
+        /* Формы */
         .form-page {
             display: none;
             animation: fadeInUp 0.4s ease;
@@ -396,14 +436,6 @@
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(46, 125, 50, 0.08));
             padding: 20px 28px;
             border-bottom: 1px solid var(--border-light);
-        }
-
-        body.delta-theme .card-header {
-            background: linear-gradient(135deg, rgba(100, 100, 110, 0.2), rgba(80, 80, 90, 0.08));
-        }
-
-        body.usaf-theme .card-header {
-            background: linear-gradient(135deg, rgba(200, 170, 80, 0.2), rgba(160, 130, 60, 0.08));
         }
 
         .card-header h2 {
@@ -454,14 +486,6 @@
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25);
         }
 
-        body.delta-theme .input-group input:focus {
-            box-shadow: 0 0 0 3px rgba(150, 150, 150, 0.25);
-        }
-
-        body.usaf-theme .input-group input:focus {
-            box-shadow: 0 0 0 3px rgba(200, 170, 80, 0.25);
-        }
-
         .period-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -477,14 +501,6 @@
             color: var(--accent-glow);
             font-size: 0.85rem;
             margin-bottom: 20px;
-        }
-
-        body.delta-theme .period-info {
-            background: rgba(120, 120, 130, 0.1);
-        }
-
-        body.usaf-theme .period-info {
-            background: rgba(200, 170, 80, 0.1);
         }
 
         .action-item {
@@ -711,14 +727,6 @@
             margin-bottom: 14px;
         }
 
-        body.delta-theme .empty-state {
-            background: rgba(30, 30, 35, 0.5);
-        }
-
-        body.usaf-theme .empty-state {
-            background: rgba(40, 30, 20, 0.5);
-        }
-
         .total-points-bar {
             background: rgba(76, 175, 80, 0.15);
             border-radius: 16px;
@@ -728,14 +736,6 @@
             justify-content: space-between;
             align-items: center;
             border: 1px solid var(--border-light);
-        }
-
-        body.delta-theme .total-points-bar {
-            background: rgba(120, 120, 130, 0.15);
-        }
-
-        body.usaf-theme .total-points-bar {
-            background: rgba(200, 170, 80, 0.15);
         }
 
         .total-points-label {
@@ -873,7 +873,7 @@
                     <p>Академия</p>
                     <div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
-                <div class="main-card" data-main="military-academy">
+                <div class="main-card" data-main="military">
                     <div class="main-card-icon"><i class="fas fa-landmark"></i></div>
                     <h3>Military Academy</h3>
                     <p>Военная академия</p>
@@ -906,8 +906,8 @@
             </div>
         </div>
 
-        <!-- СТРАНИЦА DELTA с 3 отчётами (чёрно-серая тема) -->
-        <div id="deltaPage" class="delta-page">
+        <!-- ЭКРАН С 3 ОТЧЁТАМИ (общий, подставляется нужный департамент) -->
+        <div id="reportsPage" class="reports-page">
             <div class="back-btn" onclick="showMainMenu()">
                 <i class="fas fa-arrow-left"></i> На главную
             </div>
@@ -933,36 +933,9 @@
             </div>
         </div>
 
-        <!-- СТРАНИЦА USAF с 3 отчётами (тигровый камуфляж) -->
-        <div id="usafPage" class="usaf-page">
-            <div class="back-btn" onclick="showMainMenu()">
-                <i class="fas fa-arrow-left"></i> На главную
-            </div>
-            <div class="cards-grid">
-                <div class="action-card" data-page="weekly">
-                    <div class="card-icon"><i class="fas fa-calendar-week"></i></div>
-                    <h3>📊 Еженедельный отчёт</h3>
-                    <p>Отчёт о еженедельной работе</p>
-                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
-                </div>
-                <div class="action-card" data-page="promotion">
-                    <div class="card-icon"><i class="fas fa-arrow-up"></i></div>
-                    <h3>⬆️ Отчёт на повышение</h3>
-                    <p>Заявка на повышение должности</p>
-                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
-                </div>
-                <div class="action-card" data-page="exam">
-                    <div class="card-icon"><i class="fas fa-pen-clip"></i></div>
-                    <h3>📝 Запись на экзамен</h3>
-                    <p>Запись на экзамен для повышения</p>
-                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ЕЖЕНЕДЕЛЬНЫЙ ОТЧЁТ -->
+        <!-- ФОРМЫ (общие для всех отделов) -->
         <div id="weeklyPage" class="form-page">
-            <div class="back-btn" onclick="goBackToMain()">
+            <div class="back-btn" onclick="showReportsPage()">
                 <i class="fas fa-arrow-left"></i> Назад
             </div>
             <div class="glass-card">
@@ -1013,15 +986,14 @@
                     <button class="submit-btn" id="weeklySubmitBtn"><i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ОТЧЁТ</button>
                     
                     <div class="footer-signature">
-                        <i class="fas fa-code"></i> By Alexandr DeHaus <i class="fas fa-heart"></i>
+                        <i class="fas fa-code"></i> By Alexandr DeHaus <i class="fas fa-heart</i>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ОТЧЁТ НА ПОВЫШЕНИЕ -->
         <div id="promotionPage" class="form-page">
-            <div class="back-btn" onclick="goBackToMain()">
+            <div class="back-btn" onclick="showReportsPage()">
                 <i class="fas fa-arrow-left"></i> Назад
             </div>
             <div class="glass-card">
@@ -1091,9 +1063,8 @@
             </div>
         </div>
 
-        <!-- ЗАПИСЬ НА ЭКЗАМЕН -->
         <div id="examPage" class="form-page">
-            <div class="back-btn" onclick="goBackToMain()">
+            <div class="back-btn" onclick="showReportsPage()">
                 <i class="fas fa-arrow-left"></i> Назад
             </div>
             <div class="glass-card">
@@ -1132,7 +1103,6 @@
     </div>
 
     <script>
-        // Ваши вебхуки остались без изменений
         const WEBHOOKS = {
             weekly: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
             promotion: 'https://discord.com/api/webhooks/1501941690070470687/ROoyzlTh1DpM-Bt1QzWhkH4Cy3FnR91bIhGhqdUP0O4vzs10B7hgKCqbiaDYwWD-H1qR',
@@ -1164,8 +1134,7 @@
             { name: "Доп. работа", basePoints: 5 }
         ];
 
-        let currentTheme = 'default';
-        let currentBranch = null;
+        let currentDepartment = null;
         let weeklyActions = [];
         let promotionActions = [];
 
@@ -1475,16 +1444,37 @@
             updatePromotionTotalPoints();
         }
 
-        async function sendToDiscordWithEmbed(webhookUrl, title, fields, color = 0x4CAF50) {
-            let finalColor = color;
-            if (currentBranch === 'delta') finalColor = 0x888888;
-            if (currentBranch === 'usaf') finalColor = 0xDEB887;
+        function setThemeForDepartment(department) {
+            const body = document.body;
+            body.classList.remove('academy-theme', 'military-theme', 'division-theme', 'mpb-theme', 'usaf-theme', 'delta-theme');
+            if (department === 'academy') body.classList.add('academy-theme');
+            else if (department === 'military') body.classList.add('military-theme');
+            else if (department === 'division') body.classList.add('division-theme');
+            else if (department === 'mpb') body.classList.add('mpb-theme');
+            else if (department === 'usaf') body.classList.add('usaf-theme');
+            else if (department === 'delta') body.classList.add('delta-theme');
+        }
+
+        function clearTheme() {
+            const body = document.body;
+            body.classList.remove('academy-theme', 'military-theme', 'division-theme', 'mpb-theme', 'usaf-theme', 'delta-theme');
+        }
+
+        async function sendToDiscordWithEmbed(webhookUrl, title, fields) {
+            let color = 0x4CAF50;
+            if (currentDepartment === 'delta') color = 0x888888;
+            else if (currentDepartment === 'usaf') color = 0xDEB887;
+            else if (currentDepartment === 'mpb') color = 0x3B82F6;
+            else if (currentDepartment === 'division') color = 0xDAA520;
+            else if (currentDepartment === 'military') color = 0x2E7D32;
+            else if (currentDepartment === 'academy') color = 0x81C784;
+            
             const contentWithRoles = `${ROLES_TO_TAG}\n━━━━━━━━━━━━━━━━━━━━`;
             const embed = { 
                 title: title, 
-                color: finalColor, 
+                color: color, 
                 fields: fields, 
-                footer: { text: "ARMY System" }, 
+                footer: { text: `ARMY System - ${currentDepartment?.toUpperCase() || 'ARMY'}` }, 
                 timestamp: new Date().toISOString() 
             };
             const response = await fetch(webhookUrl, {
@@ -1558,11 +1548,9 @@
             ] };
         }
 
-        let alertTimeout;
         function showAlert(containerId, message, type) {
             const container = document.getElementById(containerId);
             if (!container) return;
-            if (alertTimeout) clearTimeout(alertTimeout);
             const alertDiv = document.createElement('div');
             alertDiv.className = `alert ${type}`;
             alertDiv.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${message}`;
@@ -1571,47 +1559,22 @@
         }
 
         function showMainMenu() {
+            clearTheme();
             document.getElementById('mainMenuPage').style.display = 'flex';
-            document.getElementById('deltaPage').style.display = 'none';
-            document.getElementById('usafPage').style.display = 'none';
+            document.getElementById('reportsPage').style.display = 'none';
             document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
+            currentDepartment = null;
         }
 
-        function goBackToMain() {
-            if (currentBranch === 'delta') {
-                document.getElementById('mainMenuPage').style.display = 'flex';
-                document.getElementById('deltaPage').style.display = 'none';
-            } else if (currentBranch === 'usaf') {
-                document.getElementById('mainMenuPage').style.display = 'flex';
-                document.getElementById('usafPage').style.display = 'none';
-            }
-            document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
-        }
-
-        function showDeltaPage() {
-            currentBranch = 'delta';
-            document.body.classList.remove('usaf-theme');
-            document.body.classList.add('delta-theme');
+        function showReportsPage() {
             document.getElementById('mainMenuPage').style.display = 'none';
-            document.getElementById('deltaPage').style.display = 'block';
-            document.getElementById('usafPage').style.display = 'none';
-            document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
-        }
-
-        function showUsafPage() {
-            currentBranch = 'usaf';
-            document.body.classList.remove('delta-theme');
-            document.body.classList.add('usaf-theme');
-            document.getElementById('mainMenuPage').style.display = 'none';
-            document.getElementById('usafPage').style.display = 'block';
-            document.getElementById('deltaPage').style.display = 'none';
+            document.getElementById('reportsPage').style.display = 'block';
             document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
         }
 
         function showFormPage(pageId) {
             document.getElementById('mainMenuPage').style.display = 'none';
-            if (currentBranch === 'delta') document.getElementById('deltaPage').style.display = 'none';
-            if (currentBranch === 'usaf') document.getElementById('usafPage').style.display = 'none';
+            document.getElementById('reportsPage').style.display = 'none';
             document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
             document.getElementById(pageId).style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1619,18 +1582,14 @@
 
         document.querySelectorAll('.main-card').forEach(card => {
             card.addEventListener('click', () => {
-                const menuItem = card.dataset.main;
-                if (menuItem === 'delta') {
-                    showDeltaPage();
-                } else if (menuItem === 'usaf') {
-                    showUsafPage();
-                } else {
-                    showAlert('Пока доступен только раздел Delta и USAF', 'error');
-                }
+                const department = card.dataset.main;
+                currentDepartment = department;
+                setThemeForDepartment(department);
+                showReportsPage();
             });
         });
 
-        document.querySelectorAll('#deltaPage .action-card, #usafPage .action-card').forEach(card => {
+        document.querySelectorAll('#reportsPage .action-card').forEach(card => {
             card.addEventListener('click', () => {
                 const page = card.dataset.page;
                 if (page === 'weekly') showFormPage('weeklyPage');
