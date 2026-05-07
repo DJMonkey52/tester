@@ -13,7 +13,7 @@
             box-sizing: border-box;
         }
 
-        /* Базовые переменные (дефолтная зелёная тема) */
+        /* Базовые переменные */
         :root {
             --glass-bg: rgba(10, 25, 10, 0.95);
             --glass-border: rgba(76, 175, 80, 0.35);
@@ -36,7 +36,6 @@
             min-height: 100vh;
             transition: all 0.3s ease;
         }
-
         body.light {
             background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
         }
@@ -77,10 +76,10 @@
 
         /* Division - песчаный приглушённый */
         body.division-theme {
-            background: linear-gradient(135deg, #a0884a 0%, #b89c58 100%);
+            background: linear-gradient(135deg, #8a6a3a 0%, #a0844a 100%);
         }
         body.division-theme {
-            --glass-bg: rgba(120, 90, 40, 0.9);
+            --glass-bg: rgba(110, 80, 40, 0.9);
             --glass-border: rgba(160, 130, 70, 0.4);
             --text-primary: #F5EFE0;
             --text-secondary: #E0D4B8;
@@ -88,7 +87,7 @@
             --accent: #D4B06A;
             --accent-glow: #E0C080;
             --accent-dark: #B09050;
-            --input-bg: rgba(90, 70, 35, 0.85);
+            --input-bg: rgba(80, 60, 30, 0.85);
             --card-hover: rgba(212, 176, 106, 0.15);
         }
 
@@ -109,7 +108,7 @@
             --card-hover: rgba(107, 143, 191, 0.15);
         }
 
-        /* USAF - тигровый камуфляж (приглушённый) */
+        /* USAF - тигровый камуфляж */
         body.usaf-theme {
             background: repeating-linear-gradient(45deg, 
                 #4a3a1a 0px, #4a3a1a 20px,
@@ -131,7 +130,7 @@
             --card-hover: rgba(200, 168, 74, 0.12);
         }
 
-        /* Delta - чёрно-серый приглушённый */
+        /* Delta - полностью серо-чёрный (без зелёного) */
         body.delta-theme {
             background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
         }
@@ -148,7 +147,8 @@
             --card-hover: rgba(120, 120, 130, 0.12);
         }
 
-        /* Светлая тема для каждого отдела (приглушённые варианты) */
+        /* Светлая тема для каждого отдела */
+        body.light { background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%); }
         body.light.academy-theme { background: linear-gradient(135deg, #6a9a6a 0%, #8ab88a 100%); }
         body.light.military-theme { background: linear-gradient(135deg, #3a6a3a 0%, #5a8a5a 100%); }
         body.light.division-theme { background: linear-gradient(135deg, #c8b070 0%, #d8c888 100%); }
@@ -171,159 +171,734 @@
             margin-top: 10px;
         }
 
-        .logo { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
         .logo-icon {
-            width: 56px; height: 56px;
+            width: 56px;
+            height: 56px;
             background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            border-radius: 20px; display: flex; align-items: center; justify-content: center;
-            font-size: 28px; color: white; box-shadow: var(--shadow-sm);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            box-shadow: var(--shadow-sm);
             animation: float 3s ease-in-out infinite;
         }
-        @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-5px);} }
-        .logo h1 {
-            font-size: 2rem; font-weight: 800;
-            background: linear-gradient(135deg, #FFFFFF, #A5D6A7);
-            -webkit-background-clip: text; background-clip: text; color: transparent;
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
-        .subtitle { color: var(--text-secondary); font-size: 0.9rem; }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFFFFF, #A5D6A7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
 
         .theme-toggle {
-            position: fixed; top: 20px; right: 20px;
-            background: var(--glass-bg); backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border); border-radius: 50px;
-            padding: 8px 20px; display: flex; align-items: center; gap: 10px;
-            cursor: pointer; color: var(--text-primary); font-weight: 500;
-            font-size: 0.85rem; transition: all 0.3s; z-index: 100;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            z-index: 100;
         }
-        .theme-toggle:hover { border-color: var(--accent); transform: scale(1.02); }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            transform: scale(1.02);
+        }
 
         /* Главное меню */
-        .main-menu-page { display: flex; flex-direction: column; justify-content: center; align-items: center; flex: 1; min-height: calc(100vh - 180px); }
-        .main-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 20px; max-width: 900px; width: 100%; }
+        .main-menu-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            min-height: calc(100vh - 180px);
+        }
+
+        .main-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+            max-width: 900px;
+            width: 100%;
+        }
+
         .main-card {
-            background: var(--glass-bg); backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border); border-radius: 32px;
-            padding: 35px 25px; cursor: pointer; transition: all 0.4s;
-            text-align: center; box-shadow: var(--shadow-md);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 35px 25px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            text-align: center;
+            box-shadow: var(--shadow-md);
         }
-        .main-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+
+        .main-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
         .main-card-icon {
-            width: 70px; height: 70px;
-            background: linear-gradient(135deg, rgba(76,175,80,0.25), rgba(46,125,50,0.15));
-            border-radius: 24px; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 18px; font-size: 32px; color: var(--accent); transition: all 0.3s;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.25), rgba(46, 125, 50, 0.15));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 32px;
+            color: var(--accent);
+            transition: all 0.3s;
         }
-        .main-card:hover .main-card-icon { transform: scale(1.05); }
-        .main-card h3 { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
-        .main-card p { color: var(--text-secondary); font-size: 0.8rem; }
-        .main-card-arrow { margin-top: 16px; font-size: 1rem; color: var(--accent); opacity: 0; transition: opacity 0.3s, transform 0.3s; }
-        .main-card:hover .main-card-arrow { opacity: 1; transform: translateX(6px); }
+
+        .main-card:hover .main-card-icon {
+            transform: scale(1.05);
+        }
+
+        .main-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .main-card p {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .main-card-arrow {
+            margin-top: 16px;
+            font-size: 1rem;
+            color: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .main-card:hover .main-card-arrow {
+            opacity: 1;
+            transform: translateX(6px);
+        }
 
         /* Экран с отчётами */
-        .reports-page { display: none; animation: fadeInUp 0.4s ease; }
-        .cards-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; }
+        .reports-page {
+            display: none;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        .cards-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
         .action-card {
-            background: var(--glass-bg); backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border); border-radius: 32px;
-            padding: 38px 32px; width: 300px; cursor: pointer; transition: all 0.4s;
-            text-align: center; box-shadow: var(--shadow-md);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 35px 28px;
+            width: 280px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            text-align: center;
+            box-shadow: var(--shadow-md);
         }
-        .action-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+
+        .action-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
         .card-icon {
-            width: 75px; height: 75px;
-            background: linear-gradient(135deg, rgba(76,175,80,0.25), rgba(46,125,50,0.15));
-            border-radius: 26px; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 20px; font-size: 36px; color: var(--accent);
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.25), rgba(46, 125, 50, 0.15));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 32px;
+            color: var(--accent);
+            transition: all 0.3s;
         }
-        .action-card:hover .card-icon { transform: scale(1.05); }
-        .action-card h3 { font-size: 1.4rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
-        .action-card p { color: var(--text-secondary); font-size: 0.85rem; }
-        .card-arrow { margin-top: 18px; font-size: 1.1rem; color: var(--accent); opacity: 0; transition: opacity 0.3s, transform 0.3s; }
-        .action-card:hover .card-arrow { opacity: 1; transform: translateX(6px); }
+
+        .action-card:hover .card-icon {
+            transform: scale(1.05);
+        }
+
+        .action-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .action-card p {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .card-arrow {
+            margin-top: 16px;
+            font-size: 1rem;
+            color: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .action-card:hover .card-arrow {
+            opacity: 1;
+            transform: translateX(6px);
+        }
 
         /* Формы */
-        .form-page { display: none; animation: fadeInUp 0.4s ease; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .back-btn {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: var(--glass-bg); backdrop-filter: blur(8px);
-            border: 1px solid var(--glass-border); border-radius: 50px;
-            padding: 10px 22px; color: var(--text-primary); font-weight: 500;
-            cursor: pointer; margin-bottom: 24px; transition: all 0.2s;
+        .form-page {
+            display: none;
+            animation: fadeInUp 0.4s ease;
         }
-        .back-btn:hover { border-color: var(--accent); transform: translateX(-4px); }
-        .glass-card { background: var(--glass-bg); backdrop-filter: blur(16px); border-radius: 32px; border: 1px solid var(--glass-border); box-shadow: var(--shadow-md); overflow: hidden; }
-        .card-header { background: linear-gradient(135deg, rgba(76,175,80,0.2), rgba(46,125,50,0.08)); padding: 20px 28px; border-bottom: 1px solid var(--border-light); }
-        .card-header h2 { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
-        .card-header h2 i { color: var(--accent); }
-        .card-body { padding: 28px; }
 
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.3px; color: var(--accent-glow); margin-bottom: 6px; }
-        .input-group input, .input-group select, .input-group textarea {
-            width: 100%; padding: 12px 14px; background: var(--input-bg);
-            border: 1px solid var(--border-light); border-radius: 14px;
-            font-size: 0.9rem; color: var(--text-primary); font-family: 'Inter', sans-serif;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 10px 22px;
+            color: var(--text-primary);
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 24px;
             transition: all 0.2s;
         }
-        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
-            outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(76,175,80,0.25);
+
+        .back-btn:hover {
+            border-color: var(--accent);
+            transform: translateX(-4px);
         }
 
-        .period-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 12px; }
-        .period-info { background: rgba(76,175,80,0.1); border-radius: 12px; padding: 10px 14px; text-align: center; color: var(--accent-glow); font-size: 0.85rem; margin-bottom: 20px; }
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border-radius: 32px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
 
-        .action-item { background: var(--card-hover); border-radius: 18px; padding: 16px; margin-bottom: 14px; border: 1px solid var(--border-light); transition: all 0.2s ease; overflow: hidden; }
-        .action-item.new-action { animation: actionAppear 0.35s ease forwards; }
-        @keyframes actionAppear { from { opacity: 0; transform: scale(0.95) translateY(-15px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-        .action-item.removing { animation: actionRemove 0.3s ease forwards !important; pointer-events: none; }
-        @keyframes actionRemove { 0% { opacity: 1; transform: scale(1) translateX(0); max-height: 300px; margin-bottom: 14px; padding: 16px; } 100% { opacity: 0; transform: scale(0.95) translateX(-30px); max-height: 0; margin-bottom: 0; padding: 0; border: none; } }
-        .action-item:hover { border-color: var(--accent); transform: translateX(3px); }
-        .action-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
-        .action-title { font-weight: 600; color: var(--text-primary); font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
-        .remove-action { background: rgba(239,68,68,0.15); border: none; color: #f87171; padding: 5px 12px; border-radius: 30px; cursor: pointer; font-size: 0.7rem; font-weight: 600; }
-        .action-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-        .action-field { display: flex; flex-direction: column; gap: 4px; }
-        .action-field label { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); }
-        .action-field select, .action-field input { padding: 8px 12px; background: var(--input-bg); border: 1px solid var(--border-light); border-radius: 12px; font-size: 0.85rem; color: var(--text-primary); }
+        .card-header {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(46, 125, 50, 0.08));
+            padding: 20px 28px;
+            border-bottom: 1px solid var(--border-light);
+        }
 
-        .proofs-section { grid-column: span 2; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-light); }
-        .proofs-section label { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow); margin-bottom: 8px; display: block; }
-        .proof-item { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; background: rgba(0,0,0,0.25); border-radius: 10px; padding: 6px 10px; }
-        .proof-item input { flex: 1; padding: 8px 10px; font-size: 0.8rem; background: var(--input-bg); border: 1px solid var(--border-light); border-radius: 8px; color: var(--text-primary); }
-        .remove-proof { background: rgba(239,68,68,0.15); border: none; color: #f87171; cursor: pointer; font-size: 0.8rem; padding: 6px 10px; border-radius: 8px; }
-        .add-proof-btn { background: rgba(76,175,80,0.18); border: 1px dashed var(--accent); border-radius: 10px; padding: 6px 12px; font-size: 0.7rem; color: var(--accent); cursor: pointer; margin-top: 6px; display: inline-flex; align-items: center; gap: 6px; }
+        .card-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-        .points-row { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--border-light); margin-top: 6px; }
-        .points-badge { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); padding: 5px 14px; border-radius: 30px; font-size: 0.8rem; font-weight: 700; color: white; }
-        .count-badge { background: rgba(76,175,80,0.18); padding: 5px 14px; border-radius: 30px; font-size: 0.8rem; color: var(--accent-glow); }
+        .card-header h2 i {
+            color: var(--accent);
+        }
 
-        .add-btn { width: 100%; background: rgba(76,175,80,0.12); border: 1px dashed var(--accent); border-radius: 16px; padding: 14px; color: var(--accent); font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s; margin: 16px 0; }
-        .add-btn:hover { background: rgba(76,175,80,0.25); transform: translateY(-2px); }
-        .empty-state { text-align: center; padding: 30px; color: var(--text-muted); background: rgba(10,25,10,0.5); border-radius: 18px; margin-bottom: 14px; }
+        .card-body {
+            padding: 28px;
+        }
 
-        .total-points-bar { background: rgba(76,175,80,0.15); border-radius: 16px; padding: 14px 20px; margin: 20px 0 16px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-light); }
-        .total-points-label { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow); }
-        .total-points-value { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .input-group {
+            margin-bottom: 20px;
+        }
 
-        .submit-btn { width: 100%; background: linear-gradient(105deg, var(--accent), var(--accent-dark)); border: none; padding: 14px; border-radius: 22px; font-size: 0.95rem; font-weight: 700; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s; }
-        .submit-btn:hover { transform: translateY(-3px); filter: brightness(1.05); }
-        .footer-signature { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-light); color: var(--text-muted); font-size: 0.8rem; font-weight: 500; }
-        .footer-signature i { color: var(--accent); margin: 0 4px; }
+        .input-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: var(--accent-glow);
+            margin-bottom: 6px;
+        }
 
-        .alert { padding: 12px 16px; border-radius: 14px; margin-bottom: 20px; display: none; align-items: center; gap: 10px; font-weight: 500; font-size: 0.85rem; animation: slideIn 0.3s ease; }
-        .alert.success { background: rgba(16,185,129,0.15); border-left: 3px solid #10b981; color: #10b981; display: flex; }
-        .alert.error { background: rgba(239,68,68,0.12); border-left: 3px solid #ef4444; color: #f87171; display: flex; }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--input-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25);
+        }
+
+        .period-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .period-info {
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 12px;
+            padding: 10px 14px;
+            text-align: center;
+            color: var(--accent-glow);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .action-item {
+            background: var(--card-hover);
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 14px;
+            border: 1px solid var(--border-light);
+            transition: all 0.2s ease;
+            overflow: hidden;
+        }
+
+        .action-item.new-action {
+            animation: actionAppear 0.35s ease forwards;
+        }
+
+        @keyframes actionAppear {
+            from { opacity: 0; transform: scale(0.95) translateY(-15px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .action-item.removing {
+            animation: actionRemove 0.3s ease forwards !important;
+            pointer-events: none;
+        }
+
+        @keyframes actionRemove {
+            0% { opacity: 1; transform: scale(1) translateX(0); max-height: 300px; margin-bottom: 14px; padding: 16px; }
+            100% { opacity: 0; transform: scale(0.95) translateX(-30px); max-height: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0; border: none; }
+        }
+
+        .action-item:hover {
+            border-color: var(--accent);
+            transform: translateX(3px);
+        }
+
+        .action-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .action-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remove-action {
+            background: rgba(239, 68, 68, 0.15);
+            border: none;
+            color: #f87171;
+            padding: 5px 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .remove-action:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: scale(1.02);
+        }
+
+        .action-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .action-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .action-field label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .action-field select, .action-field input {
+            padding: 8px 12px;
+            background: var(--input-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .proofs-section {
+            grid-column: span 2;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .proofs-section label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--accent-glow);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .proof-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            padding: 6px 10px;
+        }
+
+        .proof-item.new-proof {
+            animation: proofAppear 0.3s ease;
+        }
+
+        @keyframes proofAppear {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .proof-item.removing {
+            animation: proofRemove 0.25s ease forwards;
+            pointer-events: none;
+        }
+
+        @keyframes proofRemove {
+            from { opacity: 1; transform: translateX(0); max-height: 60px; }
+            to { opacity: 0; transform: translateX(-20px); max-height: 0; margin-bottom: 0; padding: 0; }
+        }
+
+        .proof-item input {
+            flex: 1;
+            padding: 8px 10px;
+            font-size: 0.8rem;
+            background: var(--input-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            color: var(--text-primary);
+        }
+
+        .remove-proof {
+            background: rgba(239, 68, 68, 0.15);
+            border: none;
+            color: #f87171;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .remove-proof:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: scale(1.02);
+        }
+
+        .add-proof-btn {
+            background: rgba(76, 175, 80, 0.18);
+            border: 1px dashed var(--accent);
+            border-radius: 10px;
+            padding: 6px 12px;
+            font-size: 0.7rem;
+            color: var(--accent);
+            cursor: pointer;
+            margin-top: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .add-proof-btn:hover {
+            background: rgba(76, 175, 80, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .points-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-light);
+            margin-top: 6px;
+        }
+
+        .points-badge {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .count-badge {
+            background: rgba(76, 175, 80, 0.18);
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: var(--accent-glow);
+        }
+
+        .add-btn {
+            width: 100%;
+            background: rgba(76, 175, 80, 0.12);
+            border: 1px dashed var(--accent);
+            border-radius: 16px;
+            padding: 14px;
+            color: var(--accent);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            margin: 16px 0;
+        }
+
+        .add-btn:hover {
+            background: rgba(76, 175, 80, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            background: rgba(10, 25, 10, 0.5);
+            border-radius: 18px;
+            margin-bottom: 14px;
+        }
+
+        .total-points-bar {
+            background: rgba(76, 175, 80, 0.15);
+            border-radius: 16px;
+            padding: 14px 20px;
+            margin: 20px 0 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .total-points-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--accent-glow);
+        }
+
+        .total-points-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(105deg, var(--accent), var(--accent-dark));
+            border: none;
+            padding: 14px;
+            border-radius: 22px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.05);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.5);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            transform: none;
+        }
+
+        .footer-signature {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-signature i {
+            color: var(--accent);
+            margin: 0 4px;
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-15px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .alert.success {
+            background: rgba(16, 185, 129, 0.15);
+            border-left: 3px solid #10b981;
+            color: #10b981;
+            display: flex;
+        }
+
+        body.light .alert.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .alert.error {
+            background: rgba(239, 68, 68, 0.12);
+            border-left: 3px solid #ef4444;
+            color: #f87171;
+            display: flex;
+        }
+
+        body.light .alert.error {
+            background: rgba(239, 68, 68, 0.08);
+            color: #dc2626;
+        }
 
         @media (max-width: 850px) {
-            .main-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-            .cards-grid { flex-direction: column; align-items: center; }
-            .action-card { width: 300px; }
-            .action-fields { grid-template-columns: 1fr; }
-            .proofs-section { grid-column: span 1; }
-            .period-row { grid-template-columns: 1fr; gap: 12px; }
+            .main-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .cards-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .action-card {
+                width: 280px;
+            }
+            .action-fields {
+                grid-template-columns: 1fr;
+            }
+            .proofs-section {
+                grid-column: span 1;
+            }
+            .period-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .card-body {
+                padding: 20px;
+            }
+            .total-points-value {
+                font-size: 1.4rem;
+            }
         }
-        @media (max-width: 550px) { .main-cards-grid { grid-template-columns: 1fr; } }
+
+        @media (max-width: 550px) {
+            .main-cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -336,7 +911,7 @@
         <div class="header">
             <div class="logo">
                 <div class="logo-icon"><i class="fas fa-gun"></i></div>
-                <h1>ARMY</h1>
+                <h1 id="pageTitle">ARMY</h1>
             </div>
             <p class="subtitle">Система подачи отчётов</p>
         </div>
@@ -344,12 +919,42 @@
         <!-- ГЛАВНЫЙ ЭКРАН с 6 кнопками -->
         <div id="mainMenuPage" class="main-menu-page">
             <div class="main-cards-grid">
-                <div class="main-card" data-main="academy"><div class="main-card-icon"><i class="fas fa-graduation-cap"></i></div><h3>Academy</h3><p>Академия</p><div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div></div>
-                <div class="main-card" data-main="military"><div class="main-card-icon"><i class="fas fa-landmark"></i></div><h3>Military Academy</h3><p>Военная академия</p><div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div></div>
-                <div class="main-card" data-main="division"><div class="main-card-icon"><i class="fas fa-users"></i></div><h3>Division</h3><p>Дивизион</p><div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div></div>
-                <div class="main-card" data-main="mpb"><div class="main-card-icon"><i class="fas fa-shield-alt"></i></div><h3>MPB</h3><p>МПБ</p><div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div></div>
-                <div class="main-card" data-main="usaf"><div class="main-card-icon"><i class="fas fa-fighter-jet"></i></div><h3>USAF</h3><p>ВВС США</p><div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div></div>
-                <div class="main-card" data-main="delta"><div class="main-card-icon"><i class="fas fa-skull"></i></div><h3>Delta</h3><p>Отряд Дельта</p><div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div></div>
+                <div class="main-card" data-main="academy">
+                    <div class="main-card-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Academy</h3>
+                    <p>Академия</p>
+                    <div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="main-card" data-main="military">
+                    <div class="main-card-icon"><i class="fas fa-landmark"></i></div>
+                    <h3>Military Academy</h3>
+                    <p>Военная академия</p>
+                    <div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="main-card" data-main="division">
+                    <div class="main-card-icon"><i class="fas fa-users"></i></div>
+                    <h3>Division</h3>
+                    <p>Дивизион</p>
+                    <div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="main-card" data-main="mpb">
+                    <div class="main-card-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>MPB</h3>
+                    <p>МПБ</p>
+                    <div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="main-card" data-main="usaf">
+                    <div class="main-card-icon"><i class="fas fa-fighter-jet"></i></div>
+                    <h3>USAF</h3>
+                    <p>ВВС США</p>
+                    <div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="main-card" data-main="delta">
+                    <div class="main-card-icon"><i class="fas fa-skull"></i></div>
+                    <h3>Delta</h3>
+                    <p>Отряд Дельта</p>
+                    <div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
             </div>
         </div>
 
@@ -363,9 +968,13 @@
 
         <!-- ФОРМЫ -->
         <div id="weeklyPage" class="form-page">
-            <div class="back-btn" onclick="showReportsPage()"><i class="fas fa-arrow-left"></i> Назад</div>
+            <div class="back-btn" onclick="showReportsPage()">
+                <i class="fas fa-arrow-left"></i> Назад
+            </div>
             <div class="glass-card">
-                <div class="card-header"><h2><i class="fas fa-calendar-week"></i> 📊 Еженедельный отчёт</h2></div>
+                <div class="card-header">
+                    <h2><i class="fas fa-calendar-week"></i> 📊 Еженедельный отчёт</h2>
+                </div>
                 <div class="card-body">
                     <div id="weeklyAlert"></div>
                     <div class="input-group"><label>🎮 ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="weeklyNickname" placeholder="Введите никнейм"></div>
@@ -373,11 +982,16 @@
                         <label>🏅 РАНГ СОТРУДНИКА</label>
                         <select id="weeklyRank">
                             <option value="">-- Выберите ранг --</option>
-                            <option value="Специалист (3)">Специалист (3)</option><option value="Капрал (4)">Капрал (4)</option>
-                            <option value="Сержант (5)">Сержант (5)</option><option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
-                            <option value="Уорент-офицер (7)">Уорент-офицер (7)</option><option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
-                            <option value="Лейтенант (9)">Лейтенант (9)</option><option value="Капитан (10)">Капитан (10)</option>
-                            <option value="Майор (11)">Майор (11)</option><option value="Подполковник (12)">Подполковник (12)</option>
+                            <option value="Специалист (3)">Специалист (3)</option>
+                            <option value="Капрал (4)">Капрал (4)</option>
+                            <option value="Сержант (5)">Сержант (5)</option>
+                            <option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
+                            <option value="Уорент-офицер (7)">Уорент-офицер (7)</option>
+                            <option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
+                            <option value="Лейтенант (9)">Лейтенант (9)</option>
+                            <option value="Капитан (10)">Капитан (10)</option>
+                            <option value="Майор (11)">Майор (11)</option>
+                            <option value="Подполковник (12)">Подполковник (12)</option>
                         </select>
                     </div>
                     <div class="period-row">
@@ -385,71 +999,137 @@
                         <div class="input-group"><label>📅 ДАТА ОКОНЧАНИЯ</label><input type="date" id="weeklyDateEnd"></div>
                     </div>
                     <div class="period-info" id="weeklyPeriodInfo"></div>
-                    <div style="margin-top:24px"><label style="font-size:0.7rem;font-weight:600;text-transform:uppercase;color:var(--accent-glow);"><i class="fas fa-clipboard-list"></i> ДЕЙСТВИЯ</label>
-                        <div id="weeklyActionsContainer"><div id="weeklyEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий</div><div id="weeklyActionsList"></div></div>
+
+                    <div style="margin-top: 24px;">
+                        <label style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
+                            <i class="fas fa-clipboard-list"></i> ДЕЙСТВИЯ
+                        </label>
+                        <div id="weeklyActionsContainer">
+                            <div id="weeklyEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий</div>
+                            <div id="weeklyActionsList"></div>
+                        </div>
                         <button class="add-btn" id="weeklyAddActionBtn"><i class="fas fa-plus-circle"></i> + ДОБАВИТЬ ДЕЙСТВИЕ</button>
                     </div>
-                    <div class="total-points-bar"><span class="total-points-label"><i class="fas fa-star"></i> ОБЩЕЕ КОЛИЧЕСТВО БАЛЛОВ</span><span class="total-points-value" id="weeklyTotalPoints">0</span></div>
+
+                    <div class="total-points-bar" id="weeklyTotalPointsBar">
+                        <span class="total-points-label"><i class="fas fa-star"></i> ОБЩЕЕ КОЛИЧЕСТВО БАЛЛОВ</span>
+                        <span class="total-points-value" id="weeklyTotalPoints">0</span>
+                    </div>
+
                     <button class="submit-btn" id="weeklySubmitBtn"><i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ОТЧЁТ</button>
-                    <div class="footer-signature"><i class="fas fa-code"></i> By Alexandr DeHaus <i class="fas fa-heart"></i></div>
+                    
+                    <div class="footer-signature">
+                        <i class="fas fa-code"></i> By Alexandr DeHaus <i class="fas fa-heart"></i>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="promotionPage" class="form-page">
-            <div class="back-btn" onclick="showReportsPage()"><i class="fas fa-arrow-left"></i> Назад</div>
+            <div class="back-btn" onclick="showReportsPage()">
+                <i class="fas fa-arrow-left"></i> Назад
+            </div>
             <div class="glass-card">
-                <div class="card-header"><h2><i class="fas fa-arrow-up"></i> ⬆️ Отчёт на повышение</h2></div>
+                <div class="card-header">
+                    <h2><i class="fas fa-arrow-up"></i> ⬆️ Отчёт на повышение</h2>
+                </div>
                 <div class="card-body">
                     <div id="promotionAlert"></div>
                     <div class="input-group"><label>🎮 ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="promotionNickname" placeholder="Введите никнейм"></div>
-                    <div class="input-group"><label>🏅 ТЕКУЩИЙ РАНГ</label><select id="promotionCurrentRank"><option value="">-- Выберите текущий ранг --</option>
-                        <option value="Специалист (3)">Специалист (3)</option><option value="Капрал (4)">Капрал (4)</option>
-                        <option value="Сержант (5)">Сержант (5)</option><option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
-                        <option value="Уорент-офицер (7)">Уорент-офицер (7)</option><option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
-                        <option value="Лейтенант (9)">Лейтенант (9)</option><option value="Капитан (10)">Капитан (10)</option>
-                        <option value="Майор (11)">Майор (11)</option><option value="Подполковник (12)">Подполковник (12)</option></select></div>
-                    <div class="input-group"><label>🎯 ЖЕЛАЕМЫЙ РАНГ</label><select id="promotionDesiredRank"><option value="">-- Выберите желаемый ранг --</option>
-                        <option value="Специалист (3)">Специалист (3)</option><option value="Капрал (4)">Капрал (4)</option>
-                        <option value="Сержант (5)">Сержант (5)</option><option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
-                        <option value="Уорент-офицер (7)">Уорент-офицер (7)</option><option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
-                        <option value="Лейтенант (9)">Лейтенант (9)</option><option value="Капитан (10)">Капитан (10)</option>
-                        <option value="Майор (11)">Майор (11)</option><option value="Подполковник (12)">Подполковник (12)</option></select></div>
+                    <div class="input-group">
+                        <label>🏅 ТЕКУЩИЙ РАНГ</label>
+                        <select id="promotionCurrentRank">
+                            <option value="">-- Выберите текущий ранг --</option>
+                            <option value="Специалист (3)">Специалист (3)</option>
+                            <option value="Капрал (4)">Капрал (4)</option>
+                            <option value="Сержант (5)">Сержант (5)</option>
+                            <option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
+                            <option value="Уорент-офицер (7)">Уорент-офицер (7)</option>
+                            <option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
+                            <option value="Лейтенант (9)">Лейтенант (9)</option>
+                            <option value="Капитан (10)">Капитан (10)</option>
+                            <option value="Майор (11)">Майор (11)</option>
+                            <option value="Подполковник (12)">Подполковник (12)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>🎯 ЖЕЛАЕМЫЙ РАНГ</label>
+                        <select id="promotionDesiredRank">
+                            <option value="">-- Выберите желаемый ранг --</option>
+                            <option value="Специалист (3)">Специалист (3)</option>
+                            <option value="Капрал (4)">Капрал (4)</option>
+                            <option value="Сержант (5)">Сержант (5)</option>
+                            <option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
+                            <option value="Уорент-офицер (7)">Уорент-офицер (7)</option>
+                            <option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
+                            <option value="Лейтенант (9)">Лейтенант (9)</option>
+                            <option value="Капитан (10)">Капитан (10)</option>
+                            <option value="Майор (11)">Майор (11)</option>
+                            <option value="Подполковник (12)">Подполковник (12)</option>
+                        </select>
+                    </div>
                     <div class="input-group"><label>📅 ДАТА ПОСЛЕДНЕГО ПОВЫШЕНИЯ</label><input type="date" id="lastPromotionDate"></div>
                     <div class="period-info" id="promotionDateInfo"></div>
-                    <div style="margin-top:24px"><label style="font-size:0.7rem;font-weight:600;text-transform:uppercase;color:var(--accent-glow);"><i class="fas fa-clipboard-list"></i> ДОСТИЖЕНИЯ</label>
-                        <div id="promotionActionsContainer"><div id="promotionEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий</div><div id="promotionActionsList"></div></div>
+
+                    <div style="margin-top: 24px;">
+                        <label style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-glow);">
+                            <i class="fas fa-clipboard-list"></i> ДОСТИЖЕНИЯ
+                        </label>
+                        <div id="promotionActionsContainer">
+                            <div id="promotionEmptyActions" class="empty-state"><i class="fas fa-info-circle"></i> Нет действий</div>
+                            <div id="promotionActionsList"></div>
+                        </div>
                         <button class="add-btn" id="promotionAddActionBtn"><i class="fas fa-plus-circle"></i> + ДОБАВИТЬ ДЕЙСТВИЕ</button>
                     </div>
-                    <div class="total-points-bar"><span class="total-points-label"><i class="fas fa-star"></i> ОБЩЕЕ КОЛИЧЕСТВО БАЛЛОВ</span><span class="total-points-value" id="promotionTotalPoints">0</span></div>
+
+                    <div class="total-points-bar" id="promotionTotalPointsBar">
+                        <span class="total-points-label"><i class="fas fa-star"></i> ОБЩЕЕ КОЛИЧЕСТВО БАЛЛОВ</span>
+                        <span class="total-points-value" id="promotionTotalPoints">0</span>
+                    </div>
+
                     <button class="submit-btn" id="promotionSubmitBtn"><i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ЗАПРОС</button>
-                    <div class="footer-signature"><i class="fas fa-code"></i> By Alexandr DeHaus <i class="fas fa-heart"></i></div>
+                    
+                    <div class="footer-signature">
+                        <i class="fas fa-code"></i> By Alexandr DeHaus <i class="fas fa-heart"></i>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="examPage" class="form-page">
-            <div class="back-btn" onclick="showReportsPage()"><i class="fas fa-arrow-left"></i> Назад</div>
+            <div class="back-btn" onclick="showReportsPage()">
+                <i class="fas fa-arrow-left"></i> Назад
+            </div>
             <div class="glass-card">
-                <div class="card-header"><h2><i class="fas fa-pen-clip"></i> 📝 Запись на экзамен</h2></div>
+                <div class="card-header">
+                    <h2><i class="fas fa-pen-clip"></i> 📝 Запись на экзамен</h2>
+                </div>
                 <div class="card-body">
                     <div id="examAlert"></div>
                     <div class="input-group"><label>👤 ИМЯ И ФАМИЛИЯ</label><input type="text" id="examFullName" placeholder="Иванов Иван"></div>
-                    <div class="input-group"><label>🎓 ТИП ЭКЗАМЕНА</label><select id="examType"><option value="">-- Выберите экзамен --</option>
-                        <option value="Acd.Delta">🎓 Acd.Delta</option>
-                        <option value="Специалист (3) → Капрал (4)">📈 Специалист (3) → Капрал (4)</option>
-                        <option value="Капрал (4) → Сержант (5)">📈 Капрал (4) → Сержант (5)</option>
-                        <option value="Сержант (5) → Штаб-сержант (6)">📈 Сержант (5) → Штаб-сержант (6)</option>
-                        <option value="Штаб-сержант (6) → Уорент-офицер (7)">📈 Штаб-сержант (6) → Уорент-офицер (7)</option>
-                        <option value="Уорент-офицер (7) → Старший Уорент-офицер (8)">📈 Уорент-офицер (7) → Старший Уорент-офицер (8)</option>
-                        <option value="Старший Уорент-офицер (8) → Лейтенант (9)">📈 Старший Уорент-офицер (8) → Лейтенант (9)</option>
-                        <option value="Лейтенант (9) → Капитан (10)">📈 Лейтенант (9) → Капитан (10)</option>
-                        <option value="Капитан (10) → Майор (11)">📈 Капитан (10) → Майор (11)</option>
-                        <option value="Майор (11) → Подполковник (12)">📈 Майор (11) → Подполковник (12)</option></select></div>
+                    <div class="input-group">
+                        <label>🎓 ТИП ЭКЗАМЕНА</label>
+                        <select id="examType">
+                            <option value="">-- Выберите экзамен --</option>
+                            <option value="Acd.Delta">🎓 Acd.Delta</option>
+                            <option value="Специалист (3) → Капрал (4)">📈 Специалист (3) → Капрал (4)</option>
+                            <option value="Капрал (4) → Сержант (5)">📈 Капрал (4) → Сержант (5)</option>
+                            <option value="Сержант (5) → Штаб-сержант (6)">📈 Сержант (5) → Штаб-сержант (6)</option>
+                            <option value="Штаб-сержант (6) → Уорент-офицер (7)">📈 Штаб-сержант (6) → Уорент-офицер (7)</option>
+                            <option value="Уорент-офицер (7) → Старший Уорент-офицер (8)">📈 Уорент-офицер (7) → Старший Уорент-офицер (8)</option>
+                            <option value="Старший Уорент-офицер (8) → Лейтенант (9)">📈 Старший Уорент-офицер (8) → Лейтенант (9)</option>
+                            <option value="Лейтенант (9) → Капитан (10)">📈 Лейтенант (9) → Капитан (10)</option>
+                            <option value="Капитан (10) → Майор (11)">📈 Капитан (10) → Майор (11)</option>
+                            <option value="Майор (11) → Подполковник (12)">📈 Майор (11) → Подполковник (12)</option>
+                        </select>
+                    </div>
                     <div class="input-group"><label>💬 DISCORD @ТЕГ</label><input type="text" id="examDiscord" placeholder="@username"></div>
                     <div class="input-group"><label>⏰ УДОБНОЕ ВРЕМЯ</label><input type="text" id="examTime" placeholder="Например: понедельник 18:00 МСК"></div>
                     <button class="submit-btn" id="examSubmitBtn"><i class="fab fa-discord"></i> 📨 ЗАПИСАТЬСЯ НА ЭКЗАМЕН</button>
-                    <div class="footer-signature"><i class="fas fa-code"></i> By Alexandr DeHaus <i class="fas fa-heart"></i></div>
+                    
+                    <div class="footer-signature">
+                        <i class="fas fa-code"></i> By Alexandr DeHaus <i class="fas fa-heart"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -547,6 +1227,14 @@
             if(department) document.body.classList.add(`${department}-theme`);
         }
         function clearTheme() { document.body.classList.remove('academy-theme','military-theme','division-theme','mpb-theme','usaf-theme','delta-theme'); }
+        function setPageTitle(departmentName) {
+            const titleEl = document.getElementById('pageTitle');
+            if (departmentName) {
+                titleEl.textContent = `ARMY | ${departmentName}`;
+            } else {
+                titleEl.textContent = `ARMY`;
+            }
+        }
 
         async function sendToDiscord(webhookUrl, title, fields) {
             let color = 0x4CAF50;
@@ -582,16 +1270,22 @@
 
         function showAlert(containerId, msg, type) { const c=document.getElementById(containerId); if(!c)return; const a=document.createElement('div'); a.className=`alert ${type}`; a.innerHTML=`<i class="fas ${type==='success'?'fa-check-circle':'fa-exclamation-circle'}"></i> ${msg}`; c.appendChild(a); setTimeout(()=>a.remove(),5000); }
 
-        function showMainMenu() { clearTheme(); document.getElementById('mainMenuPage').style.display='flex'; document.getElementById('reportsPage').style.display='none'; document.querySelectorAll('.form-page').forEach(p=>p.style.display='none'); currentDepartment=null; }
+        function showMainMenu() { clearTheme(); setPageTitle(null); document.getElementById('mainMenuPage').style.display='flex'; document.getElementById('reportsPage').style.display='none'; document.querySelectorAll('.form-page').forEach(p=>p.style.display='none'); currentDepartment=null; }
         function showReportsPage() { document.getElementById('mainMenuPage').style.display='none'; document.getElementById('reportsPage').style.display='block'; document.querySelectorAll('.form-page').forEach(p=>p.style.display='none'); }
         function showFormPage(pageId) { document.getElementById('mainMenuPage').style.display='none'; document.getElementById('reportsPage').style.display='none'; document.querySelectorAll('.form-page').forEach(p=>p.style.display='none'); document.getElementById(pageId).style.display='block'; window.scrollTo({top:0}); }
 
-        // Конфигурация отчётов для каждого отдела
+        // Конфигурация отчётов для каждого отдела (как вы указали)
         const departmentReports = {
-            academy: [{ id: 'exam', name: '📝 Запись на экзамен', desc: 'Запись на экзамен для повышения', icon: 'fa-pen-clip' }],
-            military: [{ id: 'promotion', name: '⬆️ Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' }],
-            division: [{ id: 'weekly', name: '📊 Еженедельный отчёт', desc: 'Отчёт о еженедельной работе', icon: 'fa-calendar-week' }],
+            academy: [{ id: 'promotion', name: '⬆️ Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
+                      { id: 'exam', name: '📝 Запись на экзамен', desc: 'Запись на экзамен для повышения', icon: 'fa-pen-clip' }],
+            military: [{ id: 'weekly', name: '📊 Еженедельный отчёт', desc: 'Отчёт о еженедельной работе', icon: 'fa-calendar-week' },
+                       { id: 'promotion', name: '⬆️ Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
+                       { id: 'exam', name: '📝 Запись на экзамен', desc: 'Запись на экзамен для повышения', icon: 'fa-pen-clip' }],
+            division: [{ id: 'weekly', name: '📊 Еженедельный отчёт', desc: 'Отчёт о еженедельной работе', icon: 'fa-calendar-week' },
+                       { id: 'promotion', name: '⬆️ Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
+                       { id: 'exam', name: '📝 Запись на экзамен', desc: 'Запись на экзамен для повышения', icon: 'fa-pen-clip' }],
             mpb: [{ id: 'weekly', name: '📊 Еженедельный отчёт', desc: 'Отчёт о еженедельной работе', icon: 'fa-calendar-week' },
+                  { id: 'promotion', name: '⬆️ Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
                   { id: 'exam', name: '📝 Запись на экзамен', desc: 'Запись на экзамен для повышения', icon: 'fa-pen-clip' }],
             usaf: [{ id: 'weekly', name: '📊 Еженедельный отчёт', desc: 'Отчёт о еженедельной работе', icon: 'fa-calendar-week' },
                    { id: 'promotion', name: '⬆️ Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
@@ -604,6 +1298,11 @@
         function loadDepartmentPage(department) {
             currentDepartment = department;
             setTheme(department);
+            const departmentNames = {
+                academy: 'Academy', military: 'Military Academy', division: 'Division',
+                mpb: 'MPB', usaf: 'USAF', delta: 'Delta'
+            };
+            setPageTitle(departmentNames[department]);
             const reports = departmentReports[department] || departmentReports.delta;
             const grid = document.getElementById('reportsGrid');
             grid.innerHTML = reports.map(r => `
