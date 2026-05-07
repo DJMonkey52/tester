@@ -1,180 +1,869 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ARMY | Система отчетов</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ARMY | Система отчетов</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        :root {
-            --glass-bg: rgba(10, 25, 10, 0.95);
-            --glass-border: rgba(76, 175, 80, 0.35);
-            --text-primary: #F0F3FA;
-            --text-secondary: #B0C4B0;
-            --text-muted: #8A9A8A;
-            --accent: #4CAF50;
-            --accent-glow: #66BB6A;
-            --accent-dark: #2E7D32;
-            --border-light: rgba(255, 255, 255, 0.06);
-            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.4);
-            --shadow-md: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
-            --input-bg: rgba(5, 20, 5, 0.9);
-            --card-hover: rgba(76, 175, 80, 0.12);
-            --empty-bg: rgba(10, 25, 10, 0.5);
-        }
+    :root {
+      --glass-bg: rgba(10, 25, 10, 0.95);
+      --glass-border: rgba(76, 175, 80, 0.35);
+      --text-primary: #F0F3FA;
+      --text-secondary: #B0C4B0;
+      --text-muted: #8A9A8A;
+      --accent: #4CAF50;
+      --accent-glow: #66BB6A;
+      --accent-dark: #2E7D32;
+      --border-light: rgba(255, 255, 255, 0.06);
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(5, 20, 5, 0.9);
+      --card-hover: rgba(76, 175, 80, 0.12);
+      --empty-bg: rgba(10, 25, 10, 0.5);
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0a2a0a 0%, #0d2e0d 100%);
-            min-height: 100vh;
-            transition: all 0.3s ease;
-        }
-        body.light {
-            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0a2a0a 0%, #0d2e0d 100%);
+      min-height: 100vh;
+      transition: all 0.3s ease;
+    }
+    body.light {
+      background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+    }
 
-        /* ========== ТЕМЫ ОТДЕЛОВ ========== */
-        body.academy-theme { background: linear-gradient(135deg, #2d5a2d 0%, #3a6e3a 100%); --empty-bg: rgba(45, 80, 45, 0.6); }
-        body.academy-theme { --glass-bg: rgba(45, 80, 45, 0.9); --glass-border: rgba(100, 140, 100, 0.4); --text-primary: #E8F0E8; --text-secondary: #C8DCC8; --text-muted: #A8BEA8; --accent: #8BBF6B; --accent-glow: #A8D68A; --accent-dark: #6A9A4A; --input-bg: rgba(35, 65, 35, 0.85); --card-hover: rgba(139, 191, 107, 0.15); }
-        body.military-theme { background: linear-gradient(135deg, #1a3a1a 0%, #1e4a1e 100%); --empty-bg: rgba(20, 40, 20, 0.6); }
-        body.military-theme { --glass-bg: rgba(20, 50, 20, 0.95); --glass-border: rgba(70, 100, 70, 0.4); --text-primary: #D0E0D0; --text-secondary: #A0B8A0; --text-muted: #789078; --accent: #6B8F5A; --accent-glow: #8AAF7A; --accent-dark: #4A6F3A; --input-bg: rgba(15, 40, 15, 0.9); --card-hover: rgba(107, 143, 90, 0.15); }
-        body.division-theme { background: linear-gradient(135deg, #8a6a3a 0%, #a0844a 100%); --empty-bg: rgba(80, 60, 30, 0.6); }
-        body.division-theme { --glass-bg: rgba(110, 80, 40, 0.9); --glass-border: rgba(160, 130, 70, 0.4); --text-primary: #F5EFE0; --text-secondary: #E0D4B8; --text-muted: #C8B898; --accent: #D4B06A; --accent-glow: #E0C080; --accent-dark: #B09050; --input-bg: rgba(80, 60, 30, 0.85); --card-hover: rgba(212, 176, 106, 0.15); }
-        body.mpb-theme { background: linear-gradient(135deg, #1a2a5a 0%, #1e3a6e 100%); --empty-bg: rgba(20, 35, 60, 0.6); }
-        body.mpb-theme { --glass-bg: rgba(25, 45, 85, 0.9); --glass-border: rgba(60, 100, 160, 0.4); --text-primary: #D0D8F0; --text-secondary: #A8B8D8; --text-muted: #8898B8; --accent: #5A7ABF; --accent-glow: #7A9AD8; --accent-dark: #3A5A9F; --input-bg: rgba(20, 35, 70, 0.85); --card-hover: rgba(90, 122, 191, 0.15); }
-        body.usaf-theme { background: repeating-linear-gradient(45deg, #4a3a1a 0px, #4a3a1a 20px, #5e4a2a 20px, #5e4a2a 40px, #3a2a10 40px, #3a2a10 60px, #5a4a20 60px, #5a4a20 80px); --empty-bg: rgba(50, 35, 20, 0.6); }
-        body.usaf-theme { --glass-bg: rgba(60, 45, 25, 0.92); --glass-border: rgba(160, 130, 70, 0.4); --text-primary: #F0E6C8; --text-secondary: #D0C8A0; --text-muted: #B0A880; --accent: #C8A84A; --accent-glow: #D8B860; --accent-dark: #A88838; --input-bg: rgba(50, 35, 20, 0.9); --card-hover: rgba(200, 168, 74, 0.12); }
-        body.delta-theme { background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); --empty-bg: rgba(20, 20, 25, 0.6); }
-        body.delta-theme { --glass-bg: rgba(20, 20, 25, 0.95); --glass-border: rgba(80, 80, 90, 0.35); --text-primary: #E0E0E0; --text-secondary: #B0B0B0; --text-muted: #808080; --accent: #8B8B8B; --accent-glow: #AAAAAA; --accent-dark: #6A6A6A; --input-bg: rgba(30, 30, 35, 0.9); --card-hover: rgba(120, 120, 130, 0.12); }
-        
-        body.light.academy-theme { background: linear-gradient(135deg, #6a9a6a 0%, #8ab88a 100%); }
-        body.light.military-theme { background: linear-gradient(135deg, #3a6a3a 0%, #5a8a5a 100%); }
-        body.light.division-theme { background: linear-gradient(135deg, #c8b070 0%, #d8c888 100%); }
-        body.light.mpb-theme { background: linear-gradient(135deg, #5a7abf 0%, #7a9ad8 100%); }
-        body.light.usaf-theme { background: repeating-linear-gradient(45deg, #c8b080 0px, #c8b080 20px, #d8c098 20px, #d8c098 40px, #b8a070 40px, #b8a070 60px, #d0b888 60px, #d0b888 80px); }
-        body.light.delta-theme { background: linear-gradient(135deg, #8a8a8a 0%, #aaaaaa 100%); }
+    body.academy-theme {
+      background: linear-gradient(135deg, #2d5a2d 0%, #3a6e3a 100%);
+      --glass-bg: rgba(45, 80, 45, 0.9);
+      --glass-border: rgba(100, 140, 100, 0.4);
+      --text-primary: #E8F0E8;
+      --text-secondary: #C8DCC8;
+      --text-muted: #A8BEA8;
+      --accent: #8BBF6B;
+      --accent-glow: #A8D68A;
+      --accent-dark: #6A9A4A;
+      --input-bg: rgba(35, 65, 35, 0.85);
+      --card-hover: rgba(139, 191, 107, 0.15);
+      --empty-bg: rgba(40, 70, 40, 0.5);
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .header { text-align: center; margin-bottom: 20px; margin-top: 10px; }
-        .logo { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-        .logo-icon {
-            width: 56px; height: 56px; background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            border-radius: 20px; display: flex; align-items: center; justify-content: center;
-            font-size: 28px; color: white; box-shadow: var(--shadow-sm); animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
-        .logo h1 {
-            font-size: 2rem; font-weight: 800;
-            background: linear-gradient(135deg, #FFFFFF, var(--accent-glow));
-            -webkit-background-clip: text; background-clip: text; color: transparent;
-            transition: background 0.2s ease;
-        }
-        .subtitle { color: var(--text-secondary); font-size: 0.9rem; }
-        .theme-toggle { position: fixed; top: 20px; right: 20px; background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 50px; padding: 8px 20px; display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-primary); font-weight: 500; font-size: 0.85rem; transition: all 0.3s; z-index: 100; }
-        .theme-toggle:hover { border-color: var(--accent); transform: scale(1.02); }
-        .main-menu-page { display: flex; flex-direction: column; justify-content: center; align-items: center; flex: 1; min-height: calc(100vh - 180px); }
-        .main-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 20px; max-width: 900px; width: 100%; }
-        .main-card { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 32px; padding: 35px 25px; cursor: pointer; transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1); text-align: center; box-shadow: var(--shadow-md); }
-        .main-card:hover { transform: translateY(-10px); border-color: var(--accent); }
-        .main-card-icon { width: 70px; height: 70px; background: linear-gradient(135deg, rgba(139,191,107,0.25), rgba(106,154,74,0.15)); border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; font-size: 32px; color: var(--accent); }
-        .main-card h3 { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); }
-        .main-card p { color: var(--text-secondary); font-size: 0.8rem; }
-        .reports-page, .form-page { display: none; animation: fadeInUp 0.4s ease; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .back-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--glass-bg); backdrop-filter: blur(8px); border: 1px solid var(--glass-border); border-radius: 50px; padding: 10px 22px; color: var(--text-primary); font-weight: 500; cursor: pointer; margin-bottom: 24px; transition: all 0.2s; }
-        .back-btn:hover { border-color: var(--accent); transform: translateX(-4px); }
-        .glass-card { background: var(--glass-bg); backdrop-filter: blur(16px); border-radius: 32px; border: 1px solid var(--glass-border); box-shadow: var(--shadow-md); overflow: hidden; }
-        .card-header { background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(46,125,50,0.08)); padding: 20px 28px; border-bottom: 1px solid var(--border-light); }
-        .card-header h2 { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
-        .card-body { padding: 28px; }
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.3px; color: var(--accent-glow); margin-bottom: 6px; }
-        .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 12px 14px; background: var(--input-bg); border: 1px solid var(--border-light); border-radius: 14px; font-size: 0.9rem; color: var(--text-primary); font-family: 'Inter', sans-serif; transition: all 0.2s; }
-        .input-group input:focus, .input-group select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(76,175,80,0.25); }
-        .empty-state { text-align: center; padding: 30px; color: var(--text-muted); background: var(--empty-bg); border-radius: 18px; margin-bottom: 14px; border: 1px dashed var(--glass-border); }
-        .submit-btn { width: 100%; background: linear-gradient(105deg, var(--accent), var(--accent-dark)); border: none; padding: 14px; border-radius: 22px; font-size: 0.95rem; font-weight: 700; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s; }
-        .submit-btn:hover { transform: translateY(-3px); filter: brightness(1.05); }
-        .footer-signature { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-light); color: var(--text-muted); font-size: 0.8rem; }
-        .alert { padding: 12px 16px; border-radius: 14px; margin-bottom: 20px; display: none; align-items: center; gap: 10px; font-weight: 500; animation: slideIn 0.3s ease; }
-        .alert.success { background: rgba(16, 185, 129, 0.15); border-left: 3px solid #10b981; color: #10b981; display: flex; }
-        .alert.error { background: rgba(239, 68, 68, 0.12); border-left: 3px solid #ef4444; color: #f87171; display: flex; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-15px); } to { opacity: 1; transform: translateX(0); } }
-        @media (max-width: 850px) { .main-cards-grid { grid-template-columns: repeat(2, 1fr); } .main-cards-grid { gap: 20px; } }
-        @media (max-width: 550px) { .main-cards-grid { grid-template-columns: 1fr; } }
-        .period-info { background: rgba(76,175,80,0.1); border-radius: 12px; padding: 10px 14px; text-align: center; color: var(--accent-glow); font-size: 0.85rem; margin-bottom: 20px; }
-    </style>
+    body.military-theme {
+      background: linear-gradient(135deg, #1a3a1a 0%, #1e4a1e 100%);
+      --glass-bg: rgba(20, 50, 20, 0.95);
+      --glass-border: rgba(70, 100, 70, 0.4);
+      --text-primary: #D0E0D0;
+      --text-secondary: #A0B8A0;
+      --text-muted: #789078;
+      --accent: #6B8F5A;
+      --accent-glow: #8AAF7A;
+      --accent-dark: #4A6F3A;
+      --input-bg: rgba(15, 40, 15, 0.9);
+      --card-hover: rgba(107, 143, 90, 0.15);
+      --empty-bg: rgba(25, 50, 25, 0.55);
+    }
+
+    body.division-theme {
+      background: linear-gradient(135deg, #8a6a3a 0%, #a0844a 100%);
+      --glass-bg: rgba(110, 80, 40, 0.9);
+      --glass-border: rgba(160, 130, 70, 0.4);
+      --text-primary: #F5EFE0;
+      --text-secondary: #E0D4B8;
+      --text-muted: #C8B898;
+      --accent: #D4B06A;
+      --accent-glow: #E0C080;
+      --accent-dark: #B09050;
+      --input-bg: rgba(80, 60, 30, 0.85);
+      --card-hover: rgba(212, 176, 106, 0.15);
+      --empty-bg: rgba(80, 60, 35, 0.5);
+    }
+
+    body.mpb-theme {
+      background: linear-gradient(135deg, #1a2a5a 0%, #1e3a6e 100%);
+      --glass-bg: rgba(25, 45, 85, 0.9);
+      --glass-border: rgba(60, 100, 160, 0.4);
+      --text-primary: #D0D8F0;
+      --text-secondary: #A8B8D8;
+      --text-muted: #8898B8;
+      --accent: #5A7ABF;
+      --accent-glow: #7A9AD8;
+      --accent-dark: #3A5A9F;
+      --input-bg: rgba(20, 35, 70, 0.85);
+      --card-hover: rgba(90, 122, 191, 0.15);
+      --empty-bg: rgba(30, 45, 80, 0.5);
+    }
+
+    body.usaf-theme {
+      background: repeating-linear-gradient(45deg, #4a3a1a 0px, #4a3a1a 20px, #5e4a2a 20px, #5e4a2a 40px, #3a2a10 40px, #3a2a10 60px, #5a4a20 60px, #5a4a20 80px);
+      --glass-bg: rgba(60, 45, 25, 0.92);
+      --glass-border: rgba(160, 130, 70, 0.4);
+      --text-primary: #F0E6C8;
+      --text-secondary: #D0C8A0;
+      --text-muted: #B0A880;
+      --accent: #C8A84A;
+      --accent-glow: #D8B860;
+      --accent-dark: #A88838;
+      --input-bg: rgba(50, 35, 20, 0.9);
+      --card-hover: rgba(200, 168, 74, 0.12);
+      --empty-bg: rgba(55, 40, 25, 0.5);
+    }
+
+    body.delta-theme {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+      --glass-bg: rgba(20, 20, 25, 0.95);
+      --glass-border: rgba(80, 80, 90, 0.35);
+      --text-primary: #E0E0E0;
+      --text-secondary: #B0B0B0;
+      --text-muted: #808080;
+      --accent: #8B8B8B;
+      --accent-glow: #AAAAAA;
+      --accent-dark: #6A6A6A;
+      --input-bg: rgba(30, 30, 35, 0.9);
+      --card-hover: rgba(120, 120, 130, 0.12);
+      --empty-bg: rgba(35, 35, 40, 0.55);
+    }
+
+    body.light.academy-theme { background: linear-gradient(135deg, #6a9a6a 0%, #8ab88a 100%); }
+    body.light.military-theme { background: linear-gradient(135deg, #3a6a3a 0%, #5a8a5a 100%); }
+    body.light.division-theme { background: linear-gradient(135deg, #c8b070 0%, #d8c888 100%); }
+    body.light.mpb-theme { background: linear-gradient(135deg, #5a7abf 0%, #7a9ad8 100%); }
+    body.light.usaf-theme { background: repeating-linear-gradient(45deg, #c8b080 0px, #c8b080 20px, #d8c098 20px, #d8c098 40px, #b8a070 40px, #b8a070 60px, #d0b888 60px, #d0b888 80px); }
+    body.light.delta-theme { background: linear-gradient(135deg, #8a8a8a 0%, #aaaaaa 100%); }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+      margin-top: 10px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .logo-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: white;
+      box-shadow: var(--shadow-sm);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .logo h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFFFFF, var(--accent-glow));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: all 0.3s ease;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+      z-index: 100;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+    }
+
+    .main-menu-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      min-height: calc(100vh - 180px);
+    }
+
+    .main-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 20px;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .main-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 32px;
+      padding: 35px 25px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .main-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent);
+    }
+
+    .main-card-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, rgba(var(--accent-rgb, 76, 175, 80), 0.25), rgba(var(--accent-dark-rgb, 46, 125, 50), 0.15));
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 32px;
+      color: var(--accent);
+    }
+
+    .main-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .main-card p {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+    }
+
+    .main-card-arrow {
+      margin-top: 16px;
+      color: var(--accent);
+      opacity: 0;
+      transition: 0.3s;
+    }
+
+    .main-card:hover .main-card-arrow {
+      opacity: 1;
+      transform: translateX(6px);
+    }
+
+    .reports-page {
+      display: none;
+      animation: fadeInUp 0.4s ease;
+    }
+
+    .cards-grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .action-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 32px;
+      padding: 35px 28px;
+      width: 280px;
+      cursor: pointer;
+      transition: all 0.4s;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .action-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent);
+    }
+
+    .card-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, rgba(var(--accent-rgb, 76, 175, 80), 0.25), rgba(var(--accent-dark-rgb, 46, 125, 50), 0.15));
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 32px;
+      color: var(--accent);
+    }
+
+    .action-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .action-card p {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+    }
+
+    .card-arrow {
+      margin-top: 16px;
+      color: var(--accent);
+      opacity: 0;
+      transition: 0.3s;
+    }
+
+    .action-card:hover .card-arrow {
+      opacity: 1;
+      transform: translateX(6px);
+    }
+
+    .form-page {
+      display: none;
+      animation: fadeInUp 0.4s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      padding: 10px 22px;
+      color: var(--text-primary);
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
+
+    .back-btn:hover {
+      border-color: var(--accent);
+    }
+
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border-radius: 32px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, rgba(var(--accent-rgb, 76, 175, 80), 0.15), rgba(var(--accent-dark-rgb, 46, 125, 50), 0.08));
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .card-header h2 {
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-body {
+      padding: 28px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-glow);
+      margin-bottom: 6px;
+    }
+
+    .input-group input, .input-group select, .input-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--input-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .input-group input:focus, .input-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .period-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .period-info {
+      background: rgba(var(--accent-rgb, 76, 175, 80), 0.1);
+      border-radius: 12px;
+      padding: 10px 14px;
+      text-align: center;
+      color: var(--accent-glow);
+      margin-bottom: 20px;
+    }
+
+    .action-item {
+      background: var(--card-hover);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border-light);
+    }
+
+    .action-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .remove-action {
+      background: rgba(239, 68, 68, 0.15);
+      border: none;
+      color: #f87171;
+      padding: 5px 12px;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+    .action-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .proofs-section {
+      grid-column: span 2;
+      margin-top: 8px;
+      border-top: 1px solid var(--border-light);
+      padding-top: 8px;
+    }
+
+    .proof-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      background: rgba(0,0,0,0.25);
+      border-radius: 10px;
+      padding: 6px 10px;
+    }
+
+    .proof-item input {
+      flex: 1;
+      padding: 8px;
+      background: var(--input-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      color: var(--text-primary);
+    }
+
+    .add-proof-btn, .add-btn {
+      background: rgba(var(--accent-rgb, 76, 175, 80), 0.18);
+      border: 1px dashed var(--accent);
+      border-radius: 10px;
+      padding: 6px 12px;
+      color: var(--accent);
+      cursor: pointer;
+    }
+
+    .points-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      border-top: 1px solid var(--border-light);
+      padding-top: 10px;
+    }
+
+    .points-badge {
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      padding: 5px 14px;
+      border-radius: 30px;
+      color: white;
+      font-weight: 700;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 30px;
+      color: var(--text-muted);
+      background: var(--empty-bg);
+      border-radius: 18px;
+    }
+
+    .total-points-bar {
+      background: rgba(var(--accent-rgb, 76, 175, 80), 0.15);
+      border-radius: 16px;
+      padding: 14px 20px;
+      margin: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid var(--border-light);
+    }
+
+    .total-points-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(105deg, var(--accent), var(--accent-dark));
+      border: none;
+      padding: 14px;
+      border-radius: 22px;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+    }
+
+    .footer-signature {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-light);
+      color: var(--text-muted);
+    }
+
+    .alert {
+      padding: 12px 16px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .alert.success { background: rgba(16,185,129,0.15); color: #10b981; display: flex; }
+    .alert.error { background: rgba(239,68,68,0.12); color: #f87171; display: flex; }
+
+    @media (max-width: 850px) {
+      .main-cards-grid { grid-template-columns: repeat(2,1fr); }
+      .cards-grid { flex-direction: column; align-items: center; }
+    }
+  </style>
 </head>
 <body>
-    <div class="theme-toggle" id="themeSwitch"><i class="fas fa-sun"></i><span>Светлая тема</span></div>
-    <div class="container">
-        <div class="header"><div class="logo"><div class="logo-icon"><i class="fas fa-gun"></i></div><h1 id="pageTitle">ARMY</h1></div><p class="subtitle">Система подачи отчётов</p></div>
-        <div id="mainMenuPage" class="main-menu-page"><div class="main-cards-grid">
-            <div class="main-card" data-main="academy"><div class="main-card-icon"><i class="fas fa-graduation-cap"></i></div><h3>Academy</h3><p>Академия</p></div>
-            <div class="main-card" data-main="military"><div class="main-card-icon"><i class="fas fa-landmark"></i></div><h3>Military Academy</h3><p>Военная академия</p></div>
-            <div class="main-card" data-main="division"><div class="main-card-icon"><i class="fas fa-users"></i></div><h3>Division</h3><p>Дивизион</p></div>
-            <div class="main-card" data-main="mpb"><div class="main-card-icon"><i class="fas fa-shield-alt"></i></div><h3>MPB</h3><p>МПБ</p></div>
-            <div class="main-card" data-main="usaf"><div class="main-card-icon"><i class="fas fa-fighter-jet"></i></div><h3>USAF</h3><p>ВВС США</p></div>
-            <div class="main-card" data-main="delta"><div class="main-card-icon"><i class="fas fa-skull"></i></div><h3>Delta</h3><p>Отряд Дельта</p></div>
-        </div></div>
-        <div id="reportsPage" class="reports-page"><div class="back-btn" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> На главную</div><div id="reportsGrid" class="cards-grid" style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;"></div></div>
-        <!-- Стандартные формы (weekly, promotion, exam) -->
-        <div id="weeklyPage" class="form-page">...</div>
-        <div id="promotionPage" class="form-page">...</div>
-        <div id="examPage" class="form-page">...</div>
-        <!-- НОВЫЕ ФОРМЫ ДЛЯ USAF -->
-        <div id="pilotQualPage" class="form-page"><div class="back-btn" onclick="showReportsPage()"><i class="fas fa-arrow-left"></i> Назад</div><div class="glass-card"><div class="card-header"><h2><i class="fas fa-wings"></i> ✈️ Повышение квалификации пилота</h2></div><div class="card-body"><div id="pilotAlert"></div><div class="input-group"><label>👤 Имя Фамилия</label><input type="text" id="pilotFullName" placeholder="Иванов Иван"></div><div class="input-group"><label>✈️ Ваша текущая категория</label><select id="pilotCurrentCat"><option value="">-- Выберите --</option><option>Пилот третьей категории</option><option>Пилот второй категории</option><option>Пилот первой категории</option><option>Пилот высшей категории</option><option>Пилот АС</option></select></div><div class="input-group"><label>🎯 На какую категорию повышаетесь</label><select id="pilotTargetCat"><option value="">-- Выберите --</option><option>Пилот третьей категории</option><option>Пилот второй категории</option><option>Пилот первой категории</option><option>Пилот высшей категории</option><option>Пилот АС</option></select></div><div class="input-group"><label>⏱️ Налёт часов</label><input type="text" id="pilotHours" placeholder="например: 120 часов"></div><div class="input-group"><label>📎 Ссылка на сообщение из кадрового аудита о сдаче маршрута</label><input type="url" id="pilotAuditLink" placeholder="https://discord.com/channels/..."></div><div class="input-group"><label>📅 Дата подачи отчета</label><input type="date" id="pilotDate"></div><button class="submit-btn" id="pilotSubmitBtn"><i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ЗАПРОС</button><div class="footer-signature"><i class="fas fa-code"></i> By Alexandr DeHaus</div></div></div></div>
-        <div id="routeExamPage" class="form-page"><div class="back-btn" onclick="showReportsPage()"><i class="fas fa-arrow-left"></i> Назад</div><div class="glass-card"><div class="card-header"><h2><i class="fas fa-map-marked-alt"></i> 🗺️ Прохождение маршрута</h2></div><div class="card-body"><div id="routeAlert"></div><div class="input-group"><label>👤 Ваш ник (Имя Фамилия)</label><input type="text" id="routeNick" placeholder="Иванов Иван"></div><div class="input-group"><label>📅 Дата прохождения маршрута</label><input type="date" id="routeDate"></div><div class="input-group"><label>🛣️ Какой маршрут проходите</label><select id="routeType"><option value="">-- Выберите --</option><option>Маршрут №1</option><option>Маршрут №2.1</option><option>Маршрут №2.2</option><option>Маршрут №3</option><option>Маршрут №4</option><option>Маршрут К+[H]</option><option>Маршрут К+[P]</option></select></div><div class="input-group"><label>🔗 Ссылка на YouTube или хостинг</label><input type="url" id="routeLink" placeholder="https://youtu.be/..."></div><button class="submit-btn" id="routeSubmitBtn"><i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ЗАЯВКУ</button><div class="footer-signature"><i class="fas fa-code"></i> By Alexandr DeHaus</div></div></div></div>
+<div class="theme-toggle" id="themeSwitch">
+  <i class="fas fa-sun"></i> <span>Светлая тема</span>
+</div>
+
+<div class="container">
+  <div class="header">
+    <div class="logo">
+      <div class="logo-icon"><i class="fas fa-gun"></i></div>
+      <h1 id="pageTitle">ARMY</h1>
     </div>
-    <script>
-        const WEBHOOKS = { academy:'https://discord.com/api/webhooks/1501941748337873086/HcxaPFZMmJdxcGBxY1m8RXg2J5zUwfRKUnedR1i1ymy8x8uQb8Gg1GIQCI_ULPwJAOf5', military:'https://discord.com/api/webhooks/1501941690070470687/ROoyzlTh1DpM-Bt1QzWhkH4Cy3FnR91bIhGhqdUP0O4vzs10B7hgKCqbiaDYwWD-H1qR', division:'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57', mpb:'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57', usaf:'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57', delta:'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57' };
-        const ROLES_TO_TAG = '<@&793440125798973441> <@&792082143408160768> <@&792079598795358248>';
-        let currentDepartment = null;
-        let weeklyActions = [], promotionActions = [];
-        function escapeHtml(s){if(!s)return '';return s.replace(/[&<>]/g,m=>m==='&'?'&amp;':m==='<'?'&lt;':'&gt;');}
-        function formatDate(d){if(!d)return'';return new Date(d).toLocaleDateString('ru-RU');}
-        function showAlert(containerId,msg,type){const c=document.getElementById(containerId);if(!c)return;const a=document.createElement('div');a.className=`alert ${type}`;a.innerHTML=`<i class="fas ${type==='success'?'fa-check-circle':'fa-exclamation-circle'}"></i> ${msg}`;c.appendChild(a);setTimeout(()=>a.remove(),5000);}
-        async function sendToDiscord(webhook,title,fields){let color=0x4CAF50;if(currentDepartment==='delta')color=0x888888;if(currentDepartment==='usaf')color=0xDEB887;if(currentDepartment==='mpb')color=0x3B82F6;if(currentDepartment==='division')color=0xDAA520;if(currentDepartment==='military')color=0x2E7D32;if(currentDepartment==='academy')color=0x81C784;const res=await fetch(webhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:`${ROLES_TO_TAG}\n━━━━━━━━━━━━━━━━━━━━`,embeds:[{title,color,fields,footer:{text:`ARMY System - ${currentDepartment?.toUpperCase()}`},timestamp:new Date().toISOString()}]})});if(!res.ok)throw new Error(`HTTP ${res.status}`);}
-        function setTheme(dept){document.body.classList.remove('academy-theme','military-theme','division-theme','mpb-theme','usaf-theme','delta-theme');if(dept)document.body.classList.add(`${dept}-theme`);}
-        function updateTitleColor(dept){const titleEl=document.getElementById('pageTitle');if(!dept){titleEl.style.background='';return;}const colors={academy:'#A8D68A',military:'#8AAF7A',division:'#E0C080',mpb:'#7A9AD8',usaf:'#D8B860',delta:'#AAAAAA'};const color=colors[dept]||'#A5D6A7';titleEl.style.background=`linear-gradient(135deg, #FFFFFF, ${color})`;titleEl.style.webkitBackgroundClip='text';titleEl.style.backgroundClip='text';titleEl.style.color='transparent';}
-        function setPageTitle(deptName){document.getElementById('pageTitle').innerHTML=deptName?`ARMY | ${deptName}`:'ARMY';updateTitleColor(currentDepartment);}
-        const deptNames={academy:'Academy',military:'Military Academy',division:'Division',mpb:'MPB',usaf:'USAF',delta:'Delta'};
-        function loadDepartmentPage(dept){currentDepartment=dept;setTheme(dept);setPageTitle(deptNames[dept]);const reports=(()=>{if(dept==='usaf')return[{id:'pilotQual',name:'✈️ Повышение квалификации пилота',desc:'Повышение категории пилотирования',icon:'fa-wings'},{id:'routeExam',name:'🗺️ Прохождение маршрута',desc:'Сдача маршрута для пилотов',icon:'fa-map-marked-alt'}];if(dept==='academy')return[{id:'promotion',name:'⬆️ Отчёт на повышение',desc:'Заявка на повышение',icon:'fa-arrow-up'},{id:'exam',name:'📝 Запись на экзамен',desc:'Запись на экзамен',icon:'fa-pen-clip'}];return[{id:'weekly',name:'📊 Еженедельный отчёт',desc:'Отчёт о работе',icon:'fa-calendar-week'},{id:'promotion',name:'⬆️ Отчёт на повышение',desc:'Заявка на повышение',icon:'fa-arrow-up'},{id:'exam',name:'📝 Запись на экзамен',desc:'Запись на экзамен',icon:'fa-pen-clip'}];})();const grid=document.getElementById('reportsGrid');grid.innerHTML=reports.map(r=>`<div class="action-card" data-page="${r.id}" style="background:var(--glass-bg);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:32px;padding:35px 28px;width:280px;cursor:pointer;text-align:center;"><div class="card-icon" style="width:70px;height:70px;background:linear-gradient(135deg, rgba(139,191,107,0.25), rgba(106,154,74,0.15));border-radius:24px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:32px;color:var(--accent);"><i class="fas ${r.icon}"></i></div><h3 style="color:var(--text-primary);">${r.name}</h3><p style="color:var(--text-secondary);">${r.desc}</p><div class="card-arrow" style="margin-top:16px;color:var(--accent);"><i class="fas fa-arrow-right"></i></div></div>`).join('');document.querySelectorAll('#reportsGrid .action-card').forEach(card=>{card.addEventListener('click',()=>showFormPage(`${card.dataset.page}Page`));});showReportsPage();}
-        function showMainMenu(){setTheme(null);currentDepartment=null;setPageTitle(null);document.getElementById('mainMenuPage').style.display='flex';document.getElementById('reportsPage').style.display='none';document.querySelectorAll('.form-page').forEach(p=>p.style.display='none');}
-        function showReportsPage(){document.getElementById('mainMenuPage').style.display='none';document.getElementById('reportsPage').style.display='block';document.querySelectorAll('.form-page').forEach(p=>p.style.display='none');}
-        function showFormPage(pageId){document.getElementById('mainMenuPage').style.display='none';document.getElementById('reportsPage').style.display='none';document.querySelectorAll('.form-page').forEach(p=>p.style.display='none');document.getElementById(pageId).style.display='block';window.scrollTo({top:0});}
-        document.querySelectorAll('.main-card').forEach(c=>c.addEventListener('click',()=>loadDepartmentPage(c.dataset.main)));
-        // Инициализация пустых экшнов (для weekly/promotion если понадобятся)
-        function renderWeeklyActions(){} 
-        function renderPromotionActions(){}
-        window.showMainMenu=showMainMenu;
-        window.showReportsPage=showReportsPage;
-        // Pilot submit
-        document.getElementById('pilotSubmitBtn')?.addEventListener('click',async()=>{const fn=document.getElementById('pilotFullName').value.trim();if(!fn){showAlert('pilotAlert','Введите имя и фамилию','error');return;}const cur=document.getElementById('pilotCurrentCat').value;const targ=document.getElementById('pilotTargetCat').value;const hours=document.getElementById('pilotHours').value.trim();const audit=document.getElementById('pilotAuditLink').value.trim();const date=document.getElementById('pilotDate').value;const btn=document.getElementById('pilotSubmitBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-pulse"></i> Отправка...';try{await sendToDiscord(WEBHOOKS[currentDepartment],'✈️ Повышение квалификации пилота',[{name:'👤 Имя Фамилия',value:fn,inline:true},{name:'📌 Текущая категория',value:cur||'Не указана',inline:true},{name:'🎯 Целевая категория',value:targ||'Не указана',inline:true},{name:'⏱️ Налёт часов',value:hours||'Не указан',inline:true},{name:'📎 Ссылка на кадровый аудит',value:audit||'Нет',inline:false},{name:'📅 Дата подачи',value:date?formatDate(date):'Не указана',inline:true}]);showAlert('pilotAlert','✅ Запрос отправлен!','success');document.getElementById('pilotFullName').value='';document.getElementById('pilotCurrentCat').value='';document.getElementById('pilotTargetCat').value='';document.getElementById('pilotHours').value='';document.getElementById('pilotAuditLink').value='';document.getElementById('pilotDate').value='';}catch(e){showAlert('pilotAlert',`❌ Ошибка: ${e.message}`,'error');}finally{btn.disabled=false;btn.innerHTML='<i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ЗАПРОС';}});
-        // Route submit
-        document.getElementById('routeSubmitBtn')?.addEventListener('click',async()=>{const nick=document.getElementById('routeNick').value.trim();if(!nick){showAlert('routeAlert','Введите ник','error');return;}const rdate=document.getElementById('routeDate').value;const rtype=document.getElementById('routeType').value;const rlink=document.getElementById('routeLink').value.trim();const btn=document.getElementById('routeSubmitBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-pulse"></i> Отправка...';try{await sendToDiscord(WEBHOOKS[currentDepartment],'🗺️ Прохождение маршрута',[{name:'👤 Ник (Имя Фамилия)',value:nick,inline:true},{name:'📅 Дата прохождения',value:rdate?formatDate(rdate):'Не указана',inline:true},{name:'🛣️ Маршрут',value:rtype||'Не выбран',inline:true},{name:'🔗 Ссылка',value:rlink||'Нет',inline:false}]);showAlert('routeAlert','✅ Заявка отправлена!','success');document.getElementById('routeNick').value='';document.getElementById('routeDate').value='';document.getElementById('routeType').value='';document.getElementById('routeLink').value='';}catch(e){showAlert('routeAlert',`❌ Ошибка: ${e.message}`,'error');}finally{btn.disabled=false;btn.innerHTML='<i class="fab fa-discord"></i> 📨 ОТПРАВИТЬ ЗАЯВКУ';}});
-        // stub promotion/weekly/exam forms (рабочие ссылки)
-        async function stubSubmit(){showAlert('weeklyAlert','Форма временно недоступна для демо','error');}
-        document.getElementById('weeklySubmitBtn')?.addEventListener('click',stubSubmit);
-        document.getElementById('promotionSubmitBtn')?.addEventListener('click',stubSubmit);
-        document.getElementById('examSubmitBtn')?.addEventListener('click',async()=>{const name=document.getElementById('examFullName')?.value.trim();if(!name){showAlert('examAlert','Введите имя','error');return;}const type=document.getElementById('examType')?.value;const disc=document.getElementById('examDiscord')?.value;const time=document.getElementById('examTime')?.value;const btn=document.getElementById('examSubmitBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-pulse"></i> Отправка...';try{await sendToDiscord(WEBHOOKS[currentDepartment],'📝 Запись на экзамен',[{name:'👤 Имя и фамилия',value:name,inline:true},{name:'🎓 Тип экзамена',value:type||'Не выбран',inline:true},{name:'💬 Discord',value:disc||'Не указан',inline:true},{name:'⏰ Удобное время',value:time||'Не указано',inline:false}]);showAlert('examAlert','✅ Заявка отправлена!','success');document.getElementById('examFullName').value='';document.getElementById('examType').value='';document.getElementById('examDiscord').value='';document.getElementById('examTime').value='';}catch(e){showAlert('examAlert',`❌ ${e.message}`,'error');}finally{btn.disabled=false;btn.innerHTML='<i class="fab fa-discord"></i> 📨 ЗАПИСАТЬСЯ НА ЭКЗАМЕН';}});
-        document.getElementById('themeSwitch').onclick=()=>{document.body.classList.toggle('light');localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark');const icon=document.querySelector('#themeSwitch i'),text=document.querySelector('#themeSwitch span');if(document.body.classList.contains('light')){icon.className='fas fa-moon';text.innerText='Тёмная тема';}else{icon.className='fas fa-sun';text.innerText='Светлая тема';}};
-        if(localStorage.getItem('theme')==='light')document.body.classList.add('light');
-        showMainMenu();
-        // Дополнительно установка пустых пустых состояний под цвет темы через CSS переменную
-    </script>
+    <p class="subtitle">Система подачи отчётов</p>
+  </div>
+
+  <div id="mainMenuPage" class="main-menu-page">
+    <div class="main-cards-grid">
+      <div class="main-card" data-main="academy"><div class="main-card-icon"><i class="fas fa-graduation-cap"></i></div><h3>Academy</h3><p>Академия</p><div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div></div>
+      <div class="main-card" data-main="military"><div class="main-card-icon"><i class="fas fa-landmark"></i></div><h3>Military Academy</h3><p>Военная академия</p><div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div></div>
+      <div class="main-card" data-main="division"><div class="main-card-icon"><i class="fas fa-users"></i></div><h3>Division</h3><p>Дивизион</p><div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div></div>
+      <div class="main-card" data-main="mpb"><div class="main-card-icon"><i class="fas fa-shield-alt"></i></div><h3>MPB</h3><p>МПБ</p><div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div></div>
+      <div class="main-card" data-main="usaf"><div class="main-card-icon"><i class="fas fa-fighter-jet"></i></div><h3>USAF</h3><p>ВВС США</p><div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div></div>
+      <div class="main-card" data-main="delta"><div class="main-card-icon"><i class="fas fa-skull"></i></div><h3>Delta</h3><p>Отряд Дельта</p><div class="main-card-arrow"><i class="fas fa-arrow-right"></i></div></div>
+    </div>
+  </div>
+
+  <div id="reportsPage" class="reports-page">
+    <div class="back-btn" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> На главную</div>
+    <div id="reportsGrid" class="cards-grid"></div>
+  </div>
+
+  <!-- Стандартные формы -->
+  <div id="weeklyPage" class="form-page">...</div>
+  <div id="promotionPage" class="form-page">...</div>
+  <div id="examPage" class="form-page">...</div>
+
+  <!-- USAF уникальные формы -->
+  <div id="usafPilotPromotionPage" class="form-page">
+    <div class="back-btn" onclick="showReportsPage()"><i class="fas fa-arrow-left"></i> Назад</div>
+    <div class="glass-card">
+      <div class="card-header"><h2><i class="fas fa-fighter-jet"></i> Отчёт на повышение квалификации пилота</h2></div>
+      <div class="card-body">
+        <div id="pilotPromotionAlert"></div>
+        <div class="input-group"><label>👤 ИМЯ ФАМИЛИЯ</label><input type="text" id="pilotName" placeholder="Иванов Иван"></div>
+        <div class="input-group">
+          <label>🎖️ ВАША КАТЕГОРИЯ ПИЛОТИРОВАНИЯ</label>
+          <select id="currentPilotCategory">
+            <option value="">-- Выберите --</option>
+            <option>Пилот третьей категории</option><option>Пилот второй категории</option><option>Пилот первой категории</option>
+            <option>Пилот высшей категории</option><option>Пилот АС</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>📈 НА КАКУЮ КАТЕГОРИЮ ПОВЫШАЕТЕСЬ</label>
+          <select id="desiredPilotCategory">
+            <option value="">-- Выберите --</option>
+            <option>Пилот третьей категории</option><option>Пилот второй категории</option><option>Пилот первой категории</option>
+            <option>Пилот высшей категории</option><option>Пилот АС</option>
+          </select>
+        </div>
+        <div class="input-group"><label>⏱️ НАЛЁТ ЧАСОВ</label><input type="number" id="flightHours" placeholder="350"></div>
+        <div class="input-group"><label>🔗 ССЫЛКА НА СООБЩЕНИЕ ИЗ КАДРОВОГО АУДИТА</label><input type="text" id="auditLink" placeholder="https://discord.com/..."></div>
+        <div class="input-group"><label>📅 ДАТА ПОДАЧИ ОТЧЕТА</label><input type="date" id="pilotReportDate"></div>
+        <button class="submit-btn" id="pilotPromotionSubmit"><i class="fab fa-discord"></i> ОТПРАВИТЬ</button>
+        <div class="footer-signature"><i class="fas fa-code"></i> By Alexandr DeHaus</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="usafRoutePage" class="form-page">
+    <div class="back-btn" onclick="showReportsPage()"><i class="fas fa-arrow-left"></i> Назад</div>
+    <div class="glass-card">
+      <div class="card-header"><h2><i class="fas fa-route"></i> Прохождение маршрута</h2></div>
+      <div class="card-body">
+        <div id="routeAlert"></div>
+        <div class="input-group"><label>👤 ВАШ НИК (ИМЯ ФАМИЛИЯ)</label><input type="text" id="routeNickname" placeholder="Иванов Иван"></div>
+        <div class="input-group"><label>📅 ДАТА ПРОХОЖДЕНИЯ МАРШРУТА</label><input type="date" id="routeDate"></div>
+        <div class="input-group">
+          <label>🗺️ КАКОЙ МАРШРУТ ПРОХОДИТЕ</label>
+          <select id="routeType">
+            <option value="">-- Выберите --</option>
+            <option>Маршрут №1</option><option>Маршрут №2.1</option><option>Маршрут №2.2</option>
+            <option>Маршрут №3</option><option>Маршрут №4</option><option>Маршрут К+[H]</option><option>Маршрут К+[P]</option>
+          </select>
+        </div>
+        <div class="input-group"><label>🎥 ССЫЛКА НА YOUTUBE ИЛИ ХОСТИНГ</label><input type="text" id="routeVideoLink" placeholder="https://youtu.be/..."></div>
+        <button class="submit-btn" id="routeSubmit"><i class="fab fa-discord"></i> ОТПРАВИТЬ</button>
+        <div class="footer-signature"><i class="fas fa-code"></i> By Alexandr DeHaus</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const ACCENT_RGB = {
+      academy: { accent: [139, 191, 107], dark: [106, 154, 74] },
+      military: { accent: [107, 143, 90], dark: [74, 111, 58] },
+      division: { accent: [212, 176, 106], dark: [176, 144, 80] },
+      mpb: { accent: [90, 122, 191], dark: [58, 90, 159] },
+      usaf: { accent: [200, 168, 74], dark: [168, 136, 56] },
+      delta: { accent: [139, 139, 139], dark: [106, 106, 106] }
+    };
+
+    const WEBHOOKS = {
+      academy: 'https://discord.com/api/webhooks/1501941748337873086/HcxaPFZMmJdxcGBxY1m8RXg2J5zUwfRKUnedR1i1ymy8x8uQb8Gg1GIQCI_ULPwJAOf5',
+      military: 'https://discord.com/api/webhooks/1501941690070470687/ROoyzlTh1DpM-Bt1QzWhkH4Cy3FnR91bIhGhqdUP0O4vzs10B7hgKCqbiaDYwWD-H1qR',
+      division: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
+      mpb: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
+      usaf: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
+      delta: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57'
+    };
+
+    const ROLES_TO_TAG = '<@&793440125798973441> <@&792082143408160768> <@&792079598795358248>';
+    
+    let currentDepartment = null;
+    let weeklyActions = [], promotionActions = [];
+
+    function setTheme(department) {
+      document.body.classList.remove('academy-theme','military-theme','division-theme','mpb-theme','usaf-theme','delta-theme');
+      if(department) {
+        document.body.classList.add(`${department}-theme`);
+        const rgb = ACCENT_RGB[department];
+        if(rgb) {
+          document.documentElement.style.setProperty('--accent-rgb', `${rgb.accent[0]}, ${rgb.accent[1]}, ${rgb.accent[2]}`);
+          document.documentElement.style.setProperty('--accent-dark-rgb', `${rgb.dark[0]}, ${rgb.dark[1]}, ${rgb.dark[2]}`);
+        }
+      } else {
+        document.documentElement.style.setProperty('--accent-rgb', '76, 175, 80');
+        document.documentElement.style.setProperty('--accent-dark-rgb', '46, 125, 50');
+      }
+    }
+
+    function setPageTitle(departmentName) {
+      const titleEl = document.getElementById('pageTitle');
+      if (departmentName) {
+        titleEl.textContent = `ARMY | ${departmentName}`;
+      } else {
+        titleEl.textContent = 'ARMY';
+      }
+    }
+
+    function showMainMenu() {
+      setTheme(null);
+      setPageTitle(null);
+      document.getElementById('mainMenuPage').style.display = 'flex';
+      document.getElementById('reportsPage').style.display = 'none';
+      document.querySelectorAll('.form-page').forEach(p => p.style.display = 'none');
+      currentDepartment = null;
+    }
+
+    function showReportsPage() {
+      document.getElementById('mainMenuPage').style.display = 'none';
+      document.getElementById('reportsPage').style.display = 'block';
+      document.querySelectorAll('.form-page').forEach(p => p.style.display = 'none');
+    }
+
+    function showFormPage(pageId) {
+      document.getElementById('mainMenuPage').style.display = 'none';
+      document.getElementById('reportsPage').style.display = 'none';
+      document.querySelectorAll('.form-page').forEach(p => p.style.display = 'none');
+      document.getElementById(pageId).style.display = 'block';
+    }
+
+    function loadDepartmentPage(department) {
+      currentDepartment = department;
+      setTheme(department);
+      const names = { academy:'Academy', military:'Military Academy', division:'Division', mpb:'MPB', usaf:'USAF', delta:'Delta' };
+      setPageTitle(names[department]);
+
+      const grid = document.getElementById('reportsGrid');
+      let reports = [];
+
+      if (department === 'usaf') {
+        reports = [
+          { id: 'usafPilotPromotionPage', name: '🛩️ Повышение пилота', desc: 'Запрос на повышение квалификации', icon: 'fa-fighter-jet' },
+          { id: 'usafRoutePage', name: '🗺️ Прохождение маршрута', desc: 'Отчёт о сдаче маршрута', icon: 'fa-route' }
+        ];
+      } else {
+        reports = [
+          { id: 'weeklyPage', name: '📊 Еженедельный отчёт', desc: 'Отчёт о работе', icon: 'fa-calendar-week' },
+          { id: 'promotionPage', name: '⬆️ Отчёт на повышение', desc: 'Заявка на повышение', icon: 'fa-arrow-up' },
+          { id: 'examPage', name: '📝 Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' }
+        ];
+      }
+
+      grid.innerHTML = reports.map(r => `
+        <div class="action-card" data-page="${r.id}">
+          <div class="card-icon"><i class="fas ${r.icon}"></i></div>
+          <h3>${r.name}</h3><p>${r.desc}</p>
+          <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('#reportsGrid .action-card').forEach(card => {
+        card.addEventListener('click', () => showFormPage(card.dataset.page));
+      });
+
+      showReportsPage();
+    }
+
+    document.querySelectorAll('.main-card').forEach(card => {
+      card.addEventListener('click', () => loadDepartmentPage(card.dataset.main));
+    });
+
+    async function sendToDiscord(webhookUrl, title, fields, color = 0x4CAF50) {
+      const res = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          content: `${ROLES_TO_TAG}\n━━━━━━━━━━━━━━━━━━━━`,
+          embeds: [{ title, color, fields, footer: { text: `ARMY System - ${currentDepartment?.toUpperCase()}` }, timestamp: new Date().toISOString() }]
+        })
+      });
+      if (!res.ok) throw new Error(`Ошибка ${res.status}`);
+    }
+
+    function showAlert(containerId, msg, type) {
+      const c = document.getElementById(containerId);
+      if(!c) return;
+      c.innerHTML = `<div class="alert ${type}"><i class="fas ${type==='success'?'fa-check-circle':'fa-exclamation-circle'}"></i> ${msg}</div>`;
+      setTimeout(() => c.innerHTML = '', 4000);
+    }
+
+    // USAF формы
+    document.getElementById('pilotPromotionSubmit')?.addEventListener('click', async function(){
+      const btn = this;
+      if(!document.getElementById('pilotName').value.trim()) return showAlert('pilotPromotionAlert','Введите имя','error');
+      btn.disabled = true;
+      try {
+        await sendToDiscord(WEBHOOKS.usaf, '🛩️ Повышение пилота', [
+          { name: 'Имя Фамилия', value: document.getElementById('pilotName').value },
+          { name: 'Текущая категория', value: document.getElementById('currentPilotCategory').value },
+          { name: 'Желаемая категория', value: document.getElementById('desiredPilotCategory').value },
+          { name: 'Налёт часов', value: document.getElementById('flightHours').value || '0' },
+          { name: 'Ссылка аудит', value: document.getElementById('auditLink').value },
+          { name: 'Дата подачи', value: document.getElementById('pilotReportDate').value }
+        ], 0xDAA520);
+        showAlert('pilotPromotionAlert','✅ Отправлено','success');
+      } catch(e) { showAlert('pilotPromotionAlert','❌ Ошибка','error'); }
+      finally { btn.disabled = false; }
+    });
+
+    document.getElementById('routeSubmit')?.addEventListener('click', async function(){
+      const btn = this;
+      if(!document.getElementById('routeNickname').value.trim()) return showAlert('routeAlert','Введите ник','error');
+      btn.disabled = true;
+      try {
+        await sendToDiscord(WEBHOOKS.usaf, '🗺️ Прохождение маршрута', [
+          { name: 'Ник (Имя Фамилия)', value: document.getElementById('routeNickname').value },
+          { name: 'Дата прохождения', value: document.getElementById('routeDate').value },
+          { name: 'Маршрут', value: document.getElementById('routeType').value },
+          { name: 'Видео', value: document.getElementById('routeVideoLink').value }
+        ], 0xDAA520);
+        showAlert('routeAlert','✅ Отправлено','success');
+      } catch(e) { showAlert('routeAlert','❌ Ошибка','error'); }
+      finally { btn.disabled = false; }
+    });
+
+    document.getElementById('themeSwitch').onclick = () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+      const icon = document.querySelector('#themeSwitch i');
+      icon.className = document.body.classList.contains('light') ? 'fas fa-moon' : 'fas fa-sun';
+    };
+
+    if(localStorage.getItem('theme') === 'light') document.body.classList.add('light');
+    showMainMenu();
+  })();
+</script>
 </body>
 </html>
