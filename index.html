@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ARMY Delta | Система отчетов</title>
+    <title>ARMY | Система отчетов</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -17,11 +17,48 @@
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #051505 0%, #0a2a0a 50%, #0d2e0d 100%);
             min-height: 100vh;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        body.light {
-            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+        /* Чёрно-серая тема (Delta) */
+        body.delta-theme {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1e1e1e 100%);
+        }
+        body.delta-theme {
+            --glass-bg: rgba(20, 20, 25, 0.95);
+            --glass-border: rgba(100, 100, 110, 0.35);
+            --text-primary: #F0F0F0;
+            --text-secondary: #B0B0B0;
+            --text-muted: #808080;
+            --accent: #888888;
+            --accent-glow: #aaaaaa;
+            --accent-dark: #666666;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --input-bg: rgba(30, 30, 35, 0.9);
+            --card-hover: rgba(120, 120, 130, 0.15);
+        }
+
+        /* Тигровый камуфляж (USAF) */
+        body.usaf-theme {
+            background: repeating-linear-gradient(45deg, 
+                #5a4a2a 0px, #5a4a2a 20px,
+                #7a6a3a 20px, #7a6a3a 40px,
+                #3a2a1a 40px, #3a2a1a 60px,
+                #6a5a2a 60px, #6a5a2a 80px);
+            background-size: 113px 113px;
+        }
+        body.usaf-theme {
+            --glass-bg: rgba(50, 40, 25, 0.92);
+            --glass-border: rgba(180, 150, 80, 0.4);
+            --text-primary: #F5E6C8;
+            --text-secondary: #D4C4A0;
+            --text-muted: #B8A870;
+            --accent: #C9A03D;
+            --accent-glow: #DDB552;
+            --accent-dark: #A07828;
+            --border-light: rgba(200, 170, 80, 0.2);
+            --input-bg: rgba(40, 30, 20, 0.9);
+            --card-hover: rgba(200, 170, 80, 0.12);
         }
 
         :root {
@@ -43,17 +80,17 @@
         }
 
         body.light {
-            --glass-bg: rgba(245, 255, 245, 0.95);
-            --glass-border: rgba(76, 175, 80, 0.25);
-            --text-primary: #1f2937;
-            --text-secondary: #4b5563;
-            --text-muted: #9ca3af;
-            --accent: #4CAF50;
-            --accent-glow: #66BB6A;
-            --accent-dark: #388E3C;
-            --border-light: rgba(0, 0, 0, 0.08);
-            --input-bg: rgba(255, 255, 255, 0.95);
-            --card-hover: rgba(76, 175, 80, 0.08);
+            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+        }
+        body.light.delta-theme {
+            background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%);
+        }
+        body.light.usaf-theme {
+            background: repeating-linear-gradient(45deg, 
+                #d4c4a0 0px, #d4c4a0 20px,
+                #e0d0a8 20px, #e0d0a8 40px,
+                #c8b888 40px, #c8b888 60px,
+                #d8c898 60px, #d8c898 80px);
         }
 
         .container {
@@ -106,8 +143,14 @@
             color: transparent;
         }
 
-        body.light .logo h1 {
-            background: linear-gradient(135deg, #1e3b1e, #2e7d32);
+        body.delta-theme .logo h1 {
+            background: linear-gradient(135deg, #FFFFFF, #AAAAAA);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        body.usaf-theme .logo h1 {
+            background: linear-gradient(135deg, #F5E6C8, #DDB552);
             -webkit-background-clip: text;
             background-clip: text;
         }
@@ -142,7 +185,6 @@
             transform: scale(1.02);
         }
 
-        /* Основной экран с 6 кнопками */
         .main-menu-page {
             display: flex;
             flex-direction: column;
@@ -193,6 +235,14 @@
             transition: all 0.3s;
         }
 
+        body.delta-theme .main-card-icon {
+            background: linear-gradient(135deg, rgba(150, 150, 150, 0.25), rgba(100, 100, 100, 0.15));
+        }
+
+        body.usaf-theme .main-card-icon {
+            background: linear-gradient(135deg, rgba(200, 170, 80, 0.25), rgba(160, 130, 60, 0.15));
+        }
+
         .main-card:hover .main-card-icon {
             transform: scale(1.05);
         }
@@ -223,8 +273,7 @@
             transform: translateX(6px);
         }
 
-        /* Страница с 3 отчётами (Delta) */
-        .delta-page {
+        .delta-page, .usaf-page {
             display: none;
             animation: fadeInUp 0.4s ease;
         }
@@ -268,6 +317,14 @@
             font-size: 36px;
             color: var(--accent);
             transition: all 0.3s;
+        }
+
+        body.delta-theme .card-icon {
+            background: linear-gradient(135deg, rgba(150, 150, 150, 0.25), rgba(100, 100, 100, 0.15));
+        }
+
+        body.usaf-theme .card-icon {
+            background: linear-gradient(135deg, rgba(200, 170, 80, 0.25), rgba(160, 130, 60, 0.15));
         }
 
         .action-card:hover .card-icon {
@@ -326,11 +383,6 @@
             transition: all 0.2s;
         }
 
-        .back-btn:hover {
-            border-color: var(--accent);
-            transform: translateX(-4px);
-        }
-
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
@@ -344,6 +396,14 @@
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(46, 125, 50, 0.08));
             padding: 20px 28px;
             border-bottom: 1px solid var(--border-light);
+        }
+
+        body.delta-theme .card-header {
+            background: linear-gradient(135deg, rgba(100, 100, 110, 0.2), rgba(80, 80, 90, 0.08));
+        }
+
+        body.usaf-theme .card-header {
+            background: linear-gradient(135deg, rgba(200, 170, 80, 0.2), rgba(160, 130, 60, 0.08));
         }
 
         .card-header h2 {
@@ -394,6 +454,14 @@
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25);
         }
 
+        body.delta-theme .input-group input:focus {
+            box-shadow: 0 0 0 3px rgba(150, 150, 150, 0.25);
+        }
+
+        body.usaf-theme .input-group input:focus {
+            box-shadow: 0 0 0 3px rgba(200, 170, 80, 0.25);
+        }
+
         .period-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -411,6 +479,14 @@
             margin-bottom: 20px;
         }
 
+        body.delta-theme .period-info {
+            background: rgba(120, 120, 130, 0.1);
+        }
+
+        body.usaf-theme .period-info {
+            background: rgba(200, 170, 80, 0.1);
+        }
+
         .action-item {
             background: var(--card-hover);
             border-radius: 18px;
@@ -426,14 +502,8 @@
         }
 
         @keyframes actionAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.95) translateY(-15px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            from { opacity: 0; transform: scale(0.95) translateY(-15px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .action-item.removing {
@@ -442,22 +512,8 @@
         }
 
         @keyframes actionRemove {
-            0% {
-                opacity: 1;
-                transform: scale(1) translateX(0);
-                max-height: 300px;
-                margin-bottom: 14px;
-                padding: 16px;
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.95) translateX(-30px);
-                max-height: 0;
-                margin-bottom: 0;
-                padding-top: 0;
-                padding-bottom: 0;
-                border: none;
-            }
+            0% { opacity: 1; transform: scale(1) translateX(0); max-height: 300px; margin-bottom: 14px; padding: 16px; }
+            100% { opacity: 0; transform: scale(0.95) translateX(-30px); max-height: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0; border: none; }
         }
 
         .action-item:hover {
@@ -493,11 +549,6 @@
             font-size: 0.7rem;
             font-weight: 600;
             transition: all 0.2s;
-        }
-
-        .remove-action:hover {
-            background: rgba(239, 68, 68, 0.3);
-            transform: scale(1.02);
         }
 
         .action-fields {
@@ -560,14 +611,8 @@
         }
 
         @keyframes proofAppear {
-            from {
-                opacity: 0;
-                transform: translateX(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .proof-item.removing {
@@ -576,22 +621,8 @@
         }
 
         @keyframes proofRemove {
-            from {
-                opacity: 1;
-                transform: translateX(0);
-                max-height: 60px;
-            }
-            to {
-                opacity: 0;
-                transform: translateX(-20px);
-                max-height: 0;
-                margin-bottom: 0;
-                padding: 0;
-            }
-        }
-
-        body.light .proof-item {
-            background: rgba(0,0,0,0.05);
+            from { opacity: 1; transform: translateX(0); max-height: 60px; }
+            to { opacity: 0; transform: translateX(-20px); max-height: 0; margin-bottom: 0; padding: 0; }
         }
 
         .proof-item input {
@@ -604,10 +635,6 @@
             color: var(--text-primary);
         }
 
-        .proof-item input::placeholder {
-            color: var(--text-muted);
-        }
-
         .remove-proof {
             background: rgba(239, 68, 68, 0.15);
             border: none;
@@ -616,12 +643,6 @@
             font-size: 0.8rem;
             padding: 6px 10px;
             border-radius: 8px;
-            transition: all 0.2s;
-        }
-
-        .remove-proof:hover {
-            background: rgba(239, 68, 68, 0.3);
-            transform: scale(1.02);
         }
 
         .add-proof-btn {
@@ -636,12 +657,6 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: all 0.2s;
-        }
-
-        .add-proof-btn:hover {
-            background: rgba(76, 175, 80, 0.3);
-            transform: translateY(-1px);
         }
 
         .points-row {
@@ -687,11 +702,6 @@
             margin: 16px 0;
         }
 
-        .add-btn:hover {
-            background: rgba(76, 175, 80, 0.25);
-            transform: translateY(-2px);
-        }
-
         .empty-state {
             text-align: center;
             padding: 30px;
@@ -699,6 +709,14 @@
             background: rgba(10, 25, 10, 0.5);
             border-radius: 18px;
             margin-bottom: 14px;
+        }
+
+        body.delta-theme .empty-state {
+            background: rgba(30, 30, 35, 0.5);
+        }
+
+        body.usaf-theme .empty-state {
+            background: rgba(40, 30, 20, 0.5);
         }
 
         .total-points-bar {
@@ -710,6 +728,14 @@
             justify-content: space-between;
             align-items: center;
             border: 1px solid var(--border-light);
+        }
+
+        body.delta-theme .total-points-bar {
+            background: rgba(120, 120, 130, 0.15);
+        }
+
+        body.usaf-theme .total-points-bar {
+            background: rgba(200, 170, 80, 0.15);
         }
 
         .total-points-label {
@@ -748,12 +774,6 @@
         .submit-btn:hover {
             transform: translateY(-3px);
             filter: brightness(1.05);
-            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.5);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            transform: none;
         }
 
         .footer-signature {
@@ -784,11 +804,6 @@
             animation: slideIn 0.3s ease;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-15px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
         .alert.success {
             background: rgba(16, 185, 129, 0.15);
             border-left: 3px solid #10b981;
@@ -796,21 +811,11 @@
             display: flex;
         }
 
-        body.light .alert.success {
-            background: rgba(16, 185, 129, 0.1);
-            color: #059669;
-        }
-
         .alert.error {
             background: rgba(239, 68, 68, 0.12);
             border-left: 3px solid #ef4444;
             color: #f87171;
             display: flex;
-        }
-
-        body.light .alert.error {
-            background: rgba(239, 68, 68, 0.08);
-            color: #dc2626;
         }
 
         @media (max-width: 850px) {
@@ -835,12 +840,6 @@
                 grid-template-columns: 1fr;
                 gap: 12px;
             }
-            .card-body {
-                padding: 20px;
-            }
-            .total-points-value {
-                font-size: 1.4rem;
-            }
         }
 
         @media (max-width: 550px) {
@@ -860,7 +859,7 @@
         <div class="header">
             <div class="logo">
                 <div class="logo-icon"><i class="fas fa-gun"></i></div>
-                <h1>ARMY Delta</h1>
+                <h1>ARMY</h1>
             </div>
             <p class="subtitle">Система подачи отчётов</p>
         </div>
@@ -907,8 +906,35 @@
             </div>
         </div>
 
-        <!-- СТРАНИЦА DELTA с 3 отчётами -->
+        <!-- СТРАНИЦА DELTA с 3 отчётами (чёрно-серая тема) -->
         <div id="deltaPage" class="delta-page">
+            <div class="back-btn" onclick="showMainMenu()">
+                <i class="fas fa-arrow-left"></i> На главную
+            </div>
+            <div class="cards-grid">
+                <div class="action-card" data-page="weekly">
+                    <div class="card-icon"><i class="fas fa-calendar-week"></i></div>
+                    <h3>📊 Еженедельный отчёт</h3>
+                    <p>Отчёт о еженедельной работе</p>
+                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="action-card" data-page="promotion">
+                    <div class="card-icon"><i class="fas fa-arrow-up"></i></div>
+                    <h3>⬆️ Отчёт на повышение</h3>
+                    <p>Заявка на повышение должности</p>
+                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="action-card" data-page="exam">
+                    <div class="card-icon"><i class="fas fa-pen-clip"></i></div>
+                    <h3>📝 Запись на экзамен</h3>
+                    <p>Запись на экзамен для повышения</p>
+                    <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- СТРАНИЦА USAF с 3 отчётами (тигровый камуфляж) -->
+        <div id="usafPage" class="usaf-page">
             <div class="back-btn" onclick="showMainMenu()">
                 <i class="fas fa-arrow-left"></i> На главную
             </div>
@@ -936,7 +962,7 @@
 
         <!-- ЕЖЕНЕДЕЛЬНЫЙ ОТЧЁТ -->
         <div id="weeklyPage" class="form-page">
-            <div class="back-btn" onclick="showDeltaPage()">
+            <div class="back-btn" onclick="goBackToMain()">
                 <i class="fas fa-arrow-left"></i> Назад
             </div>
             <div class="glass-card">
@@ -995,7 +1021,7 @@
 
         <!-- ОТЧЁТ НА ПОВЫШЕНИЕ -->
         <div id="promotionPage" class="form-page">
-            <div class="back-btn" onclick="showDeltaPage()">
+            <div class="back-btn" onclick="goBackToMain()">
                 <i class="fas fa-arrow-left"></i> Назад
             </div>
             <div class="glass-card">
@@ -1067,7 +1093,7 @@
 
         <!-- ЗАПИСЬ НА ЭКЗАМЕН -->
         <div id="examPage" class="form-page">
-            <div class="back-btn" onclick="showDeltaPage()">
+            <div class="back-btn" onclick="goBackToMain()">
                 <i class="fas fa-arrow-left"></i> Назад
             </div>
             <div class="glass-card">
@@ -1106,6 +1132,7 @@
     </div>
 
     <script>
+        // Ваши вебхуки остались без изменений
         const WEBHOOKS = {
             weekly: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
             promotion: 'https://discord.com/api/webhooks/1501941690070470687/ROoyzlTh1DpM-Bt1QzWhkH4Cy3FnR91bIhGhqdUP0O4vzs10B7hgKCqbiaDYwWD-H1qR',
@@ -1137,6 +1164,8 @@
             { name: "Доп. работа", basePoints: 5 }
         ];
 
+        let currentTheme = 'default';
+        let currentBranch = null;
         let weeklyActions = [];
         let promotionActions = [];
 
@@ -1376,52 +1405,38 @@
             const newAction = { type: '', basePoints: 0, count: 1, proofs: [''] };
             const newIdx = weeklyActions.length;
             weeklyActions.push(newAction);
-            
             const container = document.getElementById('weeklyActionsList');
             const emptyDiv = document.getElementById('weeklyEmptyActions');
-            
             if (emptyDiv.style.display !== 'none') {
                 emptyDiv.style.display = 'none';
                 container.innerHTML = '';
             }
-            
             const newActionHTML = createActionHTML(newAction, newIdx, 'weekly');
             container.insertAdjacentHTML('beforeend', newActionHTML);
-            
             const newElement = container.lastElementChild;
             newElement.classList.add('new-action');
             attachActionEventsToElement(newElement, newIdx, weeklyActions, renderWeeklyActionsFull, updateWeeklyTotalPoints, 'weekly');
             updateWeeklyTotalPoints();
-            
-            setTimeout(() => {
-                if (newElement) newElement.classList.remove('new-action');
-            }, 350);
+            setTimeout(() => { if (newElement) newElement.classList.remove('new-action'); }, 350);
         }
 
         function addPromotionAction() {
             const newAction = { type: '', basePoints: 0, count: 1, proofs: [''] };
             const newIdx = promotionActions.length;
             promotionActions.push(newAction);
-            
             const container = document.getElementById('promotionActionsList');
             const emptyDiv = document.getElementById('promotionEmptyActions');
-            
             if (emptyDiv.style.display !== 'none') {
                 emptyDiv.style.display = 'none';
                 container.innerHTML = '';
             }
-            
             const newActionHTML = createActionHTML(newAction, newIdx, 'promotion');
             container.insertAdjacentHTML('beforeend', newActionHTML);
-            
             const newElement = container.lastElementChild;
             newElement.classList.add('new-action');
             attachActionEventsToElement(newElement, newIdx, promotionActions, renderPromotionActionsFull, updatePromotionTotalPoints, 'promotion');
             updatePromotionTotalPoints();
-            
-            setTimeout(() => {
-                if (newElement) newElement.classList.remove('new-action');
-            }, 350);
+            setTimeout(() => { if (newElement) newElement.classList.remove('new-action'); }, 350);
         }
 
         function renderWeeklyActionsFull() {
@@ -1435,7 +1450,6 @@
             }
             emptyDiv.style.display = 'none';
             container.innerHTML = weeklyActions.map((action, idx) => createActionHTML(action, idx, 'weekly')).join('');
-            
             const actionElements = container.querySelectorAll('.action-item');
             actionElements.forEach((el, idx) => {
                 attachActionEventsToElement(el, idx, weeklyActions, renderWeeklyActionsFull, updateWeeklyTotalPoints, 'weekly');
@@ -1454,7 +1468,6 @@
             }
             emptyDiv.style.display = 'none';
             container.innerHTML = promotionActions.map((action, idx) => createActionHTML(action, idx, 'promotion')).join('');
-            
             const actionElements = container.querySelectorAll('.action-item');
             actionElements.forEach((el, idx) => {
                 attachActionEventsToElement(el, idx, promotionActions, renderPromotionActionsFull, updatePromotionTotalPoints, 'promotion');
@@ -1463,12 +1476,15 @@
         }
 
         async function sendToDiscordWithEmbed(webhookUrl, title, fields, color = 0x4CAF50) {
+            let finalColor = color;
+            if (currentBranch === 'delta') finalColor = 0x888888;
+            if (currentBranch === 'usaf') finalColor = 0xDEB887;
             const contentWithRoles = `${ROLES_TO_TAG}\n━━━━━━━━━━━━━━━━━━━━`;
             const embed = { 
                 title: title, 
-                color: color, 
+                color: finalColor, 
                 fields: fields, 
-                footer: { text: "ARMY Delta System" }, 
+                footer: { text: "ARMY System" }, 
                 timestamp: new Date().toISOString() 
             };
             const response = await fetch(webhookUrl, {
@@ -1542,8 +1558,11 @@
             ] };
         }
 
+        let alertTimeout;
         function showAlert(containerId, message, type) {
             const container = document.getElementById(containerId);
+            if (!container) return;
+            if (alertTimeout) clearTimeout(alertTimeout);
             const alertDiv = document.createElement('div');
             alertDiv.className = `alert ${type}`;
             alertDiv.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${message}`;
@@ -1551,50 +1570,67 @@
             setTimeout(() => alertDiv.remove(), 5000);
         }
 
-        function setDefaultWeeklyDates() {
-            const today = new Date();
-            const monday = new Date(today);
-            monday.setDate(today.getDate() - (today.getDay() === 0 ? 6 : today.getDay() - 1));
-            const sunday = new Date(monday);
-            sunday.setDate(monday.getDate() + 6);
-            document.getElementById('weeklyDateStart').value = monday.toISOString().split('T')[0];
-            document.getElementById('weeklyDateEnd').value = sunday.toISOString().split('T')[0];
-            updateWeeklyPeriodInfo();
-        }
-
         function showMainMenu() {
             document.getElementById('mainMenuPage').style.display = 'flex';
             document.getElementById('deltaPage').style.display = 'none';
+            document.getElementById('usafPage').style.display = 'none';
+            document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
+        }
+
+        function goBackToMain() {
+            if (currentBranch === 'delta') {
+                document.getElementById('mainMenuPage').style.display = 'flex';
+                document.getElementById('deltaPage').style.display = 'none';
+            } else if (currentBranch === 'usaf') {
+                document.getElementById('mainMenuPage').style.display = 'flex';
+                document.getElementById('usafPage').style.display = 'none';
+            }
             document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
         }
 
         function showDeltaPage() {
+            currentBranch = 'delta';
+            document.body.classList.remove('usaf-theme');
+            document.body.classList.add('delta-theme');
             document.getElementById('mainMenuPage').style.display = 'none';
             document.getElementById('deltaPage').style.display = 'block';
+            document.getElementById('usafPage').style.display = 'none';
+            document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
+        }
+
+        function showUsafPage() {
+            currentBranch = 'usaf';
+            document.body.classList.remove('delta-theme');
+            document.body.classList.add('usaf-theme');
+            document.getElementById('mainMenuPage').style.display = 'none';
+            document.getElementById('usafPage').style.display = 'block';
+            document.getElementById('deltaPage').style.display = 'none';
             document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
         }
 
         function showFormPage(pageId) {
             document.getElementById('mainMenuPage').style.display = 'none';
-            document.getElementById('deltaPage').style.display = 'none';
+            if (currentBranch === 'delta') document.getElementById('deltaPage').style.display = 'none';
+            if (currentBranch === 'usaf') document.getElementById('usafPage').style.display = 'none';
             document.querySelectorAll('.form-page').forEach(page => page.style.display = 'none');
             document.getElementById(pageId).style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Обработчики для главного меню
         document.querySelectorAll('.main-card').forEach(card => {
             card.addEventListener('click', () => {
                 const menuItem = card.dataset.main;
                 if (menuItem === 'delta') {
                     showDeltaPage();
+                } else if (menuItem === 'usaf') {
+                    showUsafPage();
                 } else {
-                    showAlert('Пока доступен только раздел Delta', 'error');
+                    showAlert('Пока доступен только раздел Delta и USAF', 'error');
                 }
             });
         });
 
-        document.querySelectorAll('.action-card').forEach(card => {
+        document.querySelectorAll('#deltaPage .action-card, #usafPage .action-card').forEach(card => {
             card.addEventListener('click', () => {
                 const page = card.dataset.page;
                 if (page === 'weekly') showFormPage('weeklyPage');
@@ -1612,7 +1648,7 @@
             btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
             try {
                 const { fields } = formatWeeklyEmbed();
-                await sendToDiscordWithEmbed(WEBHOOKS.weekly, "📊 Еженедельный отчёт", fields, 0x4CAF50);
+                await sendToDiscordWithEmbed(WEBHOOKS.weekly, "📊 Еженедельный отчёт", fields);
                 showAlert('weeklyAlert', '✅ Отчёт отправлен в Discord!', 'success');
                 document.getElementById('weeklyNickname').value = '';
                 document.getElementById('weeklyRank').value = '';
@@ -1631,7 +1667,7 @@
             btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
             try {
                 const { fields } = formatPromotionEmbed();
-                await sendToDiscordWithEmbed(WEBHOOKS.promotion, "⬆️ Запрос на повышение", fields, 0x4CAF50);
+                await sendToDiscordWithEmbed(WEBHOOKS.promotion, "⬆️ Запрос на повышение", fields);
                 showAlert('promotionAlert', '✅ Запрос на повышение отправлен!', 'success');
                 document.getElementById('promotionNickname').value = '';
                 document.getElementById('promotionCurrentRank').value = '';
@@ -1650,7 +1686,7 @@
             btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Отправка...';
             try {
                 const { fields } = formatExamEmbed();
-                await sendToDiscordWithEmbed(WEBHOOKS.exam, "📝 Запись на экзамен", fields, 0x4CAF50);
+                await sendToDiscordWithEmbed(WEBHOOKS.exam, "📝 Запись на экзамен", fields);
                 showAlert('examAlert', '✅ Заявка на экзамен отправлена!', 'success');
                 document.getElementById('examFullName').value = '';
                 document.getElementById('examType').value = '';
@@ -1669,6 +1705,17 @@
             if (isLight) { icon.className = 'fas fa-moon'; text.innerText = 'Тёмная тема'; }
             else { icon.className = 'fas fa-sun'; text.innerText = 'Светлая тема'; }
         });
+
+        function setDefaultWeeklyDates() {
+            const today = new Date();
+            const monday = new Date(today);
+            monday.setDate(today.getDate() - (today.getDay() === 0 ? 6 : today.getDay() - 1));
+            const sunday = new Date(monday);
+            sunday.setDate(monday.getDate() + 6);
+            document.getElementById('weeklyDateStart').value = monday.toISOString().split('T')[0];
+            document.getElementById('weeklyDateEnd').value = sunday.toISOString().split('T')[0];
+            updateWeeklyPeriodInfo();
+        }
 
         document.getElementById('weeklyDateStart').addEventListener('change', updateWeeklyPeriodInfo);
         document.getElementById('weeklyDateEnd').addEventListener('change', updateWeeklyPeriodInfo);
