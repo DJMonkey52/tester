@@ -661,13 +661,13 @@
   </div>
 
   <div id="reportsPage" class="reports-page">
-    <div class="back-btn" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> На главную</div>
+    <div class="back-btn" id="mainMenuBackBtn"><i class="fas fa-arrow-left"></i> На главную</div>
     <div id="reportsGrid" class="cards-grid"></div>
   </div>
 
   <!-- Еженедельный отчёт -->
   <div id="weeklyPage" class="form-page">
-    <div class="back-btn" onclick="showReportsPage()"><i class="fas fa-arrow-left"></i> Назад</div>
+    <div class="back-btn" id="weeklyBackBtn"><i class="fas fa-arrow-left"></i> Назад</div>
     <div class="glass-card">
       <div class="card-header"><h2><i class="fas fa-calendar-week"></i> 📊 Еженедельный отчёт</h2></div>
       <div class="card-body">
@@ -692,7 +692,7 @@
 
   <!-- Отчёт на повышение -->
   <div id="promotionPage" class="form-page">
-    <div class="back-btn" onclick="showReportsPage()"><i class="fas fa-arrow-left"></i> Назад</div>
+    <div class="back-btn" id="promotionBackBtn"><i class="fas fa-arrow-left"></i> Назад</div>
     <div class="glass-card">
       <div class="card-header"><h2><i class="fas fa-arrow-up"></i> ⬆️ Отчёт на повышение</h2></div>
       <div class="card-body">
@@ -715,7 +715,7 @@
 
   <!-- Запись на экзамен -->
   <div id="examPage" class="form-page">
-    <div class="back-btn" onclick="showReportsPage()"><i class="fas fa-arrow-left"></i> Назад</div>
+    <div class="back-btn" id="examBackBtn"><i class="fas fa-arrow-left"></i> Назад</div>
     <div class="glass-card">
       <div class="card-header"><h2><i class="fas fa-pen-clip"></i> 📝 Запись на экзамен</h2></div>
       <div class="card-body">
@@ -732,7 +732,7 @@
 
   <!-- USAF: Повышение пилота -->
   <div id="usafPilotPromotionPage" class="form-page">
-    <div class="back-btn" onclick="showReportsPage()"><i class="fas fa-arrow-left"></i> Назад</div>
+    <div class="back-btn" id="pilotBackBtn"><i class="fas fa-arrow-left"></i> Назад</div>
     <div class="glass-card">
       <div class="card-header"><h2><i class="fas fa-fighter-jet"></i> 🛩️ Отчёт на повышение квалификации пилота</h2></div>
       <div class="card-body">
@@ -751,7 +751,7 @@
 
   <!-- USAF: Прохождение маршрута -->
   <div id="usafRoutePage" class="form-page">
-    <div class="back-btn" onclick="showReportsPage()"><i class="fas fa-arrow-left"></i> Назад</div>
+    <div class="back-btn" id="routeBackBtn"><i class="fas fa-arrow-left"></i> Назад</div>
     <div class="glass-card">
       <div class="card-header"><h2><i class="fas fa-route"></i> 🗺️ Прохождение маршрута</h2></div>
       <div class="card-body">
@@ -778,13 +778,40 @@
       delta: { accent: [139, 139, 139], dark: [106, 106, 106] }
     };
 
+    // УНИКАЛЬНЫЕ ВЕБХУКИ ДЛЯ КАЖДОЙ ФОРМЫ КАЖДОГО ОТДЕЛА
     const WEBHOOKS = {
-      academy: 'https://discord.com/api/webhooks/1501941748337873086/HcxaPFZMmJdxcGBxY1m8RXg2J5zUwfRKUnedR1i1ymy8x8uQb8Gg1GIQCI_ULPwJAOf5',
-      military: 'https://discord.com/api/webhooks/1501941690070470687/ROoyzlTh1DpM-Bt1QzWhkH4Cy3FnR91bIhGhqdUP0O4vzs10B7hgKCqbiaDYwWD-H1qR',
-      division: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
-      mpb: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
-      usaf: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
-      delta: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57'
+      academy: {
+        weekly: 'https://discord.com/api/webhooks/1501941748337873086/HcxaPFZMmJdxcGBxY1m8RXg2J5zUwfRKUnedR1i1ymy8x8uQb8Gg1GIQCI_ULPwJAOf5',
+        promotion: 'https://discord.com/api/webhooks/1501941748337873086/HcxaPFZMmJdxcGBxY1m8RXg2J5zUwfRKUnedR1i1ymy8x8uQb8Gg1GIQCI_ULPwJAOf5',
+        exam: 'https://discord.com/api/webhooks/1501941748337873086/HcxaPFZMmJdxcGBxY1m8RXg2J5zUwfRKUnedR1i1ymy8x8uQb8Gg1GIQCI_ULPwJAOf5'
+      },
+      military: {
+        weekly: 'https://discord.com/api/webhooks/1501941690070470687/ROoyzlTh1DpM-Bt1QzWhkH4Cy3FnR91bIhGhqdUP0O4vzs10B7hgKCqbiaDYwWD-H1qR',
+        promotion: 'https://discord.com/api/webhooks/1501941690070470687/ROoyzlTh1DpM-Bt1QzWhkH4Cy3FnR91bIhGhqdUP0O4vzs10B7hgKCqbiaDYwWD-H1qR',
+        exam: 'https://discord.com/api/webhooks/1501941690070470687/ROoyzlTh1DpM-Bt1QzWhkH4Cy3FnR91bIhGhqdUP0O4vzs10B7hgKCqbiaDYwWD-H1qR'
+      },
+      division: {
+        weekly: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
+        promotion: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
+        exam: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57'
+      },
+      mpb: {
+        weekly: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
+        promotion: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
+        exam: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57'
+      },
+      usaf: {
+        weekly: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
+        promotion: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
+        exam: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
+        pilotPromotion: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
+        route: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57'
+      },
+      delta: {
+        weekly: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
+        promotion: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57',
+        exam: 'https://discord.com/api/webhooks/1501941568570134689/7P0vf6jz3kwssPsSYM4xO9-F39cXLtBboljW18gk8Bemn4kYRYV8ShDhaTX1BkeqZe57'
+      }
     };
 
     const ROLES_TO_TAG = '<@&793440125798973441> <@&792082143408160768> <@&792079598795358248>';
@@ -903,6 +930,14 @@
       if(page) page.style.display = 'block';
     }
 
+    // === НАВИГАЦИЯ ИСПРАВЛЕНА ===
+    document.getElementById('mainMenuBackBtn').addEventListener('click', showMainMenu);
+    document.getElementById('weeklyBackBtn').addEventListener('click', showReportsPage);
+    document.getElementById('promotionBackBtn').addEventListener('click', showReportsPage);
+    document.getElementById('examBackBtn').addEventListener('click', showReportsPage);
+    document.getElementById('pilotBackBtn').addEventListener('click', showReportsPage);
+    document.getElementById('routeBackBtn').addEventListener('click', showReportsPage);
+
     function loadDepartment(dept) {
       currentDepartment = dept;
       setTheme(dept);
@@ -944,11 +979,12 @@
 
     function alertMsg(id,msg,type){const c=document.getElementById(id);if(!c)return;c.innerHTML=`<div class="alert ${type}"><i class="fas ${type==='success'?'fa-check-circle':'fa-exclamation-circle'}"></i> ${msg}</div>`;setTimeout(()=>c.innerHTML='',4000);}
 
+    // === ОТПРАВКА ФОРМ С ИСПОЛЬЗОВАНИЕМ УНИКАЛЬНЫХ ВЕБХУКОВ ===
     document.getElementById('weeklySubmitBtn').onclick = async function(){
       if(!document.getElementById('weeklyNickname').value.trim()) return alertMsg('weeklyAlert','Введите никнейм','error');
       this.disabled=true;
       try{
-        await sendDiscord(WEBHOOKS[currentDepartment],'📊 Еженедельный отчёт',[
+        await sendDiscord(WEBHOOKS[currentDepartment].weekly,'📊 Еженедельный отчёт',[
           {name:'🎮 Никнейм',value:document.getElementById('weeklyNickname').value,inline:true},
           {name:'🏅 Ранг',value:document.getElementById('weeklyRank').value||'Не выбран',inline:true},
           {name:'📅 Период',value:(document.getElementById('weeklyDateStart').value&&document.getElementById('weeklyDateEnd').value)?`${formatDate(document.getElementById('weeklyDateStart').value)} – ${formatDate(document.getElementById('weeklyDateEnd').value)}`:'Не указан',inline:true},
@@ -966,7 +1002,7 @@
       if(!document.getElementById('promotionNickname').value.trim()) return alertMsg('promotionAlert','Введите никнейм','error');
       this.disabled=true;
       try{
-        await sendDiscord(WEBHOOKS[currentDepartment],'⬆️ Запрос на повышение',[
+        await sendDiscord(WEBHOOKS[currentDepartment].promotion,'⬆️ Запрос на повышение',[
           {name:'🎮 Никнейм',value:document.getElementById('promotionNickname').value,inline:true},
           {name:'🏅 Текущий ранг',value:document.getElementById('promotionCurrentRank').value||'Не выбран',inline:true},
           {name:'🎯 Желаемый ранг',value:document.getElementById('promotionDesiredRank').value||'Не выбран',inline:true},
@@ -985,7 +1021,7 @@
       if(!document.getElementById('examFullName').value.trim()) return alertMsg('examAlert','Введите имя','error');
       this.disabled=true;
       try{
-        await sendDiscord(WEBHOOKS[currentDepartment],'📝 Запись на экзамен',[
+        await sendDiscord(WEBHOOKS[currentDepartment].exam,'📝 Запись на экзамен',[
           {name:'👤 Имя',value:document.getElementById('examFullName').value,inline:true},
           {name:'🎓 Экзамен',value:document.getElementById('examType').value||'Не выбран',inline:true},
           {name:'💬 Discord',value:document.getElementById('examDiscord').value||'Не указан',inline:true},
@@ -1001,7 +1037,7 @@
       if(!document.getElementById('pilotName').value.trim()) return alertMsg('pilotPromotionAlert','Введите имя','error');
       this.disabled=true;
       try{
-        await sendDiscord(WEBHOOKS.usaf,'🛩️ Повышение пилота',[
+        await sendDiscord(WEBHOOKS.usaf.pilotPromotion,'🛩️ Повышение пилота',[
           {name:'Имя Фамилия',value:document.getElementById('pilotName').value},
           {name:'Текущая категория',value:document.getElementById('currentPilotCategory').value},
           {name:'Желаемая категория',value:document.getElementById('desiredPilotCategory').value},
@@ -1018,7 +1054,7 @@
       if(!document.getElementById('routeNickname').value.trim()) return alertMsg('routeAlert','Введите ник','error');
       this.disabled=true;
       try{
-        await sendDiscord(WEBHOOKS.usaf,'🗺️ Прохождение маршрута',[
+        await sendDiscord(WEBHOOKS.usaf.route,'🗺️ Прохождение маршрута',[
           {name:'Ник (Имя Фамилия)',value:document.getElementById('routeNickname').value},
           {name:'Дата',value:document.getElementById('routeDate').value},
           {name:'Маршрут',value:document.getElementById('routeType').value},
